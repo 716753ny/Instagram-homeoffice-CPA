@@ -1,12 +1,77 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Segurança Digital</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gerador de Senhas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #121212;
+      color: #fff;
+      text-align: center;
+      padding: 50px;
+    }
+    h1 {
+      color: #00ff88;
+    }
+    #password {
+      font-size: 20px;
+      margin: 20px 0;
+      padding: 10px;
+      border: 2px dashed #00ff88;
+      display: inline-block;
+      min-width: 300px;
+      background-color: #1e1e1e;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 5px;
+      background-color: #00ff88;
+      border: none;
+      cursor: pointer;
+      color: #121212;
+      border-radius: 5px;
+    }
+    button:hover {
+      background-color: #00cc6a;
+    }
+    #copy-success {
+      margin-top: 10px;
+      color: #00ff88;
+    }
+  </style>
 </head>
 <body>
-  <h1>Bem-vindo ao site de Segurança Digital!</h1>
-  <p>Em breve, mais conteúdo sobre proteção online e privacidade.</p>
+  <h1>Gerador de Senhas</h1>
+  <p>Gere instantaneamente uma senha aleatória e segura:</p>
+  <div id="password">************</div><br>
+  <button onclick="generatePassword()">Gerar Nova Senha</button>
+  <button onclick="copyPassword()">Copiar Senha</button>
+  <div id="copy-success"></div>
+
+  <script>
+    function generatePassword(length = 16) {
+      const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+[]{}<>?';
+      let password = '';
+      for (let i = 0; i < length; i++) {
+        password += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      document.getElementById('password').textContent = password;
+      document.getElementById('copy-success').textContent = '';
+    }
+
+    function copyPassword() {
+      const passwordText = document.getElementById('password').textContent;
+      navigator.clipboard.writeText(passwordText).then(() => {
+        document.getElementById('copy-success').textContent = 'Senha copiada com sucesso!';
+      });
+    }
+
+    // Gera senha ao carregar a página
+    window.onload = () => generatePassword();
+  </script>
 </body>
-</html>
+  </html>
+  
