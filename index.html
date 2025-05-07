@@ -1,77 +1,95 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Gerador de Senhas</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Central de Atendimento</title>
   <style>
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #ffffff; /* Fundo branco */
-    color: #222222; /* Texto escuro */
-    text-align: center;
-    padding: 50px;
-  }
-  h1 {
-    color: #007acc; /* Azul escuro */
-  }
-  #password {
-    font-size: 20px;
-    margin: 20px 0;
-    padding: 10px;
-    border: 2px dashed #007acc;
-    display: inline-block;
-    min-width: 300px;
-    background-color: #f3f3f3;
-  }
-  button {
-    padding: 10px 20px;
-    font-size: 16px;
-    margin: 5px;
-    background-color: #007acc;
-    border: none;
-    cursor: pointer;
-    color: white;
-    border-radius: 5px;
-  }
-  button:hover {
-    background-color: #005fa3;
-  }
-  #copy-success {
-    margin-top: 10px;
-    color: #007acc;
-  }
-</style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #fff;
+    }
 
+    .background-shape {
+      background: linear-gradient(135deg, #d9f2eb, #d1f0f4);
+      width: 100%;
+      height: 200px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      clip-path: ellipse(90% 100% at 50% 0%);
+      z-index: -1;
+    }
+
+    .content {
+      padding: 100px 20px 40px;
+    }
+
+    .content h1 {
+      font-size: 28px;
+      color: #222;
+      margin: 0;
+    }
+
+    .content p {
+      font-size: 16px;
+      color: #666;
+      margin-top: 10px;
+    }
+
+    /* Ícones do topo (simulados) */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+    }
+
+    .logo {
+      font-weight: bold;
+      font-size: 18px;
+      color: #000;
+    }
+
+    .icons {
+      display: flex;
+      gap: 15px;
+    }
+
+    .icon {
+      width: 24px;
+      height: 24px;
+      background-color: #00b894;
+      border-radius: 50%;
+    }
+
+    .menu-icon {
+      width: 24px;
+      height: 24px;
+      background-color: #00b894;
+      border-radius: 4px;
+    }
+  </style>
 </head>
 <body>
-  <h1>Gerador de Senhas</h1>
-  <p>Gere instantaneamente uma senha aleatória e segura:</p>
-  <div id="password">************</div><br>
-  <button onclick="generatePassword()">Gerar Nova Senha</button>
-  <button onclick="copyPassword()">Copiar Senha</button>
-  <div id="copy-success"></div>
 
-  <script>
-    function generatePassword(length = 16) {
-      const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+[]{}<>?';
-      let password = '';
-      for (let i = 0; i < length; i++) {
-        password += chars.charAt(Math.floor(Math.random() * chars.length));
-      }
-      document.getElementById('password').textContent = password;
-      document.getElementById('copy-success').textContent = '';
-    }
+  <div class="background-shape"></div>
 
-    function copyPassword() {
-      const passwordText = document.getElementById('password').textContent;
-      navigator.clipboard.writeText(passwordText).then(() => {
-        document.getElementById('copy-success').textContent = 'Senha copiada com sucesso!';
-      });
-    }
+  <div class="header">
+    <div class="menu-icon"></div>
+    <div class="logo">PagBank</div>
+    <div class="icons">
+      <div class="icon"></div>
+      <div class="icon"></div>
+    </div>
+  </div>
 
-    // Gera senha ao carregar a página
-    window.onload = () => generatePassword();
-  </script>
+  <div class="content">
+    <h1>Central de Atendimento</h1>
+    <p>Aqui você encontra todos os nossos canais de atendimento disponíveis</p>
+  </div>
+
 </body>
 </html>
