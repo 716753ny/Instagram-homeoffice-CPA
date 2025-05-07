@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
@@ -19,9 +19,20 @@
       border-bottom: 1px solid #e0e0e0;
     }
 
-    .logo {
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo-area img {
+      height: 28px;
+    }
+
+    .logo-area span {
       font-size: 20px;
       font-weight: bold;
+      color: #000000;
     }
 
     .icons {
@@ -57,7 +68,24 @@
       font-size: 16px;
       color: #666666;
       max-width: 400px;
-      margin: 0 auto;
+      margin: 0 auto 20px auto;
+    }
+
+    .whatsapp-button {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 24px;
+      background-color: #25d366;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 25px;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
+
+    .whatsapp-button:hover {
+      background-color: #1ebe5d;
     }
 
     .menu-icon, .user-icon, .cart-icon {
@@ -69,7 +97,12 @@
 
   <div class="header">
     <div class="menu-icon">☰</div>
-    <div class="logo">SeuLogo</div>
+
+    <div class="logo-area">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/PagSeguro_logo.svg/2560px-PagSeguro_logo.svg.png" alt="PagBank Logo">
+      <span>PagBank</span>
+    </div>
+
     <div class="icons">
       <div class="user-icon">👤</div>
       <div class="cart-icon">🛒</div>
@@ -81,6 +114,10 @@
   <div class="content">
     <h1>Central de Atendimento</h1>
     <p>Aqui você encontra todos os nossos canais de atendimento disponíveis</p>
+
+    <a href="https://wa.me/5511999998888" class="whatsapp-button" target="_blank">
+      💬 Fale conosco no WhatsApp
+    </a>
   </div>
 
 </body>
