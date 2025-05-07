@@ -1,124 +1,96 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Central de Atendimento</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #ffffff;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Central de Atendimento - PagBank</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
 
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 20px;
-      border-bottom: 1px solid #e0e0e0;
-    }
+        header {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #ffffff;
+            border-bottom: 1px solid #ccc;
+        }
 
-    .logo-area {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+        header img {
+            height: 30px;
+        }
 
-    .logo-area img {
-      height: 28px;
-      border-radius: 50%;
-    }
+        .icone-menu {
+            margin-right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+        }
 
-    .logo-area span {
-      font-size: 20px;
-      font-weight: bold;
-      color: #000000;
-    }
+        .top-icons {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
 
-    .icons {
-      display: flex;
-      gap: 15px;
-      font-size: 22px;
-      color: #00b289;
-    }
+        .fundo-verde {
+            background: linear-gradient(135deg, #dffaf4 0%, #eafefb 100%);
+            border-bottom-left-radius: 50% 20%;
+            border-bottom-right-radius: 50% 20%;
+            padding: 50px 20px 20px 20px;
+            text-align: center;
+        }
 
-    .content {
-      text-align: center;
-      padding: 60px 20px;
-    }
+        .fundo-verde h1 {
+            margin: 0;
+            font-size: 24px;
+        }
 
-    .bg-shape {
-      background: linear-gradient(135deg, #d2f1ed, #eaf8f6);
-      border-bottom-right-radius: 80px;
-      border-top-left-radius: 80px;
-      padding: 60px 20px 40px 20px;
-      margin-bottom: -20px;
-      text-align: center;
-    }
+        .fundo-verde p {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #555;
+        }
 
-    h1 {
-      font-size: 28px;
-      color: #222222;
-      margin-bottom: 10px;
-    }
+        .btn-whatsapp {
+            margin-top: 30px;
+            background-color: #25D366;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            font-size: 16px;
+            border-radius: 30px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-    p {
-      font-size: 16px;
-      color: #666666;
-      max-width: 400px;
-      margin: 0 auto;
-    }
-
-    .menu-icon, .user-icon, .cart-icon {
-      cursor: pointer;
-    }
-
-    .whatsapp-button {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 12px 24px;
-      background-color: #25d366;
-      color: white;
-      font-size: 16px;
-      font-weight: bold;
-      border-radius: 25px;
-      text-decoration: none;
-      transition: background-color 0.3s;
-    }
-
-    .whatsapp-button:hover {
-      background-color: #1ebe5d;
-    }
-  </style>
+        .btn-whatsapp img {
+            height: 20px;
+        }
+    </style>
 </head>
 <body>
+    <header>
+        <div class="icone-menu">&#9776;</div>
+        <img src="logo-redondo.png" alt="PagBank"> <!-- Apenas o logo redondo mantido -->
+        <div class="top-icons">
+            <img src="icone-usuario.png" alt="Usuário" height="24">
+            <img src="icone-carrinho.png" alt="Carrinho" height="24">
+        </div>
+    </header>
 
-  <div class="header">
-    <div class="menu-icon">☰</div>
-
-    <div class="logo-area">
-      <img src="https://logodownload.org/wp-content/uploads/2019/09/pagbank-logo-1.png" alt="PagBank Logo" />
-      <span>PagBank</span>
+    <div class="fundo-verde">
+        <h1>Central de Atendimento</h1>
+        <p>Aqui você encontra todos os nossos canais de atendimento disponíveis</p>
+        <button class="btn-whatsapp">
+            <img src="icone-whatsapp.png" alt="WhatsApp"> Fale conosco no WhatsApp
+        </button>
     </div>
-
-    <div class="icons">
-      <div class="user-icon">👤</div>
-      <div class="cart-icon">🛒</div>
-    </div>
-  </div>
-
-  <div class="bg-shape">
-    <!-- Removido o quadrado "PagBank" daqui -->
-  </div>
-
-  <div class="content">
-    <h1>Central de Atendimento</h1>
-    <p>Aqui você encontra todos os nossos canais de atendimento disponíveis</p>
-    <a href="https://wa.me/5511999998888?text=Olá%2C%20quero%20mais%20informações%20sobre%20seus%20serviços." class="whatsapp-button" target="_blank">
-      💬 Fale conosco no WhatsApp
-    </a>
-  </div>
-
 </body>
 </html>
