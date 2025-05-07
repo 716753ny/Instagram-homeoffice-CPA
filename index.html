@@ -1,94 +1,87 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Central de Atendimento - PagBank</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Central de Atendimento</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f4f6f9;
       margin: 0;
-      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #ffffff;
     }
-    header {
-      background: #00bfa5;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
-    .container {
-      max-width: 500px;
-      margin: 40px auto;
-      background: white;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-    h1 {
-      font-size: 24px;
-      margin-bottom: 10px;
-      color: #333;
-    }
-    p {
-      color: #666;
-      margin-bottom: 20px;
-    }
-    .whatsapp-btn {
+
+    .header {
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      background-color: #25d366;
-      color: white;
-      text-decoration: none;
-      padding: 12px 20px;
-      border-radius: 5px;
+      padding: 15px 20px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .logo {
+      font-size: 20px;
       font-weight: bold;
-      justify-content: center;
-      transition: background 0.3s ease;
     }
-    .whatsapp-btn:hover {
-      background-color: #1ebe57;
+
+    .icons {
+      display: flex;
+      gap: 15px;
+      font-size: 22px;
+      color: #00b289;
     }
-    .whatsapp-btn img {
-      width: 24px;
-      margin-right: 10px;
-    }
-    .box-simulada {
-      margin-top: 30px;
-      padding: 20px;
-      background: #e9f5f2;
-      border: 1px solid #c6e7dd;
-      border-radius: 8px;
-      font-size: 14px;
-      color: #333;
-    }
-    footer {
-      margin-top: 50px;
+
+    .content {
       text-align: center;
-      font-size: 12px;
-      color: #aaa;
+      padding: 60px 20px;
+      position: relative;
+    }
+
+    .bg-shape {
+      background: linear-gradient(135deg, #d2f1ed, #eaf8f6);
+      border-bottom-right-radius: 80px;
+      border-top-left-radius: 80px;
+      padding: 60px 20px;
+      margin-bottom: -40px;
+      position: relative;
+      z-index: -1;
+    }
+
+    h1 {
+      font-size: 28px;
+      color: #222222;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 16px;
+      color: #666666;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .menu-icon, .user-icon, .cart-icon {
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h2>PagBank</h2>
-  </header>
-  <div class="container">
-    <h1>Central de Atendimento</h1>
-    <p>Escolha um canal de atendimento disponível:</p>
-    
-    <a class="whatsapp-btn" href="https://wa.me/5500000000000" target="_blank">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" />
-      Falar com o atendimento
-    </a>
 
-    <div class="box-simulada">
-      Atendimento Simulado: Aguarde um momento, você será atendido por um dos nossos especialistas.
+  <div class="header">
+    <div class="menu-icon">☰</div>
+    <div class="logo">SeuLogo</div>
+    <div class="icons">
+      <div class="user-icon">👤</div>
+      <div class="cart-icon">🛒</div>
     </div>
   </div>
-  <footer>
-    Página para fins educacionais. Nenhuma informação é armazenada.
-  </footer>
+
+  <div class="bg-shape"></div>
+
+  <div class="content">
+    <h1>Central de Atendimento</h1>
+    <p>Aqui você encontra todos os nossos canais de atendimento disponíveis</p>
+  </div>
+
 </body>
 </html>
