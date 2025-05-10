@@ -12,6 +12,7 @@
       margin: 0;
       padding: 0;
       text-align: center;
+      overflow-x: hidden;
     }
 
     .container {
@@ -21,6 +22,8 @@
       padding: 40px 30px;
       border-radius: 16px;
       box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      position: relative;
+      z-index: 1;
     }
 
     .logo img {
@@ -85,18 +88,44 @@
       font-size: 14px;
       color: #999;
     }
+
+    .confetti {
+      position: absolute;
+      top: -20px;
+      left: 0;
+      width: 100%;
+      height: 20px;
+      background-image: url('https://cdn.pixabay.com/photo/2017/01/31/13/14/confetti-2020203_1280.png');
+      background-size: contain;
+      background-repeat: repeat-x;
+      animation: slideDown 2s ease-out forwards;
+      z-index: 0;
+    }
+
+    @keyframes slideDown {
+      from { top: -100px; opacity: 0; }
+      to { top: 0; opacity: 1; }
+    }
+
+    .emoji {
+      font-size: 30px;
+      margin: 5px;
+    }
   </style>
 </head>
 <body>
 
+  <div class="confetti"></div>
+
   <div class="container">
     <div class="logo">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/OLX_Logo_2021.svg/512px-OLX_Logo_2021.svg.png" alt="OLX Logo">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/OLX_Logo_2021.svg/512px-OLX_Logo_2021.svg.png" alt="OLX Logo">
     </div>
 
     <div class="success-icon">✔️</div>
 
-    <h1>Paabéns!</h1>
+    <h1>Parabéns!</h1>
+    <p class="emoji">🎉📦💰</p>
     <p>Seu produto foi <strong>vendido com sucesso</strong> na OLX.</p>
     <p>Fale com um de nossos atendentes para combinar como você vai receber o valor da venda.</p>
 
