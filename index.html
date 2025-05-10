@@ -8,10 +8,14 @@
     body {
       font-family: Arial, sans-serif;
       background: linear-gradient(180deg, #fbefff, #e3f5ff);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 20px;
+      margin: 0;
+      padding: 0;
+    }
+    .olx-logo {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 80px;
     }
     .container {
       background-color: white;
@@ -20,11 +24,8 @@
       text-align: center;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
       max-width: 400px;
-      width: 100%;
-    }
-    .logo img {
-      width: 120px;
-      margin-bottom: 20px;
+      width: 90%;
+      margin: 100px auto;
     }
     .check {
       font-size: 48px;
@@ -62,10 +63,10 @@
   </style>
 </head>
 <body>
+  <!-- Logo OLX no canto superior direito -->
+  <img class="olx-logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/OLX_Logo_2020.svg/320px-OLX_Logo_2020.svg.png" alt="OLX Logo">
+
   <div class="container">
-    <div class="logo">
-      <img src="logo-olx-original.png" alt="OLX Logo">
-    </div>
     <div class="check">✔</div>
     <h1>Parabéns!</h1>
     <p>Seu produto foi <strong>vendido com sucesso</strong> na OLX.</p>
@@ -75,6 +76,7 @@
       © OLX Brasil - Página simulada para demonstração.
     </div>
   </div>
+
   <img class="whatsapp" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
 </body>
 </html>
