@@ -3,72 +3,61 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>OLX Simples - Anúncios</title>
+  <title>Produto Vendido - OLX</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       background-color: #f2f2f2;
-      margin: 0;
-      padding: 0;
-    }
-
-    header {
-      background-color: #ff6d00;
-      color: white;
-      padding: 20px;
       text-align: center;
+      padding: 50px 20px;
     }
 
-    h1 {
-      margin: 0;
-    }
-
-    .container {
-      max-width: 900px;
-      margin: 20px auto;
-      padding: 10px;
-    }
-
-    .card {
+    .box {
       background-color: white;
-      border-radius: 8px;
-      padding: 20px;
-      margin-bottom: 20px;
+      padding: 40px 20px;
+      max-width: 600px;
+      margin: auto;
+      border-radius: 12px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
 
-    .card h2 {
-      margin: 0 0 10px;
-      font-size: 20px;
+    h1 {
+      color: #2e7d32;
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    p {
       color: #333;
+      font-size: 18px;
+      margin-bottom: 30px;
     }
 
-    .card p {
-      color: #666;
-    }
-
-    .card a {
+    .whatsapp-button {
       display: inline-block;
-      margin-top: 10px;
-      text-decoration: none;
       background-color: #25d366;
       color: white;
-      padding: 10px 16px;
-      border-radius: 6px;
+      padding: 15px 25px;
+      font-size: 16px;
+      border-radius: 30px;
+      text-decoration: none;
       font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .whatsapp-button:hover {
+      background-color: #1ebe5d;
     }
 
     .whatsapp-float {
       position: fixed;
-      width: 60px;
-      height: 60px;
       bottom: 20px;
       right: 20px;
+      width: 60px;
+      height: 60px;
       background-color: #25d366;
-      color: white;
       border-radius: 50%;
       text-align: center;
-      font-size: 30px;
       box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
       z-index: 1000;
     }
@@ -81,34 +70,13 @@
 </head>
 <body>
 
-  <header>
-    <h1>OLX Simples - Meus Anúncios</h1>
-  </header>
-
-  <div class="container">
-    <!-- Exemplo de anúncio 1 -->
-    <div class="card">
-      <h2>Celular Samsung A10</h2>
-      <p>Em ótimo estado, pouco uso. Acompanha carregador e capinha.</p>
-      <a href="https://wa.me/5511999999999?text=Tenho%20interesse%20no%20celular%20Samsung%20A10">Negociar pelo WhatsApp</a>
-    </div>
-
-    <!-- Exemplo de anúncio 2 -->
-    <div class="card">
-      <h2>Bicicleta Caloi Aro 29</h2>
-      <p>Bicicleta seminova, freio a disco, ótimo estado. Entrego em SP.</p>
-      <a href="https://wa.me/5511999999999?text=Tenho%20interesse%20na%20bicicleta%20Caloi">Negociar pelo WhatsApp</a>
-    </div>
-
-    <!-- Exemplo de anúncio 3 -->
-    <div class="card">
-      <h2>PlayStation 4 - 500GB</h2>
-      <p>Console funcionando perfeitamente. Vai com 2 controles e 3 jogos.</p>
-      <a href="https://wa.me/5511999999999?text=Tenho%20interesse%20no%20PlayStation%204">Negociar pelo WhatsApp</a>
-    </div>
+  <div class="box">
+    <h1>Parabéns!</h1>
+    <p>O seu produto foi <strong>vendido com sucesso</strong> na OLX.</p>
+    <p>Fale com um de nossos atendentes para combinar como vai receber o valor.</p>
+    <a class="whatsapp-button" href="https://wa.me/5511999999999?text=Olá%2C%20vi%20que%20meu%20produto%20foi%20vendido%20na%20OLX%2C%20como%20recebo%3F" target="_blank">Falar com Atendente</a>
   </div>
 
-  <!-- Botão flutuante do WhatsApp -->
   <a href="https://wa.me/5511999999999" class="whatsapp-float" target="_blank">
     <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp">
   </a>
