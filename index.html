@@ -4,32 +4,45 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Produto Vendido - OLX</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f2f2f2;
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(to right, #ffe9f5, #e3f6ff);
+      margin: 0;
+      padding: 0;
       text-align: center;
-      padding: 50px 20px;
     }
 
-    .box {
-      background-color: white;
-      padding: 40px 20px;
+    .container {
       max-width: 600px;
-      margin: auto;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      margin: 60px auto;
+      background-color: #fff;
+      padding: 40px 30px;
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+
+    .logo img {
+      width: 120px;
+      margin-bottom: 20px;
     }
 
     h1 {
-      color: #2e7d32;
       font-size: 28px;
+      color: #662d91;
+      margin-bottom: 10px;
+    }
+
+    .success-icon {
+      font-size: 48px;
+      color: #2ecc71;
       margin-bottom: 20px;
     }
 
     p {
-      color: #333;
       font-size: 18px;
+      color: #333;
       margin-bottom: 30px;
     }
 
@@ -66,20 +79,37 @@
       width: 34px;
       margin-top: 13px;
     }
+
+    .footer {
+      margin-top: 50px;
+      font-size: 14px;
+      color: #999;
+    }
   </style>
 </head>
 <body>
 
-  <div class="box">
+  <div class="container">
+    <div class="logo">
+      <img src="https://logodownload.org/wp-content/uploads/2019/10/olx-logo-1.png" alt="OLX Logo">
+    </div>
+
+    <div class="success-icon">✔️</div>
+
     <h1>Parabéns!</h1>
-    <p>O seu produto foi <strong>vendido com sucesso</strong> na OLX.</p>
-    <p>Fale com um de nossos atendentes para combinar como vai receber o valor.</p>
+    <p>Seu produto foi <strong>vendido com sucesso</strong> na OLX.</p>
+    <p>Fale com um de nossos atendentes para combinar como você vai receber o valor da venda.</p>
+
     <a class="whatsapp-button" href="https://wa.me/5511999999999?text=Olá%2C%20vi%20que%20meu%20produto%20foi%20vendido%20na%20OLX%2C%20como%20recebo%3F" target="_blank">Falar com Atendente</a>
   </div>
 
   <a href="https://wa.me/5511999999999" class="whatsapp-float" target="_blank">
     <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp">
   </a>
+
+  <div class="footer">
+    © OLX Brasil - Página simulada para demonstração.
+  </div>
 
 </body>
 </html>
