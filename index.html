@@ -1,82 +1,150 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Venda OLX</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Produto Vendido - OLX</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(180deg, #fbefff, #e3f5ff);
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(to right, #ffe9f5, #e3f6ff);
       margin: 0;
       padding: 0;
-    }
-    .olx-logo {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      width: 90px;
-    }
-    .container {
-      background-color: white;
-      border-radius: 12px;
-      padding: 30px;
       text-align: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      max-width: 400px;
-      width: 90%;
-      margin: 100px auto;
+      overflow-x: hidden;
     }
-    .check {
+
+    .container {
+      max-width: 600px;
+      margin: 60px auto;
+      background-color: #fff;
+      padding: 40px 30px;
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      position: relative;
+      z-index: 1;
+    }
+
+    .olx-text-logo {
+      font-size: 36px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .olx-text-logo .parabens {
+      color: #007bff;
+    }
+
+    .olx-text-logo .olx {
+      color: #662d91;
+    }
+
+    .success-icon {
       font-size: 48px;
-      color: #4CAF50;
+      color: #2ecc71;
+      margin-bottom: 20px;
     }
-    h1 {
-      color: #6a1b9a;
-    }
+
     p {
-      color: #444;
-      font-size: 16px;
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 30px;
     }
-    .btn {
-      background-color: #00c853;
+
+    .whatsapp-button {
+      display: inline-block;
+      background-color: #25d366;
       color: white;
-      border: none;
-      padding: 15px 30px;
+      padding: 15px 25px;
       font-size: 16px;
-      border-radius: 8px;
-      margin-top: 20px;
-      cursor: pointer;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s;
     }
-    .footer {
-      margin-top: 20px;
-      font-size: 12px;
-      color: gray;
+
+    .whatsapp-button:hover {
+      background-color: #1ebe5d;
     }
-    .whatsapp {
+
+    .whatsapp-float {
       position: fixed;
       bottom: 20px;
       right: 20px;
       width: 60px;
       height: 60px;
+      background-color: #25d366;
+      border-radius: 50%;
+      text-align: center;
+      box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+      z-index: 1000;
+    }
+
+    .whatsapp-float img {
+      width: 34px;
+      margin-top: 13px;
+    }
+
+    .footer {
+      margin-top: 50px;
+      font-size: 14px;
+      color: #999;
+    }
+
+    .emoji {
+      font-size: 30px;
+      margin: 5px;
+    }
+
+    canvas#confetti-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 999;
     }
   </style>
 </head>
 <body>
-  <!-- Logo OLX no canto superior direito com link confiável -->
-  <img class="olx-logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/OLX_Logo_2021.svg/2560px-OLX_Logo_2021.svg.png" alt="OLX Logo">
+
+  <canvas id="confetti-canvas"></canvas>
 
   <div class="container">
-    <div class="check">✔</div>
-    <h1>Parabéns!</h1>
+    <div class="olx-text-logo">
+      <span class="parabens">Parabéns!</span> <span class="olx">OLX</span>
+    </div>
+
+    <div class="success-icon">✔️</div>
+
+    <p class="emoji">🎉📦💰</p>
     <p>Seu produto foi <strong>vendido com sucesso</strong> na OLX.</p>
     <p>Fale com um de nossos atendentes para combinar como você vai receber o valor da venda.</p>
-    <button class="btn">Falar com Atendente</button>
-    <div class="footer">
-      © OLX Brasil - Página simulada para demonstração.
-    </div>
+
+    <a class="whatsapp-button" href="https://wa.me/5511999999999?text=Olá%2C%20vi%20que%20meu%20produto%20foi%20vendido%20na%20OLX%2C%20como%20recebo%3F" target="_blank">Falar com Atendente</a>
   </div>
 
-  <img class="whatsapp" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+  <a href="https://wa.me/5511999999999" class="whatsapp-float" target="_blank">
+    <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp" />
+  </a>
+
+  <div class="footer">
+    © OLX Brasil - Página simulada para demonstração.
+  </div>
+
+  <!-- Confete animado -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script>
+    window.onload = function () {
+      confetti({
+        particleCount: 200,
+        spread: 100,
+        origin: { y: 0.6 }
+      });
+    };
+  </script>
+
 </body>
 </html>
