@@ -2,133 +2,75 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Segurança Bet</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Simulador Tigrinho</title>
   <style>
     body {
-      background: #0b0b0b;
-      color: white;
-      font-family: Arial, sans-serif;
+      background: linear-gradient(#101010, #202020);
+      font-family: sans-serif;
+      color: #fff;
       text-align: center;
-      margin: 0;
-      padding: 0;
+      padding-top: 50px;
     }
-    .container {
-      padding: 20px;
+    h1 {
+      color: #fbc02d;
     }
-    .login-box, .main-box {
-      max-width: 400px;
-      margin: 80px auto;
-      padding: 30px;
-      background: #1c1c1c;
-      border-radius: 12px;
+    .slot {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 20px 0;
     }
-    input, button, textarea {
-      width: 90%;
-      padding: 10px;
-      margin: 10px 0;
-      border: none;
-      border-radius: 5px;
-    }
-    button {
-      background: #00e676;
-      color: black;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    #slots {
-      font-size: 2em;
-      margin: 10px;
-    }
-    .hidden { display: none; }
-    .pix-box {
+    .slot-box {
       background: #333;
       padding: 20px;
-      margin-top: 20px;
+      font-size: 40px;
+      border: 2px solid #fbc02d;
       border-radius: 10px;
+      width: 80px;
     }
-    img {
-      max-width: 200px;
+    button {
+      padding: 10px 20px;
+      background: #00e676;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    #mensagem {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 20px;
     }
   </style>
 </head>
 <body>
-
-<div class="container">
-
-  <div id="login" class="login-box">
-    <h2>Segurança Bet</h2>
-    <input type="text" placeholder="Usuário">
-    <input type="password" placeholder="Senha">
-    <button onclick="entrar()">Entrar</button>
+  <h1>Simulador do Tigrinho</h1>
+  <div class="slot">
+    <div class="slot-box" id="s1">?</div>
+    <div class="slot-box" id="s2">?</div>
+    <div class="slot-box" id="s3">?</div>
   </div>
+  <button onclick="girar()">Girar</button>
+  <p id="mensagem">Clique para girar!</p>
 
-  <div id="main" class="main-box hidden">
-    <h1>Segurança Bet</h1>
-    <h2>Saldo: R$ 0,00</h2>
+  <script>
+    const simbolos = ['🐯','🍀','💰','⭐','7️⃣'];
+    
+    function girar() {
+      const r1 = simbolos[Math.floor(Math.random() * simbolos.length)];
+      const r2 = simbolos[Math.floor(Math.random() * simbolos.length)];
+      const r3 = simbolos[Math.floor(Math.random() * simbolos.length)];
 
-    <div>
-      <h3>Caça-Níquel</h3>
-      <div id="slots">🍒 🍋 🍊</div>
-      <button onclick="spinSlot()">Girar</button>
-      <p id="slot-result">Boa sorte!</p>
-    </div>
+      document.getElementById('s1').innerText = r1;
+      document.getElementById('s2').innerText = r2;
+      document.getElementById('s3').innerText = r3;
 
-    <button onclick="showPix()">Depositar via Pix</button>
-    <button onclick="showSaque()">Solicitar Saque</button>
-
-    <div id="pix" class="pix-box hidden">
-      <h3>Deposite com Pix</h3>
-      <p>Chave: joao.rooaz@gmail.com</p>
-      <p>Copia e Cola:</p>
-      <textarea rows="3" readonly>00020126590014br.gov.bcb.pix0120joao.rooaz@gmail.com0213SEGURANCABET@5204000053039865802BR5901N6001C62070503***6304573D</textarea>
-      <br>
-      <img src="qrcode.png" alt="QR Code Pix">
-    </div>
-
-    <div id="saque" class="pix-box hidden">
-      <h3>Solicitar Saque</h3>
-      <form action="https://formsubmit.co/natanaelverissimo34@gmail.com" method="POST">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="text" name="chave_pix" placeholder="Sua chave Pix" required>
-        <input type="text" name="valor" placeholder="Valor do saque" required>
-        <button type="submit">Enviar</button>
-      </form>
-      <p>Aguardando processamento...</p>
-    </div>
-  </div>
-
-</div>
-
-<script>
-  function entrar() {
-    document.getElementById("login").classList.add("hidden");
-    document.getElementById("main").classList.remove("hidden");
-  }
-
-  function spinSlot() {
-    const symbols = ["🍒", "🍋", "🍊", "🍇", "💎", "🔔"];
-    let s1 = symbols[Math.floor(Math.random() * symbols.length)];
-    let s2 = symbols[Math.floor(Math.random() * symbols.length)];
-    let s3 = symbols[Math.floor(Math.random() * symbols.length)];
-    document.getElementById("slots").innerText = `${s1} ${s2} ${s3}`;
-    if (s1 === s2 && s2 === s3) {
-      document.getElementById("slot-result").innerText = "Você ganhou R$ 0,50!";
-    } else {
-      document.getElementById("slot-result").innerText = "Você perdeu!";
+      if (r1 === r2 && r2 === r3) {
+        document.getElementById('mensagem').innerText = 'Jackpot! Você ganharia R$50!';
+      } else {
+        document.getElementById('mensagem').innerText = 'Você perdeu! Tente de novo.';
+      }
     }
-  }
-
-  function showPix() {
-    document.getElementById("pix").classList.remove("hidden");
-    document.getElementById("saque").classList.add("hidden");
-  }
-
-  function showSaque() {
-    document.getElementById("saque").classList.remove("hidden");
-    document.getElementById("pix").classList.add("hidden");
-  }
-</script>
-
+  </script>
 </body>
 </html>
