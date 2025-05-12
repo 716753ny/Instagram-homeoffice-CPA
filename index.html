@@ -14,6 +14,7 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
+      flex-direction: column;
     }
 
     .container {
@@ -21,10 +22,11 @@
       padding: 40px 30px;
       border: 1px solid #ddd;
       text-align: center;
-      width: 90%;
+      width: 100%;
       max-width: 320px;
       border-radius: 12px;
       box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      margin: auto;
     }
 
     .logo {
@@ -64,12 +66,6 @@
       display: none;
     }
 
-    .loading {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
     .loading img {
       width: 40px;
       margin-bottom: 10px;
@@ -102,9 +98,11 @@
     </form>
   </div>
 
-  <div class="container hidden loading" id="carregando">
-    <img src="https://i.gifer.com/ZZ5H.gif" alt="Carregando" />
-    <p>Verificando código...</p>
+  <div class="container hidden" id="carregando">
+    <div class="loading">
+      <img src="https://i.gifer.com/ZZ5H.gif" alt="Carregando" />
+      <p>Verificando código...</p>
+    </div>
   </div>
 
   <div class="container hidden" id="final">
