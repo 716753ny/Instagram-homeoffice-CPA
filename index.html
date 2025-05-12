@@ -14,7 +14,6 @@
       border: 1px solid #ddd;
       border-radius: 10px;
       background-color: #fff;
-      position: relative;
     }
     .logo {
       text-align: center;
@@ -79,31 +78,27 @@
       color: #777;
       text-align: center;
     }
-    .whatsapp-float {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      width: 60px;
-      height: 60px;
-      background-color: #25D366;
-      color: white;
-      border-radius: 50%;
+    .whatsapp-box {
+      margin-top: 20px;
       text-align: center;
-      box-shadow: 2px 2px 3px rgba(0,0,0,0.3);
-      z-index: 1000;
     }
-    .whatsapp-float img {
-      width: 35px;
-      margin-top: 12px;
+    .whatsapp-box a {
+      display: inline-block;
+      background-color: #25D366;
+      padding: 10px 15px;
+      border-radius: 8px;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .whatsapp-box img {
+      width: 20px;
+      vertical-align: middle;
+      margin-right: 8px;
     }
   </style>
 </head>
 <body>
-
-  <!-- Botão flutuante do WhatsApp -->
-  <a href="https://wa.me/5516991270147" class="whatsapp-float" target="_blank">
-    <img src="https://cdn-icons-png.flaticon.com/512/220/220236.png" alt="WhatsApp">
-  </a>
 
   <!-- Tela de Formulário -->
   <div id="formulario">
@@ -134,8 +129,17 @@
     <p><strong>Valor:</strong> R$ 350,00</p>
     <p><strong>Forma de envio:</strong> Motoboy OLX Pay (entrega hoje)</p>
     <p><strong>Código de postagem:</strong> BR345671234BR</p>
+
     <div class="status">
       Pagamento aprovado e aguardando confirmação do vendedor.
+    </div>
+
+    <p style="margin-top: 20px; font-style: italic;">Você receberá um e-mail com a confirmação da venda.</p>
+
+    <div class="whatsapp-box">
+      <a href="https://wa.me/5516991270147" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/220/220236.png" alt="WhatsApp"> Falar com o suporte
+      </a>
     </div>
 
     <div class="footer">
