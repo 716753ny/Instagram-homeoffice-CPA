@@ -15,23 +15,28 @@
       border-radius: 10px;
       background-color: #fff;
     }
+
     .logo {
       text-align: center;
       margin-bottom: 20px;
     }
+
     .logo img {
       width: 140px;
     }
+
     h2 {
       color: #ff6600;
       text-align: center;
       margin-bottom: 10px;
     }
+
     label {
       display: block;
       margin-top: 15px;
       font-weight: bold;
     }
+
     input {
       width: 100%;
       padding: 10px;
@@ -39,6 +44,7 @@
       border: 1px solid #ccc;
       border-radius: 5px;
     }
+
     .btn {
       margin-top: 20px;
       width: 100%;
@@ -50,9 +56,11 @@
       font-size: 16px;
       cursor: pointer;
     }
+
     .hidden {
       display: none;
     }
+
     .confirmacao {
       background: #f9f9f9;
       border: 1px solid #ddd;
@@ -60,9 +68,11 @@
       padding: 20px;
       margin-top: 30px;
     }
+
     .confirmacao h3 {
       color: #ff6600;
     }
+
     .status {
       background-color: #ffebcc;
       padding: 15px;
@@ -72,11 +82,31 @@
       color: #995700;
       border: 1px solid #ffcc80;
     }
+
     .footer {
       margin-top: 30px;
       font-size: 13px;
       color: #777;
       text-align: center;
+    }
+
+    .whatsapp-float {
+      position: fixed;
+      width: 60px;
+      height: 60px;
+      bottom: 20px;
+      right: 20px;
+      background-color: #25D366;
+      color: white;
+      border-radius: 50%;
+      text-align: center;
+      box-shadow: 2px 2px 3px rgba(0,0,0,0.3);
+      z-index: 1000;
+    }
+
+    .whatsapp-float img {
+      width: 35px;
+      margin-top: 12px;
     }
   </style>
 </head>
@@ -116,20 +146,23 @@
     </div>
 
     <div class="footer">
-      OLX Pay é um serviço de pagamento seguro com garantia de entrega.  
+      OLX Pay é um serviço de pagamento seguro com garantia de entrega.<br>
       Dúvidas? Acesse nosso suporte pelo aplicativo.
     </div>
   </div>
+
+  <!-- WhatsApp Flutuante -->
+  <a href="https://wa.me/5599999999999" class="whatsapp-float" target="_blank" title="Fale conosco no WhatsApp">
+    <img src="https://cdn-icons-png.flaticon.com/512/220/220236.png" alt="WhatsApp" />
+  </a>
 
   <script>
     document.getElementById("vendaForm").addEventListener("submit", function (e) {
       e.preventDefault();
       const form = e.target;
 
-      // Preenche produto na confirmação
       document.getElementById("produtoInfo").innerText = form.produto.value;
 
-      // Mostra a tela de confirmação e oculta o formulário
       document.getElementById("formulario").classList.add("hidden");
       document.getElementById("comprovante").classList.remove("hidden");
     });
