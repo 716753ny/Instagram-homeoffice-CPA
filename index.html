@@ -16,10 +16,9 @@
       background-color: #fff;
     }
 
-    h2 {
+    h2, h3, h1 {
       color: #ff6600;
       text-align: center;
-      margin-bottom: 10px;
     }
 
     label {
@@ -52,16 +51,12 @@
       display: none;
     }
 
-    .confirmacao {
+    .confirmacao, .final {
       background: #f9f9f9;
       border: 1px solid #ddd;
       border-radius: 10px;
       padding: 20px;
       margin-top: 30px;
-    }
-
-    .confirmacao h3 {
-      color: #ff6600;
     }
 
     .status {
@@ -81,7 +76,7 @@
       text-align: center;
     }
 
-    .link-confirmar {
+    .link-confirmar, .link-site {
       display: inline-block;
       background-color: #ff6600;
       color: white;
@@ -91,6 +86,12 @@
       font-weight: bold;
       font-size: 15px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      margin-top: 20px;
+      cursor: pointer;
+    }
+
+    .center {
+      text-align: center;
       margin-top: 20px;
     }
   </style>
@@ -127,10 +128,8 @@
       Pagamento aprovado e aguardando confirmação do vendedor.
     </div>
 
-    <div style="text-align: center;">
-      <a href="https://www.olx.com.br" target="_blank" class="link-confirmar">
-        Clique aqui para confirmar a transação
-      </a>
+    <div class="center">
+      <span class="link-confirmar" onclick="irParaFinal()">Clique aqui para confirmar a transação</span>
     </div>
 
     <div class="footer">
@@ -139,18 +138,33 @@
     </div>
   </div>
 
+  <!-- Tela Final -->
+  <div id="final" class="final hidden">
+    <h1>Parabéns!</h1>
+    <p style="text-align: center; font-size: 16px; margin-top: 10px;">
+      Sua confirmação foi recebida com sucesso.<br><br>
+      Você receberá um <strong>e-mail de confirmação</strong> com todos os detalhes em instantes.<br><br>
+      Obrigado por utilizar o OLX Pay.
+    </p>
+
+    <div class="center">
+      <a class="link-site" href="https://www.olx.com.br" target="_blank">Ir para o site oficial da OLX</a>
+    </div>
+  </div>
+
   <script>
     document.getElementById("vendaForm").addEventListener("submit", function (e) {
       e.preventDefault();
       const form = e.target;
-
-      // Preenche produto na confirmação
       document.getElementById("produtoInfo").innerText = form.produto.value;
-
-      // Mostra a tela de confirmação e oculta o formulário
       document.getElementById("formulario").classList.add("hidden");
       document.getElementById("comprovante").classList.remove("hidden");
     });
+
+    function irParaFinal() {
+      document.getElementById("comprovante").classList.add("hidden");
+      document.getElementById("final").classList.remove("hidden");
+    }
   </script>
 
 </body>
