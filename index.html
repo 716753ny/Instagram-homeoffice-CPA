@@ -1,120 +1,82 @@
-<!DOCTYPE html><html lang="pt-BR">
+<!DOCTYPE html><html lang="pt-br">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bichinhos da Sorte</title>
+  <title>Slot Animal</title>
   <style>
     body {
       margin: 0;
-      font-family: 'Arial', sans-serif;
-      background: url('https://i.imgur.com/Mk6gGR2.jpg') no-repeat center center fixed;
-      background-size: cover;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(#ffdf9e, #fcb045);
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       height: 100vh;
-      color: #fff;
+      padding-top: 20px;
     }
-    .container {
-      background: rgba(0, 0, 0, 0.8);
-      padding: 20px;
-      border-radius: 15px;
-      text-align: center;
-      box-shadow: 0 0 20px #ffcc00;
-    }
-    .balance {
-      font-size: 20px;
-      margin-bottom: 15px;
+    .saldo {
+      background: #fff3cd;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      box-shadow: 0 0 10px #00000020;
     }
     .slot {
       display: flex;
       justify-content: center;
-      margin-bottom: 20px;
+      align-items: center;
+      background: #fff;
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 0 15px #00000030;
     }
     .slot img {
-      width: 90px;
-      height: 90px;
+      width: 80px;
+      height: 80px;
       margin: 0 10px;
-      border-radius: 15px;
-      background: #fff;
-      animation: spin 0.6s ease-in-out;
-    }
-    .play-btn {
-      padding: 12px 30px;
-      font-size: 18px;
-      background-color: #ffcc00;
-      color: #000;
-      border: none;
       border-radius: 10px;
-      font-weight: bold;
-      box-shadow: 0 0 10px #fff;
+      animation: pulse 1s infinite alternate;
     }
-    .result {
-      margin-top: 15px;
-      font-size: 18px;
-      font-weight: bold;
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.1); }
     }
-    @keyframes spin {
-      0% { transform: scale(0.5) rotateX(180deg); opacity: 0.5; }
-      100% { transform: scale(1) rotateX(0deg); opacity: 1; }
+    .botao-jogar {
+      margin-top: 30px;
+      background: #28a745;
+      color: white;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 25px;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 5px 15px #00000040;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="balance" id="balance">Saldo: R$ 100,00</div>
-    <div class="slot" id="slots">
-      <img src="https://i.imgur.com/nxQwD9G.png" alt="animal">
-      <img src="https://i.imgur.com/qc6x0jI.png" alt="animal">
-      <img src="https://i.imgur.com/Fiyt5y7.png" alt="animal">
-    </div>
-    <button class="play-btn" onclick="playGame()">Jogar Agora</button>
-    <div class="result" id="result"></div>
-  </div><audio id="spin-sound" src="https://cdn.pixabay.com/audio/2022/10/04/audio_c46ad19f45.mp3"></audio> <audio id="win-sound" src="https://cdn.pixabay.com/audio/2021/08/04/audio_c5d24f7f3f.mp3"></audio> <audio id="lose-sound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_98c47e5c95.mp3"></audio>
+  <div class="saldo">Saldo: R$ <span id="saldo">500,00</span></div>  <div class="slot">
+    <img src="https://i.imgur.com/F9GHWYn.png" alt="panda">
+    <img src="https://i.imgur.com/JjzL7Kj.png" alt="raposa">
+    <img src="https://i.imgur.com/yAByOlE.png" alt="papagaio">
+  </div><button class="botao-jogar" onclick="jogar()">JOGAR AGORA</button>
 
   <script>
-    const imagens = [
-      "https://i.imgur.com/nxQwD9G.png", // panda
-      "https://i.imgur.com/qc6x0jI.png", // raposa
-      "https://i.imgur.com/Fiyt5y7.png", // koala
-      "https://i.imgur.com/Y8rIoRj.png"  // papagaio
-    ];
+    let saldo = 500;
 
-    let saldo = 100;
-
-    function playGame() {
-      document.getElementById('spin-sound').play();
-      const slots = document.getElementById('slots').children;
-      const resultado = [];
-
-      for (let i = 0; i < slots.length; i++) {
-        slots[i].style.animation = 'spin 0.6s ease-in-out';
+    function jogar() {
+      const resultado = Math.random() < 0.4; // 40% de "vitória"
+      if (resultado) {
+        saldo += 50;
+        alert("Você ganhou R$50!");
+      } else {
+        saldo -= 20;
+        alert("Você perdeu R$20.");
       }
-
-      setTimeout(() => {
-        for (let i = 0; i < slots.length; i++) {
-          const index = Math.floor(Math.random() * imagens.length);
-          slots[i].src = imagens[index];
-          resultado.push(index);
-        }
-
-        const ganhou = resultado.every((val, i, arr) => val === arr[0]);
-        const resultText = document.getElementById('result');
-        const balanceDisplay = document.getElementById('balance');
-
-        if (ganhou) {
-          saldo += 50;
-          resultText.innerText = "Você GANHOU R$ 50,00!";
-          document.getElementById('win-sound').play();
-        } else {
-          saldo -= 10;
-          resultText.innerText = "Você perdeu R$ 10,00.";
-          document.getElementById('lose-sound').play();
-        }
-
-        balanceDisplay.innerText = `Saldo: R$ ${saldo.toFixed(2)}`;
-      }, 600);
+      document.getElementById("saldo").textContent = saldo.toFixed(2);
     }
   </script></body>
 </html>
