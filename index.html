@@ -1,110 +1,113 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
   <title>Registro de Saques</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f8f9fc;
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
-    .header {
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f6fb;
+      color: #333;
+    }
+    .topbar {
       background: #ffffff;
-      padding: 15px;
+      padding: 10px 15px;
+      font-size: 14px;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid #ddd;
+      align-items: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     }
-    .header span {
-      font-weight: bold;
+    .topbar strong {
+      font-weight: 600;
     }
-    .content {
-      padding: 15px;
-    }
-    .tabs {
+    .nav {
       display: flex;
       justify-content: space-around;
-      margin-bottom: 10px;
+      background: #ffffff;
+      padding: 12px 0;
+      border-bottom: 1px solid #e0e0e0;
     }
-    .tab {
-      padding: 10px 15px;
-      color: #999;
-      border-bottom: 2px solid transparent;
+    .nav span {
+      color: #555;
+      font-weight: 500;
     }
-    .tab.active {
-      color: #007bff;
-      border-bottom: 2px solid #007bff;
+    .nav .active {
+      color: #1976d2;
+      border-bottom: 2px solid #1976d2;
+      padding-bottom: 4px;
     }
-    .summary {
-      text-align: right;
-      margin-bottom: 10px;
-      font-weight: bold;
-    }
-    .record {
-      background: white;
+    .container {
       padding: 15px;
-      margin-bottom: 10px;
-      border-radius: 8px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     }
-    .record div {
-      margin-bottom: 5px;
+    .card {
+      background: #ffffff;
+      padding: 15px;
+      margin-bottom: 12px;
+      border-radius: 10px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+    .card p {
+      margin: 5px 0;
     }
     .status {
-      color: green;
+      color: #2e7d32;
       font-weight: bold;
     }
-    .small {
-      color: #777;
-      font-size: 13px;
+    .footer {
+      text-align: center;
+      color: #888;
+      padding: 20px 0;
+      font-size: 14px;
     }
   </style>
 </head>
 <body>
 
-  <div class="header">
-    <span>Registro de Saques</span>
-    <span>Total de Saques: R$ 500,00</span>
+  <div class="topbar">
+    <strong>Registro de Saques</strong>
+    <span>Total de Saques: <strong>R$ 500,00</strong></span>
   </div>
 
-  <div class="content">
-    <div class="tabs">
-      <div class="tab">Recebimento</div>
-      <div class="tab active">Registro de Saques</div>
-      <div class="tab">Apoio</div>
-    </div>
-
-    <!-- Registros -->
-    <div class="record">
-      <div>PHONE (****9-10)</div>
-      <div class="small">23/05/2025 | ID: sereiapk202504231030359420598</div>
-      <div>- R$ 120,00 <span class="status">sucesso</span></div>
-    </div>
-
-    <div class="record">
-      <div>PHONE (****9-10)</div>
-      <div class="small">23/05/2025 | ID: sereiapk202504231030267490596</div>
-      <div>- R$ 120,00 <span class="status">sucesso</span></div>
-    </div>
-
-    <div class="record">
-      <div>PHONE (****9-10)</div>
-      <div class="small">23/05/2025 | ID: sereiapk202504231030199250594</div>
-      <div>- R$ 120,00 <span class="status">sucesso</span></div>
-    </div>
-
-    <div class="record">
-      <div>PHONE (****9-10)</div>
-      <div class="small">23/05/2025 | ID: sereiapk202504231030157980593</div>
-      <div>- R$ 120,00 <span class="status">sucesso</span></div>
-    </div>
-
-    <div style="text-align: center; color: #888; margin-top: 20px;">Sem mais dados</div>
+  <div class="nav">
+    <span>Recebimento</span>
+    <span class="active">Registro de Saques</span>
+    <span>Apoio</span>
   </div>
+
+  <div class="container">
+    <div class="card">
+      <p><strong>PHONE (****9-10)</strong></p>
+      <p style="font-size: 13px;">23/05/2025 | ID: sereiapk202504231030359420598</p>
+      <p>- R$ 120,00 <span class="status">sucesso</span></p>
+    </div>
+
+    <div class="card">
+      <p><strong>PHONE (****9-10)</strong></p>
+      <p style="font-size: 13px;">23/05/2025 | ID: sereiapk202504231030267490596</p>
+      <p>- R$ 120,00 <span class="status">sucesso</span></p>
+    </div>
+
+    <div class="card">
+      <p><strong>PHONE (****9-10)</strong></p>
+      <p style="font-size: 13px;">23/05/2025 | ID: sereiapk202504231030199250594</p>
+      <p>- R$ 120,00 <span class="status">sucesso</span></p>
+    </div>
+
+    <div class="card">
+      <p><strong>PHONE (****9-10)</strong></p>
+      <p style="font-size: 13px;">23/05/2025 | ID: sereiapk202504231030157980593</p>
+      <p>- R$ 120,00 <span class="status">sucesso</span></p>
+    </div>
+  </div>
+
+  <div class="footer">Sem mais dados</div>
 
 </body>
 </html>
