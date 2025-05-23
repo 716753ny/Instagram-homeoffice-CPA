@@ -2,166 +2,154 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Painel de Saques</title>
-  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/565/565547.png" type="image/png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registros de Saques</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: #f4f6fb;
-      padding: 30px;
-      max-width: 900px;
-      margin: auto;
+      background-color: #f2f3f7;
+      margin: 0;
+      padding: 20px;
     }
-    .logo {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .logo img {
-      width: 120px;
-    }
+
     h2 {
       text-align: center;
       color: #1976d2;
+      margin-bottom: 20px;
     }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 30px;
-      background: #fff;
-      box-shadow: 0 0 10px rgba(0,0,0,0.05);
-      border-radius: 8px;
-      overflow: hidden;
+
+    .saque-card {
+      background-color: #fff;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      margin-bottom: 12px;
     }
-    th, td {
-      padding: 14px;
-      text-align: left;
-      border-bottom: 1px solid #eee;
-      font-size: 15px;
+
+    .saque-card p {
+      margin: 5px 0;
+      font-size: 14px;
     }
-    th {
-      background-color: #1976d2;
-      color: white;
-    }
+
     .status {
       font-weight: bold;
+      color: green;
     }
-    .status.sucesso { color: green; }
+
     .formulario {
-      margin-top: 30px;
       background: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 30px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
     }
+
     .formulario input {
       width: 100%;
       padding: 10px;
-      margin: 10px 0;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
       font-size: 14px;
     }
+
     .formulario button {
+      width: 100%;
       background-color: #1976d2;
-      color: white;
+      color: #fff;
       padding: 12px;
       border: none;
-      width: 100%;
-      cursor: pointer;
-      border-radius: 5px;
-      margin-top: 10px;
+      border-radius: 6px;
       font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
     }
-    .limpar {
+
+    .formulario .limpar {
       background-color: #c62828;
+    }
+
+    .footer {
+      text-align: center;
+      color: #999;
+      font-size: 14px;
+      margin-top: 30px;
     }
   </style>
 </head>
 <body>
 
-  <div class="logo">
-    <img src="https://cdn-icons-png.flaticon.com/512/565/565547.png" alt="Ícone de segurança">
+  <h2>Registro de Saques</h2>
+
+  <div id="lista-saques">
+    <!-- Saques inseridos aqui -->
   </div>
-
-  <h2>Painel de Saques</h2>
-
-  <table id="tabela-saques">
-    <thead>
-      <tr>
-        <th>PHONE</th>
-        <th>Valor</th>
-        <th>Data</th>
-        <th>ID da Transação</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- Linhas aparecerão aqui -->
-    </tbody>
-  </table>
 
   <div class="formulario">
-    <h3>Registrar novo saque</h3>
-    <input type="text" id="telefone" placeholder="Telefone (ex: ****9-10)" required>
-    <input type="text" id="valor" placeholder="Valor (ex: R$ 120,00)" required>
-    <input type="date" id="data" required>
-    <input type="text" id="transacao" placeholder="ID da Transação" required>
-    <button onclick="registrarSaque()">Registrar Saque</button>
-    <button onclick="limparTudo()" class="limpar">Limpar Registros</button>
+    <h3>Adicionar novo saque</h3>
+    <input type="text" id="telefone" placeholder="Telefone (****9-10)">
+    <input type="text" id="valor" placeholder="Valor (ex: R$ 120,00)">
+    <input type="date" id="data">
+    <input type="text" id="id" placeholder="ID da Transação">
+    <button onclick="adicionarSaque()">Adicionar Saque</button>
+    <button onclick="limparSaques()" class="limpar">Limpar Todos</button>
   </div>
+
+  <div class="footer">Sem mais dados</div>
 
   <script>
     let saques = [];
 
     window.onload = function () {
-      const dadosSalvos = localStorage.getItem('saques');
-      if (dadosSalvos) {
-        saques = JSON.parse(dadosSalvos);
-        saques.forEach(exibirSaqueNaTabela);
+      const salvos = localStorage.getItem('saques');
+      if (salvos) {
+        saques = JSON.parse(salvos);
+        saques.forEach(renderizarSaque);
       }
-    }
+    };
 
-    function registrarSaque() {
+    function adicionarSaque() {
       const telefone = document.getElementById('telefone').value.trim();
       const valor = document.getElementById('valor').value.trim();
       const data = document.getElementById('data').value;
-      const transacao = document.getElementById('transacao').value.trim();
+      const id = document.getElementById('id').value.trim();
 
-      if (!telefone || !valor || !data || !transacao) {
-        alert('Preencha todos os campos!');
+      if (!telefone || !valor || !data || !id) {
+        alert("Preencha todos os campos.");
         return;
       }
 
-      const novoSaque = { telefone, valor, data, transacao, status: 'sucesso' };
-      saques.push(novoSaque);
+      const saque = { telefone, valor, data, id };
+      saques.push(saque);
       localStorage.setItem('saques', JSON.stringify(saques));
-      exibirSaqueNaTabela(novoSaque);
-      limparFormulario();
+      renderizarSaque(saque);
+      limparCampos();
     }
 
-    function exibirSaqueNaTabela(saque) {
-      const tbody = document.querySelector('#tabela-saques tbody');
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td>${saque.telefone}</td>
-        <td>${saque.valor}</td>
-        <td>${saque.data}</td>
-        <td>${saque.transacao}</td>
-        <td class="status sucesso">sucesso</td>
+    function renderizarSaque(saque) {
+      const container = document.getElementById('lista-saques');
+      const card = document.createElement('div');
+      card.className = 'saque-card';
+      card.innerHTML = `
+        <p><strong>PHONE (${saque.telefone})</strong></p>
+        <p>${saque.data} | ID: ${saque.id}</p>
+        <p>- ${saque.valor} <span class="status">sucesso</span></p>
       `;
-      tbody.appendChild(tr);
+      container.prepend(card);
     }
 
-    function limparFormulario() {
+    function limparCampos() {
       document.getElementById('telefone').value = '';
       document.getElementById('valor').value = '';
       document.getElementById('data').value = '';
-      document.getElementById('transacao').value = '';
+      document.getElementById('id').value = '';
     }
 
-    function limparTudo() {
-      if (confirm("Deseja apagar todos os registros?")) {
+    function limparSaques() {
+      if (confirm("Deseja apagar todos os saques?")) {
         saques = [];
         localStorage.removeItem('saques');
-        document.querySelector('#tabela-saques tbody').innerHTML = '';
+        document.getElementById('lista-saques').innerHTML = '';
       }
     }
   </script>
