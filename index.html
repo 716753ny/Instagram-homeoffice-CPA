@@ -1,46 +1,98 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Registros de Saques</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Registro de Saques</title>
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f2f3f7;
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
       margin: 0;
-      padding: 20px;
-    }
-
-    h2 {
-      text-align: center;
-      color: #1976d2;
-      margin-bottom: 20px;
-    }
-
-    .saque-card {
-      background-color: #fff;
       padding: 15px;
-      border-radius: 10px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-      margin-bottom: 12px;
     }
 
-    .saque-card p {
-      margin: 5px 0;
+    .header {
+      font-size: 16px;
+      color: #333;
+      font-weight: bold;
+      padding: 10px 0;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .tab-bar {
+      display: flex;
+      justify-content: space-around;
       font-size: 14px;
+      color: #666;
+      margin-top: 10px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .tab-bar div {
+      padding: 10px 0;
+      flex: 1;
+      text-align: center;
+    }
+
+    .tab-active {
+      color: #007aff;
+      border-bottom: 2px solid #007aff;
+      font-weight: bold;
+    }
+
+    .total {
+      text-align: right;
+      margin: 15px 0 5px;
+      font-size: 13px;
+      color: #666;
+    }
+
+    .card {
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 12px 16px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      margin-bottom: 10px;
+    }
+
+    .phone {
+      font-weight: bold;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .info {
+      font-size: 12px;
+      color: #888;
+      margin: 4px 0;
+    }
+
+    .valor {
+      font-size: 14px;
+      font-weight: bold;
+      color: #333;
     }
 
     .status {
-      font-weight: bold;
       color: green;
+      font-weight: bold;
+      font-size: 14px;
+      margin-left: 8px;
+    }
+
+    .end-message {
+      text-align: center;
+      color: #999;
+      font-size: 13px;
+      margin-top: 25px;
     }
 
     .formulario {
       background: #fff;
-      padding: 15px;
+      padding: 16px;
       border-radius: 10px;
-      margin-top: 30px;
+      margin-top: 25px;
       box-shadow: 0 1px 4px rgba(0,0,0,0.06);
     }
 
@@ -55,8 +107,8 @@
 
     .formulario button {
       width: 100%;
-      background-color: #1976d2;
-      color: #fff;
+      background-color: #007aff;
+      color: white;
       padding: 12px;
       border: none;
       border-radius: 6px;
@@ -66,91 +118,102 @@
     }
 
     .formulario .limpar {
-      background-color: #c62828;
-    }
-
-    .footer {
-      text-align: center;
-      color: #999;
-      font-size: 14px;
-      margin-top: 30px;
+      background-color: #999;
+      margin-top: 8px;
     }
   </style>
 </head>
 <body>
 
-  <h2>Registro de Saques</h2>
+  <div class="header">Registro de Saques</div>
 
-  <div id="lista-saques">
-    <!-- Saques inseridos aqui -->
+  <div class="tab-bar">
+    <div>Recebimento</div>
+    <div class="tab-active">Registro de Saques</div>
+    <div>Apoio</div>
   </div>
+
+  <div class="total" id="totalSaques">Total de saques: R$ 0,00</div>
+
+  <div id="lista-saques"></div>
 
   <div class="formulario">
-    <h3>Adicionar novo saque</h3>
-    <input type="text" id="telefone" placeholder="Telefone (****9-10)">
-    <input type="text" id="valor" placeholder="Valor (ex: R$ 120,00)">
+    <input type="text" id="telefone" placeholder="Telefone (ex: ****9-10)">
     <input type="date" id="data">
     <input type="text" id="id" placeholder="ID da Transação">
+    <input type="text" id="valor" placeholder="Valor (ex: R$ 120,00)">
     <button onclick="adicionarSaque()">Adicionar Saque</button>
-    <button onclick="limparSaques()" class="limpar">Limpar Todos</button>
+    <button class="limpar" onclick="limparTudo()">Limpar tudo</button>
   </div>
 
-  <div class="footer">Sem mais dados</div>
+  <div class="end-message">Sem mais dados</div>
 
   <script>
     let saques = [];
 
     window.onload = function () {
-      const salvos = localStorage.getItem('saques');
+      const salvos = localStorage.getItem("saques");
       if (salvos) {
         saques = JSON.parse(salvos);
         saques.forEach(renderizarSaque);
+        atualizarTotal();
       }
     };
 
     function adicionarSaque() {
       const telefone = document.getElementById('telefone').value.trim();
-      const valor = document.getElementById('valor').value.trim();
       const data = document.getElementById('data').value;
       const id = document.getElementById('id').value.trim();
+      const valor = document.getElementById('valor').value.trim();
 
-      if (!telefone || !valor || !data || !id) {
+      if (!telefone || !data || !id || !valor) {
         alert("Preencha todos os campos.");
         return;
       }
 
-      const saque = { telefone, valor, data, id };
+      const saque = { telefone, data, id, valor };
       saques.push(saque);
-      localStorage.setItem('saques', JSON.stringify(saques));
+      localStorage.setItem("saques", JSON.stringify(saques));
       renderizarSaque(saque);
+      atualizarTotal();
       limparCampos();
     }
 
     function renderizarSaque(saque) {
-      const container = document.getElementById('lista-saques');
+      const lista = document.getElementById('lista-saques');
       const card = document.createElement('div');
-      card.className = 'saque-card';
+      card.className = 'card';
       card.innerHTML = `
-        <p><strong>PHONE (${saque.telefone})</strong></p>
-        <p>${saque.data} | ID: ${saque.id}</p>
-        <p>- ${saque.valor} <span class="status">sucesso</span></p>
+        <div class="phone">PHONE (${saque.telefone})</div>
+        <div class="info">${saque.data} | ID: ${saque.id}</div>
+        <div class="valor">- ${saque.valor}<span class="status">sucesso</span></div>
       `;
-      container.prepend(card);
+      lista.prepend(card);
     }
 
     function limparCampos() {
       document.getElementById('telefone').value = '';
-      document.getElementById('valor').value = '';
       document.getElementById('data').value = '';
       document.getElementById('id').value = '';
+      document.getElementById('valor').value = '';
     }
 
-    function limparSaques() {
+    function limparTudo() {
       if (confirm("Deseja apagar todos os saques?")) {
         saques = [];
         localStorage.removeItem('saques');
         document.getElementById('lista-saques').innerHTML = '';
+        atualizarTotal();
       }
+    }
+
+    function atualizarTotal() {
+      let total = 0;
+      saques.forEach(saque => {
+        const valorNum = parseFloat(saque.valor.replace(/[^\d,]/g, '').replace(',', '.'));
+        if (!isNaN(valorNum)) total += valorNum;
+      });
+      document.getElementById('totalSaques').textContent = `Total de saques: R$ ${total.toFixed(2).replace('.', ',')}`;
     }
   </script>
 
