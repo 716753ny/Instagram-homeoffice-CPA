@@ -1,113 +1,169 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Registro de Saques</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
     }
     body {
       font-family: 'Segoe UI', sans-serif;
       background-color: #f4f6fb;
+      margin: 0;
+      padding: 20px;
       color: #333;
     }
-    .topbar {
-      background: #ffffff;
-      padding: 10px 15px;
-      font-size: 14px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    .container {
+      max-width: 480px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
     }
-    .topbar strong {
+    h2 {
+      text-align: center;
+      color: #1976d2;
+      margin-bottom: 20px;
+    }
+    label {
+      margin-top: 15px;
+      display: block;
       font-weight: 600;
     }
-    .nav {
-      display: flex;
-      justify-content: space-around;
-      background: #ffffff;
-      padding: 12px 0;
-      border-bottom: 1px solid #e0e0e0;
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
     }
-    .nav span {
-      color: #555;
-      font-weight: 500;
+    .btn {
+      background-color: #1976d2;
+      color: white;
+      padding: 12px;
+      width: 100%;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      margin-top: 25px;
+      cursor: pointer;
     }
-    .nav .active {
-      color: #1976d2;
-      border-bottom: 2px solid #1976d2;
-      padding-bottom: 4px;
-    }
-    .container {
-      padding: 15px;
+    .btn:hover {
+      background-color: #125ea7;
     }
     .card {
-      background: #ffffff;
-      padding: 15px;
-      margin-bottom: 12px;
+      margin-top: 30px;
+      background: #f0f4ff;
+      padding: 20px;
       border-radius: 10px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      display: none;
+    }
+    .card.active {
+      display: block;
     }
     .card p {
-      margin: 5px 0;
+      margin: 10px 0;
     }
     .status {
-      color: #2e7d32;
+      color: green;
       font-weight: bold;
     }
-    .footer {
+    .final {
       text-align: center;
-      color: #888;
-      padding: 20px 0;
-      font-size: 14px;
+      display: none;
+      margin-top: 40px;
+    }
+    .final.active {
+      display: block;
+    }
+    .loading-bar {
+      height: 5px;
+      width: 0%;
+      background-color: #1976d2;
+      transition: width 3s;
+      margin-top: 20px;
+      border-radius: 5px;
+    }
+    .center {
+      text-align: center;
     }
   </style>
 </head>
 <body>
 
-  <div class="topbar">
-    <strong>Registro de Saques</strong>
-    <span>Total de Saques: <strong>R$ 500,00</strong></span>
-  </div>
+<div class="container">
+  <h2>Registro de Saques</h2>
+  <form id="saqueForm">
+    <label for="nome">Nome completo:</label>
+    <input type="text" id="nome" required>
 
-  <div class="nav">
-    <span>Recebimento</span>
-    <span class="active">Registro de Saques</span>
-    <span>Apoio</span>
-  </div>
+    <label for="valor">Valor do saque (R$):</label>
+    <input type="text" id="valor" required>
 
-  <div class="container">
-    <div class="card">
-      <p><strong>PHONE (****9-10)</strong></p>
-      <p style="font-size: 13px;">23/05/2025 | ID: sereiapk202504231030359420598</p>
-      <p>- R$ 120,00 <span class="status">sucesso</span></p>
-    </div>
+    <label for="numero">Número (ex: PHONE ****9-10):</label>
+    <input type="text" id="numero" required>
 
-    <div class="card">
-      <p><strong>PHONE (****9-10)</strong></p>
-      <p style="font-size: 13px;">23/05/2025 | ID: sereiapk202504231030267490596</p>
-      <p>- R$ 120,00 <span class="status">sucesso</span></p>
-    </div>
+    <button type="submit" class="btn">Confirmar Saque</button>
+  </form>
 
-    <div class="card">
-      <p><strong>PHONE (****9-10)</strong></p>
-      <p style="font-size: 13px;">23/05/2025 | ID: sereiapk202504231030199250594</p>
-      <p>- R$ 120,00 <span class="status">sucesso</span></p>
-    </div>
+  <div class="loading-bar" id="loadingBar"></div>
 
-    <div class="card">
-      <p><strong>PHONE (****9-10)</strong></p>
-      <p style="font-size: 13px;">23/05/2025 | ID: sereiapk202504231030157980593</p>
-      <p>- R$ 120,00 <span class="status">sucesso</span></p>
+  <div class="card" id="comprovante">
+    <h3>Comprovante de Saque</h3>
+    <p><strong>Nome:</strong> <span id="infoNome"></span></p>
+    <p><strong>Telefone:</strong> <span id="infoNumero"></span></p>
+    <p><strong>Valor:</strong> R$ <span id="infoValor"></span></p>
+    <p class="status">Status: sucesso</p>
+    <div class="center">
+      <button class="btn" onclick="finalizar()">Confirmar recebimento</button>
     </div>
   </div>
 
-  <div class="footer">Sem mais dados</div>
+  <div class="final" id="final">
+    <h3>Pronto!</h3>
+    <p>O saque foi registrado com sucesso.<br>Você pode fechar esta página.</p>
+  </div>
+</div>
+
+<script>
+  const form = document.getElementById('saqueForm');
+  const loadingBar = document.getElementById('loadingBar');
+  const comprovante = document.getElementById('comprovante');
+  const finalDiv = document.getElementById('final');
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const nome = document.getElementById('nome').value;
+    const valor = document.getElementById('valor').value;
+    const numero = document.getElementById('numero').value;
+
+    // Mostra barra de carregamento
+    loadingBar.style.width = '0%';
+    loadingBar.style.display = 'block';
+    setTimeout(() => {
+      loadingBar.style.width = '100%';
+    }, 100);
+
+    // Após carregamento, mostra comprovante
+    setTimeout(() => {
+      document.getElementById('infoNome').textContent = nome;
+      document.getElementById('infoValor').textContent = valor;
+      document.getElementById('infoNumero').textContent = numero;
+      loadingBar.style.display = 'none';
+      comprovante.classList.add('active');
+      form.style.display = 'none';
+    }, 3000);
+  });
+
+  function finalizar() {
+    comprovante.classList.remove('active');
+    finalDiv.classList.add('active');
+  }
+</script>
 
 </body>
 </html>
