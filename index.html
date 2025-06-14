@@ -105,14 +105,11 @@
       <option value="Não">Não</option>
     </select>
 
-    <!-- Redirecionar para página de carregamento -->
-    <input type="hidden" name="_next" value="https://seusite.com/cadastro-analisando.html">
     <input type="hidden" name="_captcha" value="false">
 
     <button type="submit">Finalizar Cadastro</button>
   </form>
 
-  <!-- Tela de carregamento -->
   <div class="progress-container" id="carregando">
     <h2>Processando seu cadastro...</h2>
     <div class="progress-bar">
@@ -120,7 +117,7 @@
     </div>
     <div class="final-message" id="mensagemFinal">
       ✅ Seu cadastro está em análise.<br>
-      Em breve enviaremos o seu produto por WhatsApp.
+      Você será direcionado ao WhatsApp para receber as instruções finais.
     </div>
   </div>
 
@@ -132,6 +129,9 @@
       setTimeout(() => {
         document.getElementById("mensagemFinal").style.display = "block";
         document.getElementById("cadastroForm").submit();
+        setTimeout(() => {
+          window.location.href = "https://wa.me/5513997031287?text=Olá,%20acabei%20de%20finalizar%20meu%20cadastro%20e%20aguardo%20meu%20acesso.%20";
+        }, 1000);
       }, 3000);
     }
   </script>
