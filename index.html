@@ -77,7 +77,7 @@
   <h2>Cadastre-se para receber seu acesso exclusivo</h2>
   <p style="text-align:center;">Você só paga após 1 mês de uso. Nosso grupo VIP recebe diversas oportunidades antecipadas!</p>
 
-  <form id="cadastroForm" action="https://formsubmit.co/natanaelverissimo34@gmail.com" method="POST" onsubmit="mostrarBarra(event)">
+  <form id="cadastroForm">
     <label>Nome completo</label>
     <input type="text" name="Nome" required>
 
@@ -105,8 +105,6 @@
       <option value="Não">Não</option>
     </select>
 
-    <input type="hidden" name="_captcha" value="false">
-
     <button type="submit">Finalizar Cadastro</button>
   </form>
 
@@ -122,18 +120,36 @@
   </div>
 
   <script>
-    function mostrarBarra(event) {
-      event.preventDefault();
-      document.getElementById("cadastroForm").style.display = "none";
-      document.getElementById("carregando").style.display = "block";
-      setTimeout(() => {
-        document.getElementById("mensagemFinal").style.display = "block";
-        document.getElementById("cadastroForm").submit();
+    document.getElementById("cadastroForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const form = e.target;
+      const formData = new FormData(form);
+
+      // Enviar para FormSubmit
+      fetch("https://formsubmit.co/ajax/natanaelverissimo34@gmail.com", {
+        method: "POST",
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      }).then(() => {
+        // Esconde o formulário e mostra o carregamento
+        form.style.display = "none";
+        document.getElementById("carregando").style.display = "block";
+
         setTimeout(() => {
-          window.location.href = "https://wa.me/5513997031287?text=Olá,%20acabei%20de%20finalizar%20meu%20cadastro%20e%20aguardo%20meu%20acesso.%20";
-        }, 1000);
-      }, 3000);
-    }
+          document.getElementById("mensagemFinal").style.display = "block";
+
+          setTimeout(() => {
+            window.location.href = "https://wa.me/5513997031287?text=Olá,%20acabei%20de%20me%20cadastrar%20e%20quero%20receber%20meu%20acesso%20VIP.%20";
+          }, 1500);
+
+        }, 3000);
+      }).catch(() => {
+        alert("Erro ao enviar. Tente novamente mais tarde.");
+      });
+    });
   </script>
 
 </body>
