@@ -1,59 +1,125 @@
-<!DOCTYPE html><html lang="pt-br">
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
+  <title>Robô PagBank Bug</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Painel de Varredura</title>
   <style>
-    body { font-family: Arial, sans-serif; background: #0e0e0e; color: #00ff99; padding: 20px; }
-    h1 { color: #00ffff; }
-    .result { background: #1a1a1a; padding: 10px; margin: 10px 0; border-left: 4px solid #00ff99; }
-    .ip { font-weight: bold; }
-    .porta { color: #ffcc00; }
-    .pais { color: #ff6666; font-style: italic; }
+    body {
+      background: #f0f0f0;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      max-width: 400px;
+      margin: 40px auto;
+      box-shadow: 0 0 12px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: #007f00;
+    }
+
+    .valor {
+      font-size: 30px;
+      font-weight: bold;
+      margin: 20px 0;
+      color: #222;
+    }
+
+    .botao {
+      background: #007f00;
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      font-size: 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .carregando, .mensagem {
+      margin-top: 25px;
+      font-size: 17px;
+      display: none;
+    }
+
+    .carregando {
+      color: #555;
+    }
+
+    .mensagem {
+      color: red;
+      font-weight: bold;
+    }
+
+    .contador {
+      margin-top: 30px;
+      font-size: 18px;
+      color: #333;
+    }
   </style>
 </head>
 <body>
-  <h1>🔍 Painel de Varredura de Dispositivos</h1>
-  <p>Gerando IPs e identificando dispositivos vulneráveis...</p>
-  <div id="painel"></div>  <script>
-    function gerarIP() {
-      const bloco1 = Math.floor(Math.random() * 100) + 100;
-      const bloco2 = Math.floor(Math.random() * 255);
-      const bloco3 = Math.floor(Math.random() * 255);
-      const bloco4 = Math.floor(Math.random() * 255);
-      return `${bloco1}.${bloco2}.${bloco3}.${bloco4}`;
-    }
 
-    function gerarResultadoFake() {
-      const portas = [21, 22, 23, 80, 443, 554, 8080, 8888, 3306, 5432, 27017];
-      const dispositivos = ['📷 Câmera IP', '📺 Smart TV', '📡 Roteador', '💾 Banco de Dados MySQL', '🔒 SSH Aberto', '📁 FTP Público'];
-      const paises = ['🇧🇷 Brasil', '🇺🇸 EUA', '🇩🇪 Alemanha', '🇯🇵 Japão', '🇫🇷 França'];
+<div class="container">
+  <h2>Robô Bugador PagBank</h2>
+  <p>Destinatário: <strong>Lucas</strong></p>
+  <div class="valor">R$ 70,00</div>
+  <button class="botao" onclick="executarTransferencia()">INICIAR TRANSFERÊNCIA</button>
 
-      const ip = gerarIP();
-      const porta = portas[Math.floor(Math.random() * portas.length)];
-      const dispositivo = dispositivos[Math.floor(Math.random() * dispositivos.length)];
-      const pais = paises[Math.floor(Math.random() * paises.length)];
-      const link = `http://${ip}:${porta}`;
+  <div class="carregando" id="loading">🔁 Processando...</div>
+  <div class="mensagem" id="resultado">❗ Pix enviado, mas o saldo permaneceu intacto.</div>
 
-      return `
-        <div class="result">
-          <div class="ip">🔗 <a href="${link}" target="_blank">${ip}:${porta}</a> <span class="porta">(${dispositivo})</span></div>
-          <div class="pais">🌍 ${pais}</div>
-        </div>
-      `;
-    }
+  <div class="contador">Total recebido: <span id="total">R$ 0,00</span></div>
+</div>
 
-    function iniciarVarredura() {
-      const painel = document.getElementById("painel");
-      let count = 0;
-      const max = 100;
-      const intervalo = setInterval(() => {
-        painel.innerHTML += gerarResultadoFake();
-        count++;
-        if (count >= max) clearInterval(intervalo);
-      }, 150);
-    }
+<!-- 🔊 Som do Pix -->
+<audio id="somPix" src="https://www.myinstants.com/media/sounds/pix.mp3"></audio>
 
-    iniciarVarredura();
-  </script></body>
+<script>
+  let total = 0;
+  const valorPorPix = 70;
+
+  function formatarReais(valor) {
+    return `R$ ${valor.toFixed(2).replace('.', ',')}`;
+  }
+
+  function executarTransferencia() {
+    document.getElementById("loading").style.display = "block";
+    document.getElementById("resultado").style.display = "none";
+
+    setTimeout(() => {
+      document.getElementById("loading").style.display = "none";
+      document.getElementById("resultado").style.display = "block";
+
+      total += valorPorPix;
+      document.getElementById("total").innerText = formatarReais(total);
+
+      // Toca som do Pix (se o navegador permitir)
+      const som = document.getElementById("somPix");
+      if (som) som.play().catch(() => {});
+
+      // Dispara notificação fake (ajuste aqui se seu APK aceitar requisições)
+      try {
+        fetch("http://127.0.0.1:1234/notificacao");
+      } catch (e) {
+        console.log("Falha ao chamar notificação");
+      }
+
+    }, 2000);
+  }
+
+  // ⏱️ Repetição automática a cada 10 segundos
+  setInterval(() => {
+    executarTransferencia();
+  }, 10000); // 10 segundos
+</script>
+
+</body>
 </html>
