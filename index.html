@@ -2,124 +2,112 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Robô PagBank Bug</title>
+  <title>PagBank Checker</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
-      background: #f0f0f0;
-      font-family: Arial, sans-serif;
+      background-color: #000;
+      color: #33ff33;
+      font-family: monospace;
       padding: 20px;
+    }
+
+    .terminal {
+      background: #111;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #00ff00;
+      max-width: 600px;
+      margin: auto;
+      height: 400px;
+      overflow-y: auto;
+      border: 2px solid #00ff00;
+    }
+
+    .linha {
+      margin-bottom: 5px;
+    }
+
+    .titulo {
       text-align: center;
-    }
-
-    .container {
-      background: #fff;
-      padding: 30px;
-      border-radius: 15px;
-      max-width: 400px;
-      margin: 40px auto;
-      box-shadow: 0 0 12px rgba(0,0,0,0.1);
-    }
-
-    h2 {
-      color: #007f00;
-    }
-
-    .valor {
-      font-size: 30px;
-      font-weight: bold;
-      margin: 20px 0;
-      color: #222;
+      font-size: 22px;
+      margin-bottom: 20px;
+      color: #00ff00;
     }
 
     .botao {
-      background: #007f00;
-      color: white;
+      background: #00ff00;
+      color: #000;
       border: none;
-      padding: 14px 28px;
-      font-size: 18px;
-      border-radius: 10px;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-
-    .carregando, .mensagem {
-      margin-top: 25px;
-      font-size: 17px;
-      display: none;
-    }
-
-    .carregando {
-      color: #555;
-    }
-
-    .mensagem {
-      color: red;
+      padding: 12px 24px;
+      font-size: 16px;
       font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      margin: 20px auto;
+      display: block;
     }
 
-    .contador {
-      margin-top: 30px;
+    .total {
+      margin-top: 20px;
       font-size: 18px;
-      color: #333;
+      text-align: center;
     }
   </style>
 </head>
 <body>
 
-<div class="container">
-  <h2>Robô Bugador PagBank</h2>
-  <p>Destinatário: <strong>Lucas</strong></p>
-  <div class="valor">R$ 70,00</div>
-  <button class="botao" onclick="executarTransferencia()">INICIAR TRANSFERÊNCIA</button>
+  <div class="titulo">☠ PagBank Exploit Panel ☠</div>
 
-  <div class="carregando" id="loading">🔁 Processando...</div>
-  <div class="mensagem" id="resultado">❗ Pix enviado, mas o saldo permaneceu intacto.</div>
+  <div class="terminal" id="terminal">
+    <div class="linha">[BOOT] Iniciando exploit no sistema PagBank...</div>
+  </div>
 
-  <div class="contador">Total recebido: <span id="total">R$ 0,00</span></div>
-</div>
+  <button class="botao" onclick="executarExploit()">Executar Manualmente</button>
 
-<!-- 🔊 Som do Pix -->
-<audio id="somPix" src="https://www.myinstants.com/media/sounds/pix.mp3"></audio>
+  <div class="total">Total recebido: <span id="total">R$ 0,00</span></div>
 
-<script>
-  let total = 0;
-  const valorPorPix = 70;
+  <script>
+    let total = 0;
+    const valorPorExecucao = 70;
+    const terminal = document.getElementById("terminal");
+    const totalSpan = document.getElementById("total");
 
-  function formatarReais(valor) {
-    return `R$ ${valor.toFixed(2).replace('.', ',')}`;
-  }
+    function formatar(valor) {
+      return 'R$ ' + valor.toFixed(2).replace('.', ',');
+    }
 
-  function executarTransferencia() {
-    document.getElementById("loading").style.display = "block";
-    document.getElementById("resultado").style.display = "none";
+    function logLinha(texto) {
+      const linha = document.createElement("div");
+      linha.classList.add("linha");
+      linha.innerText = texto;
+      terminal.appendChild(linha);
+      terminal.scrollTop = terminal.scrollHeight;
+    }
 
-    setTimeout(() => {
-      document.getElementById("loading").style.display = "none";
-      document.getElementById("resultado").style.display = "block";
+    function executarExploit() {
+      const id = Math.floor(Math.random() * 100000);
 
-      total += valorPorPix;
-      document.getElementById("total").innerText = formatarReais(total);
+      logLinha(`[ID #${id}] Executando transferência para Lucas...`);
+      
+      setTimeout(() => {
+        logLinha(`[ID #${id}] ✅ Pix de R$ ${valorPorExecucao},00 enviado.`);
+        logLinha(`[ID #${id}] ❗ Erro: saldo original mantido. [BUG DETECTADO]`);
+        total += valorPorExecucao;
+        totalSpan.innerText = formatar(total);
 
-      // Toca som do Pix (se o navegador permitir)
-      const som = document.getElementById("somPix");
-      if (som) som.play().catch(() => {});
+        // Disparar notificação (caso seu app suporte via localhost)
+        try {
+          fetch("http://127.0.0.1:1234/notificacao");
+        } catch (e) {
+          logLinha(`[ID #${id}] ⚠ Erro ao enviar notificação.`);
+        }
+      }, 2000);
+    }
 
-      // Dispara notificação fake (ajuste aqui se seu APK aceitar requisições)
-      try {
-        fetch("http://127.0.0.1:1234/notificacao");
-      } catch (e) {
-        console.log("Falha ao chamar notificação");
-      }
-
-    }, 2000);
-  }
-
-  // ⏱️ Repetição automática a cada 10 segundos
-  setInterval(() => {
-    executarTransferencia();
-  }, 10000); // 10 segundos
-</script>
+    // Executa automaticamente a cada 10 segundos
+    setInterval(executarExploit, 10000);
+  </script>
 
 </body>
 </html>
