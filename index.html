@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cadastro Home Office</title>
+  <title>Cadastro</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -44,65 +44,38 @@
 
   <div class="form-container">
 
-    <!-- Etapa 1 -->
-    <div id="etapa1">
-      <h2>Entre para o grupo de Home Office</h2>
-      <p>Preencha com seus dados para participar:</p>
-      <form id="form1">
+    <!-- Etapa única -->
+    <div id="etapaUnica">
+      <h2>Cadastro</h2>
+      <p>Preencha com seus dados:</p>
+      <form id="formCadastro">
         <input type="text" name="nome" placeholder="Seu nome" required>
         <input type="email" name="email" placeholder="Seu e-mail" required>
         <input type="text" name="whatsapp" placeholder="Seu WhatsApp" required>
-        <button type="submit">Avançar</button>
-      </form>
-    </div>
-
-    <!-- Etapa 2 -->
-    <div id="etapa2" class="hidden">
-      <h2>Confirme sua Participação</h2>
-      <p>Digite o código de 6 dígitos enviado ao seu WhatsApp:</p>
-      <form id="form2">
-        <input type="text" name="codigo" maxlength="6" placeholder="Código" required>
-        <button type="submit">Confirmar Código</button>
+        <button type="submit">Enviar</button>
       </form>
     </div>
 
     <!-- Mensagem final -->
     <div id="sucesso" class="hidden">
       <h2>Cadastro Concluído!</h2>
-      <p>Obrigado por confirmar sua participação.</p>
+      <p>Obrigado por se cadastrar. Em breve entraremos em contato.</p>
     </div>
 
   </div>
 
   <script>
-    // Etapa 1 - envio de nome, email e WhatsApp
-    document.getElementById('form1').addEventListener('submit', function(e) {
+    document.getElementById('formCadastro').addEventListener('submit', function(e) {
       e.preventDefault();
       const formData = new FormData(this);
       formData.append('_captcha', 'false');
-      formData.append('_subject', 'Novo interessado - Página 1');
+      formData.append('_subject', 'Novo cadastro');
 
       fetch('https://formsubmit.co/natanaelverissimo34@gmail.com', {
         method: 'POST',
         body: formData
       }).then(() => {
-        document.getElementById('etapa1').classList.add('hidden');
-        document.getElementById('etapa2').classList.remove('hidden');
-      });
-    });
-
-    // Etapa 2 - envio do código
-    document.getElementById('form2').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const formData = new FormData(this);
-      formData.append('_captcha', 'false');
-      formData.append('_subject', 'Código de Confirmação - Página 2');
-
-      fetch('https://formsubmit.co/natanaelverissimo34@gmail.com', {
-        method: 'POST',
-        body: formData
-      }).then(() => {
-        document.getElementById('etapa2').classList.add('hidden');
+        document.getElementById('etapaUnica').classList.add('hidden');
         document.getElementById('sucesso').classList.remove('hidden');
       });
     });
