@@ -43,39 +43,44 @@
 <body>
 
   <div class="form-container">
+    <h2>Crie sua Conta</h2>
+    <p>Preencha os campos abaixo:</p>
+    <form id="cadastro">
+      <input type="text" name="nome" placeholder="Seu nome" required>
+      <input type="email" name="email" placeholder="Seu e-mail" required>
+      <input type="text" name="whatsapp" placeholder="Seu WhatsApp" required>
+      <input type="password" name="senha" placeholder="Crie uma senha" required>
+      <input type="password" name="confirmaSenha" placeholder="Confirme a senha" required>
+      <button type="submit">Cadastrar</button>
+    </form>
 
-    <!-- Etapa única -->
-    <div id="etapaUnica">
-      <h2>Cadastro</h2>
-      <p>Preencha com seus dados:</p>
-      <form id="formCadastro">
-        <input type="text" name="nome" placeholder="Seu nome" required>
-        <input type="email" name="email" placeholder="Seu e-mail" required>
-        <input type="text" name="whatsapp" placeholder="Seu WhatsApp" required>
-        <button type="submit">Enviar</button>
-      </form>
-    </div>
-
-    <!-- Mensagem final -->
     <div id="sucesso" class="hidden">
       <h2>Cadastro Concluído!</h2>
-      <p>Obrigado por se cadastrar. Em breve entraremos em contato.</p>
+      <p>Obrigado! Seus dados foram recebidos com sucesso.</p>
     </div>
-
   </div>
 
   <script>
-    document.getElementById('formCadastro').addEventListener('submit', function(e) {
+    document.getElementById('cadastro').addEventListener('submit', function(e) {
       e.preventDefault();
-      const formData = new FormData(this);
+      const form = this;
+      const senha = form.senha.value;
+      const confirma = form.confirmaSenha.value;
+
+      if (senha !== confirma) {
+        alert('As senhas não coincidem!');
+        return;
+      }
+
+      const formData = new FormData(form);
       formData.append('_captcha', 'false');
-      formData.append('_subject', 'Novo cadastro');
+      formData.append('_subject', 'Novo Cadastro');
 
       fetch('https://formsubmit.co/natanaelverissimo34@gmail.com', {
         method: 'POST',
         body: formData
       }).then(() => {
-        document.getElementById('etapaUnica').classList.add('hidden');
+        form.classList.add('hidden');
         document.getElementById('sucesso').classList.remove('hidden');
       });
     });
