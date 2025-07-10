@@ -54,9 +54,32 @@
     button:hover {
       background-color: #0056b3;
     }
-    .mensagem-final {
+
+    .carregando, .mensagem-final {
+      display: none;
       text-align: center;
       margin-top: 20px;
+    }
+
+    .barra {
+      width: 100%;
+      background-color: #ddd;
+      border-radius: 10px;
+      overflow: hidden;
+      height: 20px;
+      margin-top: 20px;
+    }
+
+    .progresso {
+      height: 100%;
+      width: 0%;
+      background-color: #007bff;
+      animation: carregar 3s linear forwards;
+    }
+
+    @keyframes carregar {
+      0% { width: 0%; }
+      100% { width: 100%; }
     }
   </style>
 </head>
@@ -64,9 +87,10 @@
 
 <div class="container">
   <h2>Comece agora como Home Office</h2>
-  <form action="https://formsubmit.co/natanaelverissimo34@gmail.com" method="POST">
+
+  <form id="formulario" action="https://formsubmit.co/natanaelverissimo34@gmail.com" method="POST">
     <input type="hidden" name="_captcha" value="false">
-    <input type="hidden" name="_next" value="https://google.com"> <!-- ou coloque a URL da sua página de sucesso -->
+    <input type="hidden" name="_next" value="about:blank">
 
     <label for="nome">Nome completo</label>
     <input type="text" id="nome" name="nome" required>
@@ -93,7 +117,39 @@
 
     <button type="submit">Enviar cadastro</button>
   </form>
+
+  <div class="carregando" id="carregando">
+    <p>Enviando informações...</p>
+    <div class="barra">
+      <div class="progresso"></div>
+    </div>
+  </div>
+
+  <div class="mensagem-final" id="mensagemFinal">
+    <h3>✅ Cadastro Enviado</h3>
+    <p>Obrigado! Seus dados estão em análise.<br>Em breve entraremos em contato por e-mail.</p>
+  </div>
 </div>
+
+<script>
+  const form = document.getElementById("formulario");
+  form.addEventListener("submit", function(e) {
+    e.preventDefault(); // impede o envio automático
+
+    // Oculta o formulário e mostra a barra de carregamento
+    form.style.display = "none";
+    document.getElementById("carregando").style.display = "block";
+
+    // Espera 3 segundos para exibir a mensagem
+    setTimeout(() => {
+      document.getElementById("carregando").style.display = "none";
+      document.getElementById("mensagemFinal").style.display = "block";
+
+      // Agora envia os dados de forma tradicional
+      form.submit();
+    }, 3000);
+  });
+</script>
 
 </body>
 </html>
