@@ -152,7 +152,13 @@
         setTimeout(() => {
           document.getElementById("carregando").style.display = "none";
           document.getElementById("mensagemFinal").style.display = "block";
-        }, 3000);
+
+          // Redireciona após 3 segundos com mensagem final
+          setTimeout(() => {
+            window.location.href = "https://tarefasgoogle1.simdif.com";
+          }, 3000);
+
+        }, 3000); // Tempo da animação da barra
       } else {
         throw new Error('Erro ao enviar');
       }
