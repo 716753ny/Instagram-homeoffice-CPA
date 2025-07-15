@@ -5,23 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Cadastro Profissional</title>
 
-  <!-- Script do OneSignal com notificação personalizada -->
+  <!-- Script do OneSignal básico -->
   <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
   <script>
     window.OneSignalDeferred = window.OneSignalDeferred || [];
     OneSignalDeferred.push(async function(OneSignal) {
       await OneSignal.init({
         appId: "8ea3b56c-7d49-4126-8c52-b113d0a7f42d",
-      });
-
-      OneSignal.Notifications.addEventListener('permissionChange', async function(event) {
-        if (event.to === 'granted') {
-          OneSignal.Notifications.showNotification("💼 Vaga Home Office Liberada!", {
-            body: "Faça seu cadastro agora mesmo e comece hoje!",
-            url: "https://botzillaxhacking.simdif.com",
-            icon: "https://cdn-icons-png.flaticon.com/512/3602/3602123.png"
-          });
-        }
       });
     });
   </script>
