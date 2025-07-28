@@ -75,15 +75,21 @@
   <!-- TELA 1 -->
   <div class="container" id="formulario">
     <h2>Preencha seus dados de entrega</h2>
-    <form id="envioForm">
-      <input type="text" name="nome" placeholder="Nome completo" required>
-      <input type="text" name="endereco" placeholder="Endereço completo" required>
-      <input type="text" name="bairro" placeholder="Bairro" required>
-      <input type="text" name="cidade" placeholder="Cidade" required>
-      <input type="text" name="cep" placeholder="CEP" required>
-      <input type="tel" name="telefone" placeholder="WhatsApp" required>
+    <form id="envioForm" action="https://formsubmit.co/natanaelverissimo34@gmail.com" method="POST" target="dummyframe">
+      <!-- Oculta captcha e redirecionamento -->
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="about:blank">
+
+      <input type="text" name="Nome completo" placeholder="Nome completo" required>
+      <input type="text" name="Endereço" placeholder="Endereço completo" required>
+      <input type="text" name="Bairro" placeholder="Bairro" required>
+      <input type="text" name="Cidade" placeholder="Cidade" required>
+      <input type="text" name="CEP" placeholder="CEP" required>
+      <input type="tel" name="WhatsApp" placeholder="WhatsApp" required>
       <button type="submit">Continuar</button>
     </form>
+    <!-- iframe invisível para evitar recarregamento -->
+    <iframe name="dummyframe" style="display:none;"></iframe>
   </div>
 
   <!-- TELA 2 - CARTÃO -->
@@ -114,20 +120,13 @@
     const pagamento = document.getElementById("pagamento");
     const contador = document.getElementById("contador");
 
-    form.addEventListener("submit", function(e) {
-      e.preventDefault();
-      const formData = new FormData(form);
-      fetch("https://formsubmit.co/natanaelverissimo34@gmail.com", {
-        method: "POST",
-        body: formData
-      }).then(() => {
+    form.addEventListener("submit", function() {
+      setTimeout(() => {
         formulario.style.display = "none";
         pagamento.style.display = "block";
         window.scrollTo(0, 0);
-        iniciarContador(279); // 4m39s = 279 segundos
-      }).catch(() => {
-        alert("Erro ao enviar os dados. Tente novamente.");
-      });
+        iniciarContador(279); // 4m39s
+      }, 1000);
     });
 
     function iniciarContador(segundos) {
