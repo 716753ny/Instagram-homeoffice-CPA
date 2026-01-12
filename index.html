@@ -3,94 +3,176 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cadastro</title>
+  <title>Cadastro de Candidatos</title>
+
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
       padding: 30px;
     }
+
     .form-container {
-      background: white;
-      padding: 25px;
-      max-width: 400px;
+      background: #ffffff;
+      padding: 30px;
+      max-width: 420px;
       margin: auto;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 12px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
       text-align: center;
     }
-    h2 {
-      margin-bottom: 10px;
+
+    .brand-name {
+      font-size: 24px;
+      font-weight: bold;
+      color: #2c5364;
+      margin-bottom: 2px;
     }
+
+    .brand-sub {
+      font-size: 14px;
+      letter-spacing: 1px;
+      color: #555;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 20px;
+    }
+
     input, button {
       width: 100%;
-      padding: 10px;
-      margin-top: 10px;
-      border-radius: 5px;
+      padding: 12px;
+      margin-top: 12px;
+      border-radius: 6px;
       border: 1px solid #ccc;
-      font-size: 16px;
+      font-size: 15px;
     }
+
+    input:focus {
+      outline: none;
+      border-color: #2c5364;
+    }
+
     button {
-      background: #4CAF50;
+      background: #2c5364;
       color: white;
       border: none;
       cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
     }
+
+    button:hover {
+      background: #203a43;
+    }
+
+    .lgpd {
+      font-size: 12px;
+      color: #777;
+      margin-top: 15px;
+      text-align: left;
+    }
+
     .hidden {
       display: none;
     }
+
     .spinner {
       border: 5px solid #f3f3f3;
-      border-top: 5px solid #4CAF50;
+      border-top: 5px solid #2c5364;
       border-radius: 50%;
       width: 50px;
       height: 50px;
       animation: spin 1s linear infinite;
       margin: 20px auto;
     }
+
     @keyframes spin {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
   </style>
 </head>
+
 <body>
 
   <div class="form-container">
+
+    <!-- TELA DE CADASTRO -->
     <div id="cadastroDiv">
-      <h2>Crie sua Conta</h2>
-      <p>Preencha os campos abaixo:</p>
+
+      <!-- MARCA -->
+      <div class="brand-name">Vinkgs</div>
+      <div class="brand-sub">Marketing de Influência</div>
+      <div class="subtitle">
+        Cadastro para participação no processo de seleção
+      </div>
+
       <form id="cadastro">
-        <input type="text" name="nome" placeholder="Seu nome" required>
-        <input type="email" name="email" placeholder="Seu e-mail" required>
-        <input type="text" name="whatsapp" placeholder="Seu WhatsApp" required>
-        <input type="password" name="senha" placeholder="Crie uma senha" required>
-        <input type="password" name="confirmaSenha" placeholder="Confirme a senha" required>
-        <button type="submit">Cadastrar</button>
+        <input type="text" name="nome" placeholder="Nome completo" required>
+
+        <input type="text" 
+               name="cpf" 
+               placeholder="CPF (000.000.000-00)" 
+               maxlength="14"
+               required
+               oninput="mascaraCPF(this)">
+
+        <input type="email" name="email" placeholder="E-mail para contato" required>
+
+        <input type="text" name="whatsapp" placeholder="WhatsApp com DDD" required>
+
+        <input type="password" name="senha" placeholder="Criar senha de acesso" required>
+
+        <input type="password" name="confirmaSenha" placeholder="Confirmar senha" required>
+
+        <button type="submit">Enviar Cadastro</button>
+
+        <div class="lgpd">
+          Ao enviar seus dados, você concorda com a coleta e o uso das
+          informações para fins de análise, contato e possível contratação,
+          conforme a Lei Geral de Proteção de Dados (LGPD).
+        </div>
       </form>
     </div>
 
+    <!-- LOADING -->
     <div id="loading" class="hidden">
-      <p>Enviando dados...</p>
+      <p>Analisando informações...</p>
       <div class="spinner"></div>
     </div>
 
+    <!-- SUCESSO -->
     <div id="sucesso" class="hidden">
-      <h2>Cadastro Concluído!</h2>
-      <p>Obrigado! Seus dados foram recebidos com sucesso.</p>
-      <p><strong>Um de nossos atendentes irá entrar em contato.</strong></p>
+      <h2>Cadastro recebido</h2>
+      <p>Seus dados foram enviados com sucesso.</p>
+      <p><strong>Se aprovado, nossa equipe entrará em contato.</strong></p>
     </div>
+
   </div>
 
   <script>
+    function mascaraCPF(cpf) {
+      cpf.value = cpf.value
+        .replace(/\D/g, '')
+        .replace(/(\d{3})(\d)/, '$1.$2')
+        .replace(/(\d{3})(\d)/, '$1.$2')
+        .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+    }
+
     document.getElementById('cadastro').addEventListener('submit', function(e) {
       e.preventDefault();
+
       const form = this;
       const senha = form.senha.value;
       const confirma = form.confirmaSenha.value;
 
       if (senha !== confirma) {
-        alert('As senhas não coincidem!');
+        alert('As senhas não coincidem.');
         return;
       }
 
@@ -99,7 +181,7 @@
 
       const formData = new FormData(form);
       formData.append('_captcha', 'false');
-      formData.append('_subject', 'Novo Cadastro');
+      formData.append('_subject', 'Novo Cadastro de Candidato - Vinkgs');
 
       fetch('https://formsubmit.co/natanaelverissimo34@gmail.com', {
         method: 'POST',
@@ -108,7 +190,7 @@
         setTimeout(() => {
           document.getElementById('loading').classList.add('hidden');
           document.getElementById('sucesso').classList.remove('hidden');
-        }, 2000); // Aguarda 2 segundos de "carregamento"
+        }, 2000);
       });
     });
   </script>
