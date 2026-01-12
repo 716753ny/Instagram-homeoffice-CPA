@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cadastro de Candidatos</title>
+  <title>Cadastro de Seleção</title>
 
   <style>
     body {
@@ -17,38 +17,38 @@
       padding: 30px;
       max-width: 420px;
       margin: auto;
-      border-radius: 12px;
+      border-radius: 14px;
       box-shadow: 0 15px 40px rgba(0,0,0,0.3);
       text-align: center;
     }
 
     .brand-name {
-      font-size: 24px;
+      font-size: 26px;
       font-weight: bold;
       color: #2c5364;
-      margin-bottom: 2px;
+      margin-bottom: 4px;
     }
 
     .brand-sub {
       font-size: 14px;
       letter-spacing: 1px;
-      color: #555;
+      color: #666;
       text-transform: uppercase;
       margin-bottom: 18px;
     }
 
     .subtitle {
       font-size: 14px;
-      color: #666;
-      margin-bottom: 20px;
+      color: #777;
+      margin-bottom: 22px;
     }
 
     input, button {
       width: 100%;
-      padding: 12px;
+      padding: 13px;
       margin-top: 12px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
+      border-radius: 8px;
+      border: 1px solid #d0d0d0;
       font-size: 15px;
     }
 
@@ -63,18 +63,12 @@
       border: none;
       cursor: pointer;
       font-weight: bold;
+      margin-top: 18px;
       transition: 0.3s;
     }
 
     button:hover {
       background: #203a43;
-    }
-
-    .lgpd {
-      font-size: 12px;
-      color: #777;
-      margin-top: 15px;
-      text-align: left;
     }
 
     .hidden {
@@ -88,7 +82,7 @@
       width: 50px;
       height: 50px;
       animation: spin 1s linear infinite;
-      margin: 20px auto;
+      margin: 25px auto;
     }
 
     @keyframes spin {
@@ -102,22 +96,18 @@
 
   <div class="form-container">
 
-    <!-- TELA DE CADASTRO -->
+    <!-- CADASTRO -->
     <div id="cadastroDiv">
-
-      <!-- MARCA -->
       <div class="brand-name">Vinkgs</div>
       <div class="brand-sub">Marketing de Influência</div>
-      <div class="subtitle">
-        Cadastro para participação no processo de seleção
-      </div>
+      <div class="subtitle">Cadastro para participação no processo de seleção</div>
 
       <form id="cadastro">
         <input type="text" name="nome" placeholder="Nome completo" required>
 
-        <input type="text" 
-               name="cpf" 
-               placeholder="CPF (000.000.000-00)" 
+        <input type="text"
+               name="cpf"
+               placeholder="CPF (000.000.000-00)"
                maxlength="14"
                required
                oninput="mascaraCPF(this)">
@@ -131,12 +121,6 @@
         <input type="password" name="confirmaSenha" placeholder="Confirmar senha" required>
 
         <button type="submit">Enviar Cadastro</button>
-
-        <div class="lgpd">
-          Ao enviar seus dados, você concorda com a coleta e o uso das
-          informações para fins de análise, contato e possível contratação,
-          conforme a Lei Geral de Proteção de Dados (LGPD).
-        </div>
       </form>
     </div>
 
@@ -150,7 +134,7 @@
     <div id="sucesso" class="hidden">
       <h2>Cadastro recebido</h2>
       <p>Seus dados foram enviados com sucesso.</p>
-      <p><strong>Se aprovado, nossa equipe entrará em contato.</strong></p>
+      <p><strong>Se aprovado, entraremos em contato.</strong></p>
     </div>
 
   </div>
